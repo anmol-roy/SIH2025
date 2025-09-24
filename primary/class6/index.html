@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rural Learning — Header</title>
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <header class="site-header" role="banner" aria-label="App header">
+    <!-- Left: Brand -->
+    <div class="brand">
+      <div class="logo-fig" aria-hidden="true">
+        <a href="index.html">
+          <svg
+            viewBox="0 0 64 64"
+            width="36"
+            height="36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="6"
+              y="28"
+              width="52"
+              height="26"
+              rx="4"
+              fill="rgba(255,255,255,0.18)"
+            />
+            <path
+              d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0"
+              stroke="#fff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z"
+              fill="#fff"
+              opacity="0.95"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="brand-text">
+        <div class="app-name">LearnRural</div>
+        <div class="app-sub">नवीन शिक्षा • New Learning</div>
+      </div>
+    </div>
+     
+    <!-- Center: Greeting -->
+    <div class="greeting-wrap">
+      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to LearnRural</div>
+      <div class="decor-row" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3 6h13v12H3z"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.2"
+          />
+          <path
+            d="M16 6h3v12"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.2"
+          />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M20 4s-4 1-8 5-8 9-8 9 4-1 8-5 8-9 8-9z"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.1"
+          />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 2l10 6-10 6L2 8 12 2z"
+            stroke="#fff"
+            stroke-opacity="0.95"
+            stroke-width="1.1"
+          />
+          <path
+            d="M12 14v6"
+            stroke="#fff"
+            stroke-opacity="0.95"
+            stroke-width="1.1"
+          />
+        </svg>
+      </div>
+    </div>
+     
+    <!-- Right: Actions -->
+    <div class="actions">
+      <!-- Language Switcher -->
+      <div class="language-switcher" id="languageSwitcher">
+        <button class="language-btn" id="languageBtn" aria-label="Select Language">
+          <span class="flag" id="currentFlag">🇬🇧</span>
+          <span id="currentLang">EN</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="dropdown-content" id="languageDropdown">
+          <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
+            <span class="flag">🇬🇧</span>
+            <div class="lang-info">
+              <span class="lang-name">English</span>
+              <span class="lang-native">English</span>
+            </div>
+          </button>
+          <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
+            <span class="flag">🇮🇳</span>
+            <div class="lang-info">
+              <span class="lang-name">Hindi</span>
+              <span class="lang-native">हिंदी</span>
+            </div>
+          </button>
+          <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
+            <span class="flag">🏛️</span>
+            <div class="lang-info">
+              <span class="lang-name">Odia</span>
+              <span class="lang-native">ଓଡ଼ିଆ</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      <button class="login-btn" id="loginBtn">Login</button>
+    </div>
+  </header>
+  
+  <!-- Overlay for closing dropdown when clicking outside -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main Content -->
+   <main class="main-container">
+    <section class="page-header">
+      <h1 class="page-title" data-translate="subjects.title">Choose Your Subject</h1>
+      <p class="page-description" data-translate="subjects.description">
+        Explore different subjects and enhance your knowledge with interactive lessons and activities.
+      </p>
+    </section>
+
+    <section class="progress-section">
+      <div class="progress-grid">
+        <div class="progress-item">
+          <div class="progress-number">4</div>
+          <div class="progress-label" data-translate="progress.subjects">Subjects</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-number">48</div>
+          <div class="progress-label" data-translate="progress.chapters">Chapters</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-number">240+</div>
+          <div class="progress-label" data-translate="progress.lessons">Lessons</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-number">85%</div>
+          <div class="progress-label" data-translate="progress.completion">Completion</div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="subjects-grid">
+      <!-- Mathematics Card -->
+      <a href="mathematics/index.html" class="subject-card mathematics" data-subject="mathematics">
+        <div class="subject-icon">
+          <span>📊</span>
+        </div>
+        <h3 class="subject-title" data-translate="subjects.mathematics.title">Mathematics</h3>
+        <p class="subject-description" data-translate="subjects.mathematics.description">
+          Build problem-solving skills with numbers, algebra, geometry, and mathematical reasoning.
+        </p>
+        <div class="subject-stats">
+          <span class="lessons-count" data-translate="subjects.mathematics.lessons">12 Chapters • 60 Lessons</span>
+          <span class="difficulty-badge difficulty-medium" data-translate="difficulty.medium">Medium</span>
+        </div>
+      </a>
+
+      <!-- Science Card -->
+      <a href="science/index.html" class="subject-card science" data-subject="science">
+        <div class="subject-icon">
+          <span>🔬</span>
+        </div>
+        <h3 class="subject-title" data-translate="subjects.science.title">Science</h3>
+        <p class="subject-description" data-translate="subjects.science.description">
+          Discover the wonders of physics, chemistry, biology through experiments and observations.
+        </p>
+        <div class="subject-stats">
+          <span class="lessons-count" data-translate="subjects.science.lessons">15 Chapters • 75 Lessons</span>
+          
+          <span class="difficulty-badge difficulty-hard" data-translate="difficulty.hard">Hard</span>
+        </div>
+      </a>
+
+      <!-- Social Science Card -->
+      <a href="social-science/index.html" class="subject-card social-science" data-subject="social-science">
+        <div class="subject-icon">
+          <span>🌍</span>
+        </div>
+        <h3 class="subject-title" data-translate="subjects.social.title">Social Science</h3>
+        <p class="subject-description" data-translate="subjects.social.description">
+          Explore history, geography, civics, and understand society and human relationships.
+        </p>
+        <div class="subject-stats">
+          <span class="lessons-count" data-translate="subjects.social.lessons">10 Chapters • 50 Lessons</span>
+          <span class="difficulty-badge difficulty-easy" data-translate="difficulty.easy">Easy</span>
+        </div>
+      </a>
+
+      <!-- English Card -->
+      <a href="english/index.html" class="subject-card english" data-subject="english">
+        <div class="subject-icon">
+          <span>📚</span>
+        </div>
+        <h3 class="subject-title" data-translate="subjects.english.title">English</h3>
+        <p class="subject-description" data-translate="subjects.english.description">
+          Improve reading, writing, speaking, and grammar skills with stories and exercises.
+        </p>
+        <div class="subject-stats">
+          <span class="lessons-count" data-translate="subjects.english.lessons">11 Chapters • 55 Lessons</span>
+          <span class="difficulty-badge difficulty-medium" data-translate="difficulty.medium">Medium</span>
+        </div>
+      </a>
+    </section>
+  </main>
+  <script src="main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decimal Shopping Game 🛒</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #333;
+            overflow: hidden;
+            padding: 10px;
+        }
+        
+        #game-container {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            background: white;
+            width: 100%;
+            height: 100vh;
+            max-width: 1200px;
+            max-height: 800px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        #game-header {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            font-weight: bold;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-height: 60px;
+        }
+        
+        #instructions {
+            background: linear-gradient(135deg, #FFD166, #f39c12);
+            padding: 0.8rem 1rem;
+            text-align: center;
+            font-size: clamp(0.8rem, 2.5vw, 1rem);
+            font-weight: 600;
+            color: #2c3e50;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        #game-canvas {
+            flex-grow: 1;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            min-height: 400px;
+        }
+        
+        #game-ui {
+            padding: 1rem;
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 -3px 15px rgba(0, 0, 0, 0.1);
+            border-top: 2px solid #90caf9;
+            min-height: 70px;
+        }
+        
+        #score-display {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            font-weight: bold;
+            color: #1565c0;
+            flex: 1;
+            min-width: 200px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        #score-display::before {
+            content: "🏆";
+            font-size: 1.2em;
+        }
+        
+        #reset-button {
+            background: linear-gradient(135deg, #26a69a 0%, #00695c 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(38, 166, 154, 0.3);
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+        }
+        
+        #reset-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(38, 166, 154, 0.4);
+        }
+        
+        #reset-button:active {
+            transform: translateY(0);
+        }
+        
+        /* Tablet Styles */
+        @media (max-width: 1024px) {
+            body {
+                padding: 5px;
+            }
+            
+            #game-container {
+                max-width: 100%;
+                height: 95vh;
+            }
+        }
+        
+        /* Mobile Landscape */
+        @media (max-width: 768px) and (orientation: landscape) {
+            #game-container {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                max-height: none;
+            }
+            
+            body {
+                padding: 0;
+            }
+            
+            #game-header {
+                padding: 0.5rem;
+                min-height: 50px;
+            }
+            
+            #instructions {
+                padding: 0.5rem;
+                min-height: 40px;
+            }
+            
+            #game-ui {
+                padding: 0.5rem;
+                min-height: 60px;
+            }
+        }
+        
+        /* Mobile Portrait */
+        @media (max-width: 768px) and (orientation: portrait) {
+            body {
+                padding: 0;
+                overflow: auto;
+            }
+            
+            #game-container {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+                max-height: none;
+                max-width: none;
+            }
+            
+            #game-header {
+                padding: 0.8rem;
+                min-height: 60px;
+            }
+            
+            #instructions {
+                padding: 0.8rem;
+                min-height: 50px;
+            }
+            
+            #game-ui {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.8rem;
+                padding: 1rem;
+            }
+            
+            #score-display {
+                text-align: center;
+                justify-content: center;
+                width: 100%;
+                min-width: auto;
+            }
+            
+            #reset-button {
+                width: 200px;
+                align-self: center;
+            }
+        }
+        
+        /* Small Mobile Devices */
+        @media (max-width: 480px) {
+            #game-container {
+                width: 100vw;
+                height: 100vh;
+                border-radius: 0;
+            }
+            
+            #game-header {
+                padding: 0.5rem;
+                min-height: 50px;
+            }
+            
+            #instructions {
+                padding: 0.5rem;
+                min-height: 45px;
+            }
+            
+            #game-ui {
+                padding: 0.8rem;
+            }
+            
+            #reset-button {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+        
+        /* Extra Small Devices */
+        @media (max-width: 320px) {
+            #game-header {
+                flex-direction: column;
+                gap: 0.2rem;
+                padding: 0.4rem;
+            }
+            
+            #instructions {
+                padding: 0.4rem;
+                line-height: 1.2;
+            }
+        }
+        
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            #reset-button {
+                min-height: 48px;
+                padding: 1rem 1.5rem;
+            }
+            
+            /* Ensure all interactive elements are touch-friendly */
+            button, .interactive {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+        
+        /* High DPI Screens */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            #game-container {
+                box-shadow: 0 25px 80px rgba(0, 0, 0, 0.4);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <div id="game-header">
+            <span>🛒</span>
+            <span>Decimal Shopping Game</span>
+        </div>
+        <div id="instructions">
+            Select items to buy and pay with the correct combination of coins!
+        </div>
+        <div id="game-canvas"></div>
+        <div id="game-ui">
+            <div id="score-display">Score: 0 | Money: ₹0.00</div>
+            <button id="reset-button">🔄 New Game</button>
+        </div>
+    </div>
+
+    <script>
+        // Responsive game configuration
+        let gameConfig = {
+            type: Phaser.AUTO,
+            width: 800,
+            height: 500,
+            parent: 'game-canvas',
+            backgroundColor: '#f8f9fa',
+            scene: {
+                preload: preload,
+                create: create,
+                update: update
+            },
+            scale: {
+                mode: Phaser.Scale.RESIZE,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            }
+        };
+
+        // Game variables
+        let game;
+        let items = [];
+        let selectedItem = null;
+        let money = 0;
+        let score = 0;
+        let coins = [];
+        let totalPaid = 0;
+        let itemPrices = [2.50, 1.75, 3.25, 4.10, 1.50, 2.75];
+        let itemNames = ['Pencil', 'Eraser', 'Notebook', 'Ruler', 'Sharpener', 'Crayons'];
+        let coinValues = [1.00, 0.50, 0.25, 0.10, 0.05];
+        let coinColors = [0xFFD700, 0xC0C0C0, 0x87CEEB, 0xFFA500, 0x32CD32];
+        let feedbackText;
+        let selectedItemDisplay;
+        let paidText;
+        let gameWidth = 800;
+        let gameHeight = 500;
+        let isMobile = false;
+        let isPortrait = false;
+
+        // Device detection
+        function detectDevice() {
+            isMobile = window.innerWidth <= 768;
+            isPortrait = window.innerHeight > window.innerWidth;
+            return { isMobile, isPortrait };
+        }
+
+        // Responsive calculations
+        function getResponsiveValues() {
+            const { isMobile, isPortrait } = detectDevice();
+            const baseWidth = gameWidth;
+            const baseHeight = gameHeight;
+            
+            return {
+                // Font sizes
+                titleFontSize: Math.max(14, Math.min(24, baseWidth / (isMobile ? 25 : 35))),
+                normalFontSize: Math.max(12, Math.min(18, baseWidth / (isMobile ? 35 : 45))),
+                smallFontSize: Math.max(10, Math.min(16, baseWidth / (isMobile ? 45 : 60))),
+                
+                // Item dimensions
+                itemWidth: Math.min(isMobile ? 100 : 120, baseWidth / (isMobile ? 6 : 8)),
+                itemHeight: Math.min(isMobile ? 70 : 80, baseHeight / (isMobile ? 10 : 8)),
+                
+                // Coin size
+                coinSize: Math.min(isMobile ? 20 : 25, baseWidth / (isMobile ? 35 : 30)),
+                
+                // Layout
+                itemsPerRow: isPortrait ? 2 : (isMobile ? 2 : 3),
+                leftPanelWidth: isPortrait ? 1.0 : 0.5,
+                rightPanelWidth: isPortrait ? 1.0 : 0.5,
+                
+                // Spacing
+                padding: isMobile ? 10 : 20,
+                spacing: isMobile ? 15 : 20,
+                
+                // Touch targets
+                minTouchSize: 44
+            };
+        }
+
+        // Initialize the game
+        function initGame() {
+            const container = document.getElementById('game-canvas');
+            gameWidth = container.clientWidth;
+            gameHeight = container.clientHeight;
+            
+            gameConfig.width = gameWidth;
+            gameConfig.height = gameHeight;
+            
+            if (game) {
+                game.destroy(true);
+            }
+            
+            game = new Phaser.Game(gameConfig);
+        }
+
+        function preload() {
+            // No preloading needed
+        }
+
+        function create() {
+            const responsive = getResponsiveValues();
+            
+            if (responsive.leftPanelWidth === 1.0) {
+                // Portrait mobile layout - stack vertically
+                createPortraitLayout.call(this, responsive);
+            } else {
+                // Landscape layout - side by side
+                createLandscapeLayout.call(this, responsive);
+            }
+            
+            createUI.call(this, responsive);
+            resetGame.call(this);
+            
+            // Add reset button event listener
+            document.getElementById('reset-button').addEventListener('click', () => {
+                resetGame.call(this);
+            });
+        }
+
+        function createPortraitLayout(responsive) {
+            // Shopping area - top half
+            this.add.text(gameWidth * 0.5, responsive.padding, 'SHOPPING ITEMS', {
+                fontSize: responsive.titleFontSize + 'px',
+                fill: '#2c3e50',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            createItemsGrid.call(this, {
+                startX: responsive.padding,
+                startY: responsive.padding * 3,
+                width: gameWidth - (responsive.padding * 2),
+                height: gameHeight * 0.45,
+                itemsPerRow: responsive.itemsPerRow,
+                responsive: responsive
+            });
+
+            // Payment area - bottom half
+            this.add.text(gameWidth * 0.5, gameHeight * 0.52, 'PAYMENT', {
+                fontSize: responsive.titleFontSize + 'px',
+                fill: '#2c3e50',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            createPaymentSection.call(this, {
+                startX: responsive.padding,
+                startY: gameHeight * 0.55,
+                width: gameWidth - (responsive.padding * 2),
+                height: gameHeight * 0.35,
+                responsive: responsive
+            });
+        }
+
+        function createLandscapeLayout(responsive) {
+            // Shopping area - left half
+            this.add.text(gameWidth * 0.25, responsive.padding, 'SHOPPING ITEMS', {
+                fontSize: responsive.titleFontSize + 'px',
+                fill: '#2c3e50',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            createItemsGrid.call(this, {
+                startX: responsive.padding,
+                startY: responsive.padding * 3,
+                width: gameWidth * 0.48,
+                height: gameHeight - (responsive.padding * 5),
+                itemsPerRow: responsive.itemsPerRow,
+                responsive: responsive
+            });
+
+            // Payment area - right half
+            this.add.text(gameWidth * 0.75, responsive.padding, 'PAYMENT', {
+                fontSize: responsive.titleFontSize + 'px',
+                fill: '#2c3e50',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            createPaymentSection.call(this, {
+                startX: gameWidth * 0.52,
+                startY: responsive.padding * 3,
+                width: gameWidth * 0.46,
+                height: gameHeight - (responsive.padding * 5),
+                responsive: responsive
+            });
+        }
+
+        function createItemsGrid(config) {
+            items = [];
+            const colors = [0xFF9AA2, 0xFFB7B2, 0xFFDAC1, 0xE2F0CB, 0xB5EAD7, 0xC7CEEA];
+            
+            const itemsPerRow = config.itemsPerRow;
+            const rows = Math.ceil(itemNames.length / itemsPerRow);
+            const itemSpacingX = config.width / (itemsPerRow + 1);
+            const itemSpacingY = config.height / (rows + 1);
+
+            for (let i = 0; i < itemNames.length; i++) {
+                const row = Math.floor(i / itemsPerRow);
+                const col = i % itemsPerRow;
+                const x = config.startX + itemSpacingX * (col + 1);
+                const y = config.startY + itemSpacingY * (row + 1);
+
+                // Ensure touch-friendly size
+                const itemWidth = Math.max(config.responsive.itemWidth, config.responsive.minTouchSize);
+                const itemHeight = Math.max(config.responsive.itemHeight, config.responsive.minTouchSize);
+
+                // Item background
+                const itemBg = this.add.rectangle(x, y, itemWidth, itemHeight, colors[i]);
+                itemBg.setStrokeStyle(2, 0x34495e);
+                itemBg.setInteractive();
+                itemBg.setDataEnabled();
+                itemBg.data.set('price', itemPrices[i]);
+                itemBg.data.set('name', itemNames[i]);
+
+                // Hover/touch effects
+                itemBg.on('pointerover', () => itemBg.setScale(1.05));
+                itemBg.on('pointerout', () => {
+                    if (selectedItem?.bg !== itemBg) itemBg.setScale(1);
+                });
+
+                // Item name
+                const itemName = this.add.text(x, y - itemHeight * 0.2, itemNames[i], {
+                    fontSize: config.responsive.smallFontSize + 'px',
+                    fill: '#2c3e50',
+                    fontFamily: 'Comic Sans MS',
+                    fontWeight: 'bold'
+                }).setOrigin(0.5);
+
+                // Item price
+                const itemPrice = this.add.text(x, y + itemHeight * 0.2, '₹' + itemPrices[i].toFixed(2), {
+                    fontSize: config.responsive.normalFontSize + 'px',
+                    fill: '#e74c3c',
+                    fontFamily: 'Comic Sans MS',
+                    fontWeight: 'bold'
+                }).setOrigin(0.5);
+
+                // Click handler
+                itemBg.on('pointerdown', () => {
+                    selectItem.call(this, itemBg, itemName, itemPrice, i);
+                });
+
+                items.push({ bg: itemBg, name: itemName, price: itemPrice, index: i });
+            }
+        }
+
+        function createPaymentSection(config) {
+            const centerX = config.startX + config.width * 0.5;
+            const sectionHeight = config.height / 4;
+
+            // Selected item display
+            const displayY = config.startY + sectionHeight * 0.5;
+            const displayBg = this.add.rectangle(centerX, displayY, config.width * 0.8, sectionHeight * 0.8, 0xecf0f1);
+            displayBg.setStrokeStyle(2, 0x95a5a6);
+
+            this.add.text(centerX, displayY - sectionHeight * 0.3, 'Selected Item:', {
+                fontSize: config.responsive.smallFontSize + 'px',
+                fill: '#7f8c8d',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            selectedItemDisplay = this.add.text(centerX, displayY, 'None', {
+                fontSize: config.responsive.normalFontSize + 'px',
+                fill: '#2c3e50',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            paidText = this.add.text(centerX, displayY + sectionHeight * 0.25, 'Paid: ₹0.00', {
+                fontSize: config.responsive.smallFontSize + 'px',
+                fill: '#27ae60',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            // Coins section
+            createCoinsSection.call(this, {
+                startX: config.startX,
+                startY: config.startY + sectionHeight * 1.2,
+                width: config.width,
+                height: sectionHeight * 2,
+                responsive: config.responsive
+            });
+
+            // Payment buttons
+            const buttonY = config.startY + sectionHeight * 3.5;
+            const buttonWidth = Math.max(config.width * 0.35, config.responsive.minTouchSize * 2);
+            const buttonHeight = Math.max(sectionHeight * 0.6, config.responsive.minTouchSize);
+
+            const payButton = this.add.rectangle(
+                centerX - config.width * 0.2, buttonY, 
+                buttonWidth, buttonHeight, 0x27ae60
+            );
+            payButton.setStrokeStyle(2, 0x229954);
+            payButton.setInteractive();
+            
+            this.add.text(centerX - config.width * 0.2, buttonY, 'PAY', {
+                fontSize: config.responsive.normalFontSize + 'px',
+                fill: '#ffffff',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            const clearButton = this.add.rectangle(
+                centerX + config.width * 0.2, buttonY, 
+                buttonWidth, buttonHeight, 0xe74c3c
+            );
+            clearButton.setStrokeStyle(2, 0xc0392b);
+            clearButton.setInteractive();
+            
+            this.add.text(centerX + config.width * 0.2, buttonY, 'CLEAR', {
+                fontSize: config.responsive.normalFontSize + 'px',
+                fill: '#ffffff',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+
+            // Button interactions
+            payButton.on('pointerdown', () => {
+                if (selectedItem) processPayment.call(this);
+            });
+
+            clearButton.on('pointerdown', () => {
+                clearPayment.call(this);
+            });
+        }
+
+        function createCoinsSection(config) {
+            coins = [];
+            const coinsPerRow = config.responsive.itemsPerRow === 2 ? 3 : 5;
+            const rows = Math.ceil(coinValues.length / coinsPerRow);
+            const coinSpacingX = config.width / (coinsPerRow + 1);
+            const coinSpacingY = config.height / (rows + 1);
+
+            for (let i = 0; i < coinValues.length; i++) {
+                const row = Math.floor(i / coinsPerRow);
+                const col = i % coinsPerRow;
+                const x = config.startX + coinSpacingX * (col + 1);
+                const y = config.startY + coinSpacingY * (row + 1);
+
+                // Ensure touch-friendly size
+                const coinSize = Math.max(config.responsive.coinSize, config.responsive.minTouchSize / 2);
+
+                // Coin graphic
+                const coin = this.add.circle(x, y, coinSize, coinColors[i]);
+                coin.setStrokeStyle(2, 0x2c3e50);
+                coin.setInteractive();
+                coin.setDataEnabled();
+                coin.data.set('value', coinValues[i]);
+
+                // Coin value
+                const coinText = this.add.text(x, y, coinValues[i].toFixed(2), {
+                    fontSize: Math.max(8, coinSize / 3) + 'px',
+                    fill: '#2c3e50',
+                    fontFamily: 'Comic Sans MS',
+                    fontWeight: 'bold'
+                }).setOrigin(0.5);
+
+                // Coin label (only show on larger screens)
+                if (!config.responsive.itemsPerRow === 2) {
+                    this.add.text(x, y + coinSize + 10, `₹${coinValues[i].toFixed(2)}`, {
+                        fontSize: config.responsive.smallFontSize + 'px',
+                        fill: '#2c3e50',
+                        fontFamily: 'Comic Sans MS'
+                    }).setOrigin(0.5);
+                }
+
+                // Touch/click handlers
+                coin.on('pointerdown', () => {
+                    if (selectedItem) addCoin.call(this, coin);
+                });
+
+                coin.on('pointerover', () => {
+                    if (selectedItem) coin.setScale(1.1);
+                });
+                
+                coin.on('pointerout', () => coin.setScale(1));
+
+                coins.push({ graphic: coin, text: coinText, value: coinValues[i] });
+            }
+        }
+
+        function createUI(responsive) {
+            // Feedback text at bottom
+            feedbackText = this.add.text(gameWidth / 2, gameHeight - responsive.padding, 'Select an item to start shopping!', {
+                fontSize: responsive.normalFontSize + 'px',
+                fill: '#2c3e50',
+                fontFamily: 'Comic Sans MS',
+                fontWeight: 'bold'
+            }).setOrigin(0.5);
+        }
+
+        function selectItem(itemBg, itemName, itemPrice, index) {
+            // Reset previous selection
+            if (selectedItem) {
+                selectedItem.bg.setFillStyle(selectedItem.originalColor);
+                selectedItem.bg.setScale(1);
+            }
+
+            // Select new item
+            selectedItem = {
+                bg: itemBg,
+                name: itemName,
+                price: itemPrice,
+                originalColor: itemBg.fillColor,
+                priceValue: itemPrices[index],
+                nameText: itemNames[index]
+            };
+
+            selectedItem.bg.setFillStyle(0x2ecc71);
+            selectedItem.bg.setScale(1.05);
+
+            // Reset payment
+            clearPayment.call(this);
+
+            // Update display
+            selectedItemDisplay.setText(`${selectedItem.nameText}\n₹${selectedItem.priceValue.toFixed(2)}`);
+            feedbackText.setText(`Selected: ${selectedItem.nameText} - Use coins to pay!`);
+            feedbackText.setColor('#2c3e50');
+        }
+
+        function addCoin(coin) {
+            const coinValue = coin.data.get('value');
+            totalPaid += coinValue;
+            paidText.setText(`Paid: ₹${totalPaid.toFixed(2)}`);
+
+            // Visual feedback
+            const feedbackCoin = this.add.circle(coin.x, coin.y, coin.radius * 0.8, coin.fillColor);
+            feedbackCoin.setAlpha(0.8);
+            
+            this.tweens.add({
+                targets: feedbackCoin,
+                x: selectedItemDisplay.x,
+                y: paidText.y,
+                scale: 0.3,
+                alpha: 0,
+                duration: 400,
+                onComplete: () => feedbackCoin.destroy()
+            });
+        }
+
+        function clearPayment() {
+            totalPaid = 0;
+            paidText.setText('Paid: ₹0.00');
+        }
+
+        function processPayment() {
+            if (!selectedItem) return;
+
+            const itemPrice = selectedItem.priceValue;
+            const difference = totalPaid - itemPrice;
+
+            if (Math.abs(difference) < 0.01) {
+                feedbackText.setText('🎉 Perfect! Exact payment! +10 points');
+                feedbackText.setColor('#27ae60');
+                score += 10;
+                money += itemPrice;
+                completePurchase.call(this);
+            } else if (difference > 0) {
+                feedbackText.setText(`💰 Overpaid by ₹${difference.toFixed(2)}. +5 points`);
+                feedbackText.setColor('#f39c12');
+                score += 5;
+                money += itemPrice;
+                completePurchase.call(this);
+            } else {
+                const shortBy = Math.abs(difference);
+                feedbackText.setText(`❌ Short by ₹${shortBy.toFixed(2)}. Add more coins!`);
+                feedbackText.setColor('#e74c3c');
+            }
+
+            updateScoreDisplay();
+        }
+
+        function completePurchase() {
+            selectedItem.bg.setAlpha(0.5);
+            selectedItem.name.setAlpha(0.5);
+            selectedItem.price.setAlpha(0.5);
+
+            this.time.delayedCall(1500, () => {
+                if (selectedItem) {
+                    selectedItem.bg.setFillStyle(selectedItem.originalColor);
+                    selectedItem.bg.setScale(1);
+                    selectedItem.bg.setAlpha(1);
+                    selectedItem.name.setAlpha(1);
+                    selectedItem.price.setAlpha(1);
+                    selectedItem = null;
+                    clearPayment.call(this);
+                    selectedItemDisplay.setText('None');
+                    feedbackText.setText('Great! Select another item!');
+                    feedbackText.setColor('#2c3e50');
+                }
+            });
+        }
+
+        function resetGame() {
+            score = 0;
+            money = 0;
+            selectedItem = null;
+            clearPayment.call(this);
+
+            items.forEach(item => {
+                item.bg.setFillStyle(item.bg.fillColor);
+                item.bg.setScale(1);
+                item.bg.setAlpha(1);
+                item.name.setAlpha(1);
+                item.price.setAlpha(1);
+            });
+
+            if (selectedItemDisplay) selectedItemDisplay.setText('None');
+            if (feedbackText) {
+                feedbackText.setText('Select an item to start shopping!');
+                feedbackText.setColor('#2c3e50');
+            }
+
+            updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            document.getElementById('score-display').textContent = 
+                `Score: ${score} | Money: ₹${money.toFixed(2)}`;
+        }
+
+        function update() {
+            // Game loop
+        }
+
+        // Initialize and handle window events
+        updateScoreDisplay();
+        
+        // Handle orientation changes and window resizing
+        function handleResize() {
+            const container = document.getElementById('game-canvas');
+            const newWidth = container.clientWidth;
+            const newHeight = container.clientHeight;
+            
+            if (Math.abs(newWidth - gameWidth) > 10 || Math.abs(newHeight - gameHeight) > 10) {
+                gameWidth = newWidth;
+                gameHeight = newHeight;
+                
+                // Recreate the game with new dimensions
+                setTimeout(() => {
+                    initGame();
+                }, 100);
+            }
+        }
+        
+        // Debounced resize handler
+        let resizeTimeout;
+        function debouncedResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(handleResize, 250);
+        }
+        
+        // Event listeners
+        window.addEventListener('load', initGame);
+        window.addEventListener('resize', debouncedResize);
+        window.addEventListener('orientationchange', () => {
+            setTimeout(debouncedResize, 300); // Delay for orientation change
+        });
+        
+        // Prevent zoom on double tap (iOS Safari)
+        document.addEventListener('touchend', function (event) {
+            const now = (new Date()).getTime();
+            if (now - event.target.lastTouch <= 300) {
+                event.preventDefault();
+            }
+            event.target.lastTouch = now;
+        }, false);
+        
+        // Prevent scrolling when touching the game
+        document.getElementById('game-canvas').addEventListener('touchmove', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+</body>
+</html>

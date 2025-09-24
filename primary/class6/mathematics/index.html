@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathematics</title>
+  <link rel="stylesheet" href="mathematics.css">
+  <style></style>
+</head>
+<body>
+  <!-- Back Button -->
+   <div  > 
+     <a href="../index.html" class="back-btn" aria-label="Go Back">←</a>
+     
+  <!-- Language Switcher -->
+  <div class="language-switcher" id="languageSwitcher">
+    <button class="language-btn" id="languageBtn" aria-label="Select Language">
+      <span class="flag" id="currentFlag">🇬🇧</span>
+      <span id="currentLang">EN</span>
+      <span class="dropdown-arrow">▼</span>
+    </button>
+    <div class="dropdown-content" id="languageDropdown">
+      <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
+        <span class="flag">🇬🇧</span>
+        <div class="lang-info">
+          <span class="lang-name">English</span>
+          <span class="lang-native">English</span>
+        </div>
+      </button>
+      <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
+        <span class="flag">🇮🇳</span>
+        <div class="lang-info">
+          <span class="lang-name">Hindi</span>
+          <span class="lang-native">हिंदी</span>
+        </div>
+      </button>
+      <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
+        <span class="flag">🏛️</span>
+        <div class="lang-info">
+          <span class="lang-name">Odia</span>
+          <span class="lang-native">ଓଡ଼ିଆ</span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+  <main class="main-container mathematics-container">
+    <!-- Header -->
+    <section class="page-header">
+      <h1 class="page-title" data-translate="math.title">Mathematics</h1>
+      <p class="page-description" data-translate="math.description">
+        Learn numbers, fractions, geometry, algebra, and more with fun lessons and activities.
+      </p>
+    </section>
+
+    <!-- Progress Section -->
+    <section class="progress-section">
+      <div class="progress-grid">
+        <div class="progress-item">
+          <div class="progress-number">12</div>
+          <div class="progress-label" data-translate="progress.chapters">Chapters</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-number">60+</div>
+          <div class="progress-label" data-translate="progress.lessons">Lessons</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-number">45%</div>
+          <div class="progress-label" data-translate="progress.completion">Completion</div>
+        </div>
+        <div class="progress-item">
+          <div class="progress-number">🔥 5</div>
+          <div class="progress-label" data-translate="progress.streak">Day Streak</div>
+        </div>
+      </div>
+    </section>
+
+     <!-- Quick Actions -->
+    <section class="quick-actions">
+      <h2 data-translate="quick.title">Quick Access</h2>
+      <div class="actions-grid">
+        <a href="quiz/math-quiz.html" class="action-card" data-translate="action.quiz">🎯 Take a Quiz</a>
+        <a href="practice/daily-math.html" class="action-card" data-translate="action.practice">📝 Daily Practice</a>
+        <a href="games/math-games.html" class="action-card" data-translate="action.games">🎮 Math Games</a>
+        <a href="leaderboard.html" class="action-card" data-translate="action.leaderboard">🏆 Leaderboard</a>
+      </div>
+    </section>
+    <!-- Chapter Cards -->
+    <section class="chapters-grid">
+      <a href="chapters/numbers.html" class="chapter-card easy">
+        <div class="chapter-icon">🔢</div>
+        <h3 class="chapter-title" data-translate="chapter.numbers.title">Numbers & Operations</h3>
+        <p class="chapter-description" data-translate="chapter.numbers.desc">
+          Learn whole numbers, addition, subtraction, multiplication, and division.
+        </p>
+        <div class="chapter-stats">
+          <span data-translate="chapter.numbers.lessons">5 Lessons</span>
+          <span class="difficulty-badge difficulty-easy" data-translate="difficulty.easy">Easy</span>
+        </div>
+      </a>
+
+      <a href="chapters/fractions.html" class="chapter-card medium">
+        <div class="chapter-icon">➗</div>
+        <h3 class="chapter-title" data-translate="chapter.fractions.title">Fractions & Decimals</h3>
+        <p class="chapter-description" data-translate="chapter.fractions.desc">
+          Understand fractions, decimals, and real-life applications.
+        </p>
+        <div class="chapter-stats">
+          <span data-translate="chapter.fractions.lessons">6 Lessons</span>
+          <span class="difficulty-badge difficulty-medium" data-translate="difficulty.medium">Medium</span>
+        </div>
+      </a>
+
+      <a href="chapters/geometry.html" class="chapter-card medium">
+        <div class="chapter-icon">📐</div>
+        <h3 class="chapter-title" data-translate="chapter.geometry.title">Geometry</h3>
+        <p class="chapter-description" data-translate="chapter.geometry.desc">
+          Explore shapes, angles, areas, and perimeters with interactive diagrams.
+        </p>
+        <div class="chapter-stats">
+          <span data-translate="chapter.geometry.lessons">7 Lessons</span>
+          <span class="difficulty-badge difficulty-medium" data-translate="difficulty.medium">Medium</span>
+        </div>
+      </a>
+
+      <a href="chapters/algebra.html" class="chapter-card hard">
+        <div class="chapter-icon">🔮</div>
+        <h3 class="chapter-title" data-translate="chapter.algebra.title">Introduction to Algebra</h3>
+        <p class="chapter-description" data-translate="chapter.algebra.desc">
+          Learn variables, equations, and basic algebraic expressions.
+        </p>
+        <div class="chapter-stats">
+          <span data-translate="chapter.algebra.lessons">5 Lessons</span>
+          <span class="difficulty-badge difficulty-hard" data-translate="difficulty.hard">Hard</span>
+        </div>
+      </a>
+
+      <a href="chapters/mensuration.html" class="chapter-card medium">
+        <div class="chapter-icon">📏</div>
+        <h3 class="chapter-title" data-translate="chapter.mensuration.title">Mensuration</h3>
+        <p class="chapter-description" data-translate="chapter.mensuration.desc">
+          Calculate areas, volumes, and real-life measurement problems.
+        </p>
+        <div class="chapter-stats">
+          <span data-translate="chapter.mensuration.lessons">5 Lessons</span>
+          <span class="difficulty-badge difficulty-medium" data-translate="difficulty.medium">Medium</span>
+        </div>
+      </a>
+    </section>
+
+   
+  </main>
+
+  <script src="mathematics.js"></script>
+  
+</body>
+</html>

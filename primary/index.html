@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rural Learning — Header</title>
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <header class="site-header" role="banner" aria-label="App header">
+    <!-- Left: Brand -->
+    <div class="brand">
+      <div class="logo-fig" aria-hidden="true">
+        <a href="index.html">
+          <svg
+            viewBox="0 0 64 64"
+            width="36"
+            height="36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="6"
+              y="28"
+              width="52"
+              height="26"
+              rx="4"
+              fill="rgba(255,255,255,0.18)"
+            />
+            <path
+              d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0"
+              stroke="#fff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z"
+              fill="#fff"
+              opacity="0.95"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="brand-text">
+        <div class="app-name">LearnRural</div>
+        <div class="app-sub">नवीन शिक्षा • New Learning</div>
+      </div>
+    </div>
+     
+    <!-- Center: Greeting -->
+    <div class="greeting-wrap">
+      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to LearnRural</div>
+      <div class="decor-row" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3 6h13v12H3z"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.2"
+          />
+          <path
+            d="M16 6h3v12"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.2"
+          />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M20 4s-4 1-8 5-8 9-8 9 4-1 8-5 8-9 8-9z"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.1"
+          />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 2l10 6-10 6L2 8 12 2z"
+            stroke="#fff"
+            stroke-opacity="0.95"
+            stroke-width="1.1"
+          />
+          <path
+            d="M12 14v6"
+            stroke="#fff"
+            stroke-opacity="0.95"
+            stroke-width="1.1"
+          />
+        </svg>
+      </div>
+    </div>
+     
+    <!-- Right: Actions -->
+    <div class="actions">
+      <!-- Language Switcher -->
+      <div class="language-switcher" id="languageSwitcher">
+        <button class="language-btn" id="languageBtn" aria-label="Select Language">
+          <span class="flag" id="currentFlag">🇬🇧</span>
+          <span id="currentLang">EN</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="dropdown-content" id="languageDropdown">
+          <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
+            <span class="flag">🇬🇧</span>
+            <div class="lang-info">
+              <span class="lang-name">English</span>
+              <span class="lang-native">English</span>
+            </div>
+          </button>
+          <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
+            <span class="flag">🇮🇳</span>
+            <div class="lang-info">
+              <span class="lang-name">Hindi</span>
+              <span class="lang-native">हिंदी</span>
+            </div>
+          </button>
+          <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
+            <span class="flag">🏛️</span>
+            <div class="lang-info">
+              <span class="lang-name">Odia</span>
+              <span class="lang-native">ଓଡ଼ିଆ</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      <button class="login-btn" id="loginBtn">Login</button>
+    </div>
+  </header>
+  
+  <!-- Overlay for closing dropdown when clicking outside -->
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <main class="main-content">
+      <section class="page-header">
+        <h1 class="main-title" data-translate="page.title">Primary Classes</h1>
+        <p class="page-description" data-translate="page.description">
+          Build strong foundations with interactive learning designed for young minds. 
+          Choose your class to start your educational journey.
+        </p>
+      </section>
+
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-number">3</div>
+            <div class="stat-label" data-translate="stats.classes">Classes</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24</div>
+            <div class="stat-label" data-translate="stats.subjects">Subjects</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">180+</div>
+            <div class="stat-label" data-translate="stats.lessons">Lessons</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="class-cards">
+        <!-- Class 6 -->
+         <a href="class6/index.html" style="text-decoration: none; color: inherit;">
+
+           <div class="class-card" >
+             <div class="card-image">
+               <span>📚</span>
+              </div>
+              <h3 class="class-title" data-translate="class6.title">Class 6</h3>
+              <p class="class-subtitle" data-translate="class6.description">Explore subjects and build strong basics with interactive content</p>
+              <div class="progress-ring">
+              </div>
+            </div>
+          </a>
+
+        <!-- Class 7 -->
+        <div class="class-card" onclick="navigateToLevel('class7/index.html')" tabindex="0" role="button" aria-label="Navigate to Class 7">
+          <div class="card-image">
+            <span>🎯</span>
+          </div>
+          <h3 class="class-title" data-translate="class7.title">Class 7</h3>
+          <p class="class-subtitle" data-translate="class7.description">Enhance knowledge and grow skills with advanced concepts</p>
+          <div class="progress-ring">
+            
+          </div>
+        </div>
+
+        <!-- Class 8 -->
+        <div class="class-card" onclick="navigateToLevel('class8/index.html')" tabindex="0" role="button" aria-label="Navigate to Class 8">
+          <div class="card-image">
+            <span>🚀</span>
+          </div>
+          <h3 class="class-title" data-translate="class8.title">Class 8</h3>
+          <p class="class-subtitle" data-translate="class8.description">Get ready for secondary learning with comprehensive preparation</p>
+          <div class="progress-ring">
+            
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathematics - Fractions & Decimals</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            min-height: 100vh;
+        }
+        
+        .language-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            width: 220px;
+            z-index: 100;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .language-dropdown.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .language-option {
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .language-option:hover {
+            background: #f1f9ff;
+        }
+        
+        .language-option.selected {
+            background: #dbeafe;
+            border-left: 4px solid #3b82f6;
+        }
+        
+        .language-flag {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        
+        .progress-ring {
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        
+        .option-card {
+            transition: all 0.3s ease;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-card {
+            transition: all 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .reward-badge {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .progress-bar-fill {
+            transition: width 0.8s ease-in-out;
+        }
+
+        .achievement-unlocked {
+            animation: bounce 0.6s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+            40%, 43% { transform: translate3d(0, -8px, 0); }
+            70% { transform: translate3d(0, -4px, 0); }
+            90% { transform: translate3d(0, -2px, 0); }
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+    <!-- Header -->
+    <header class="bg-white shadow-sm py-4 sticky top-0 z-10">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <button id="backBtn" class="bg-blue-100 hover:bg-blue-200 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h1 class="text-xl font-bold text-blue-800" data-translate="page-title">Fractions & Decimals</h1>
+            
+            <!-- Language Button with Dropdown -->
+            <div class="relative">
+                <button id="languageBtn" class="bg-blue-100 hover:bg-blue-200 text-blue-600 w-10 h-10 rounded-full flex items-center justify-center">
+                    <i class="fas fa-language"></i>
+                </button>
+                
+                <div id="languageDropdown" class="language-dropdown">
+                    <div class="language-option selected" data-lang="en">
+                        <div class="language-flag bg-blue-600 text-white">EN</div>
+                        <span>English</span>
+                    </div>
+                    <div class="language-option" data-lang="hi">
+                        <div class="language-flag bg-orange-500 text-white">हि</div>
+                        <span>हिन्दी (Hindi)</span>
+                    </div>
+                    <div class="language-option" data-lang="or">
+                        <div class="language-flag bg-green-600 text-white">ଓଡ଼</div>
+                        <span>ଓଡ଼ିଆ (Odia)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Progress Circle -->
+    <div class="container mx-auto px-4 mt-6 flex justify-center">
+        <div class="relative">
+            <svg class="w-28 h-28 transform -rotate-90">
+                <circle class="text-blue-100" stroke-width="10" stroke="currentColor" fill="transparent" r="50" cx="55" cy="55" />
+                <circle class="progress-ring text-blue-500" stroke-width="10" stroke-dasharray="314" stroke-dashoffset="157" stroke="currentColor" fill="transparent" r="50" cx="55" cy="55" />
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                <span class="text-2xl font-bold text-blue-800" id="progressPercent">50%</span>
+                <span class="text-xs text-blue-600" data-translate="complete">Complete</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Level and XP Display -->
+    <div class="container mx-auto px-4 mt-4 text-center">
+        <div class="inline-flex items-center bg-white rounded-full px-4 py-2 shadow-md">
+            <div class="w-8 h-8 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                <i class="fas fa-star text-white text-sm"></i>
+            </div>
+            <span class="font-semibold text-blue-800" data-translate="level-display">Level 3 - 125 XP</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 mt-6">
+        <!-- Navigation Cards -->
+        <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="bg-white rounded-xl shadow-md p-4 flex flex-col items-center text-center option-card cursor-pointer" data-target="notes">
+                <div class="w-14 h-14 bg-blue-100 rounded-full flex items-center justify-center mb-2">
+                    <i class="fas fa-book-open text-blue-600 text-xl"></i>
+                </div>
+                <h3 class="font-semibold text-blue-800" data-translate="study-materials">Study Materials</h3>
+                <p class="text-xs text-gray-600 mt-1" data-translate="learn-concepts">Learn concepts</p>
+            </div>
+            <div class="bg-white rounded-xl shadow-md p-4 flex flex-col items-center text-center option-card cursor-pointer" data-target="rewards">
+                <div class="w-14 h-14 bg-yellow-100 rounded-full flex items-center justify-center mb-2">
+                    <i class="fas fa-trophy text-yellow-600 text-xl"></i>
+                </div>
+                <h3 class="font-semibold text-blue-800" data-translate="progress-rewards">Progress & Rewards</h3>
+                <p class="text-xs text-gray-600 mt-1" data-translate="earn-achievements">Earn achievements</p>
+            </div>
+            
+            <a href="maths-quiz.html">
+
+                <div class="bg-white rounded-xl shadow-md p-4 flex flex-col items-center text-center option-card cursor-pointer" data-target="quiz">
+                    <div class="w-14 h-14 bg-green-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-pencil-alt text-green-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-blue-800" data-translate="quick-quiz">Quick Quiz</h3>
+                    <p class="text-xs text-gray-600 mt-1" data-translate="test-knowledge">Test your knowledge</p>
+                    <div class="mt-2">
+                        <!-- <span class="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full" data-translate="coming-soon">Coming Soon</span> -->
+                    </div>
+                </div>
+            </a>
+            <a href="games.html">
+
+                
+                <div class="bg-white rounded-xl shadow-md p-4 flex flex-col items-center text-center option-card cursor-pointer" data-target="games">
+                    <div class="w-14 h-14 bg-purple-100 rounded-full flex items-center justify-center mb-2">
+                        <i class="fas fa-gamepad text-purple-600 text-xl"></i>
+                    </div>
+                    <h3 class="font-semibold text-blue-800" data-translate="interactive-games">Interactive Games</h3>
+                    <p class="text-xs text-gray-600 mt-1" data-translate="learn-playing">Learn by playing</p>
+                    <div class="mt-2">
+                        <!-- <span class="bg-purple-100 text-purple-700 text-xs px-2 py-1 rounded-full" data-translate="coming-soon">Coming Soon</span> -->
+                    </div>
+                </div>
+            </a>
+            
+        </div>
+
+        <!-- Page Content -->
+        <!-- Notes Page -->
+        <div id="notes" class="page active">
+            <div class="bg-white rounded-xl shadow-md overflow-hidden">
+                <div class="flex border-b">
+                    <button class="tab-btn py-3 px-4 text-center flex-1 font-medium text-blue-800 border-b-2 border-blue-500" data-tab="fractions" data-translate="fractions-tab">Fractions</button>
+                    <button class="tab-btn py-3 px-4 text-center flex-1 font-medium text-gray-500" data-tab="decimals" data-translate="decimals-tab">Decimals</button>
+                    <button class="tab-btn py-3 px-4 text-center flex-1 font-medium text-gray-500" data-tab="conversion" data-translate="conversion-tab">Conversion</button>
+                </div>
+                
+                <div class="p-5">
+                    <div id="fractions" class="tab-content active">
+                        <h2 class="text-xl font-bold text-blue-800 mb-4" data-translate="understanding-fractions">Understanding Fractions</h2>
+                        <p class="text-gray-700 mb-4" data-translate="fraction-definition">A fraction represents a part of a whole. It consists of a numerator (top number) and a denominator (bottom number).</p>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                            <h3 class="font-semibold text-blue-700 mb-2" data-translate="types-fractions">Types of Fractions:</h3>
+                            <ul class="list-disc pl-5 text-gray-700">
+                                <li class="mb-2"><span class="font-medium" data-translate="proper-fractions">Proper fractions:</span> <span data-translate="proper-desc">Numerator is less than denominator (e.g., 3/4)</span></li>
+                                <li class="mb-2"><span class="font-medium" data-translate="improper-fractions">Improper fractions:</span> <span data-translate="improper-desc">Numerator is greater than denominator (e.g., 5/3)</span></li>
+                                <li><span class="font-medium" data-translate="mixed-numbers">Mixed numbers:</span> <span data-translate="mixed-desc">Combination of whole number and fraction (e.g., 1 ½)</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700 mb-2" data-translate="example">Example:</h3>
+                            <p class="text-gray-700" data-translate="pizza-example">If you have 3 out of 4 slices of pizza, you have 3/4 of the pizza.</p>
+                            <p class="text-gray-700 mt-2" data-translate="adding-example">Adding fractions: 1/4 + 2/4 = 3/4 (when denominators are same)</p>
+                        </div>
+                    </div>
+                    
+                    <div id="decimals" class="tab-content">
+                        <h2 class="text-xl font-bold text-blue-800 mb-4" data-translate="understanding-decimals">Understanding Decimals</h2>
+                        <p class="text-gray-700 mb-4" data-translate="decimal-definition">Decimals are another way to represent fractions. The decimal point separates the whole number from the fractional part.</p>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                            <h3 class="font-semibold text-blue-700 mb-2" data-translate="decimal-places">Decimal Places:</h3>
+                            <ul class="list-disc pl-5 text-gray-700">
+                                <li class="mb-2"><span class="font-medium" data-translate="tenths">Tenths:</span> <span data-translate="tenths-desc">First digit after decimal (e.g., 0.3 = 3/10)</span></li>
+                                <li class="mb-2"><span class="font-medium" data-translate="hundredths">Hundredths:</span> <span data-translate="hundredths-desc">Second digit after decimal (e.g., 0.25 = 25/100)</span></li>
+                                <li><span class="font-medium" data-translate="thousandths">Thousandths:</span> <span data-translate="thousandths-desc">Third digit after decimal (e.g., 0.125 = 125/1000)</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700 mb-2" data-translate="example">Example:</h3>
+                            <p class="text-gray-700" data-translate="money-example">$2.50 means 2 dollars and 50 cents (50/100 of a dollar).</p>
+                            <p class="text-gray-700 mt-2" data-translate="decimal-adding">Adding decimals: 1.25 + 0.75 = 2.00 (align decimal points)</p>
+                        </div>
+                    </div>
+                    
+                    <div id="conversion" class="tab-content">
+                        <h2 class="text-xl font-bold text-blue-800 mb-4" data-translate="conversion-title">Conversion Between Fractions and Decimals</h2>
+                        <p class="text-gray-700 mb-4" data-translate="conversion-desc">Converting between fractions and decimals is an important skill in mathematics.</p>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
+                            <h3 class="font-semibold text-blue-700 mb-2" data-translate="conversion-methods">Conversion Methods:</h3>
+                            <ul class="list-disc pl-5 text-gray-700">
+                                <li class="mb-2"><span class="font-medium" data-translate="frac-to-decimal">Fraction to Decimal:</span> <span data-translate="frac-to-decimal-desc">Divide numerator by denominator (e.g., 3/4 = 3 ÷ 4 = 0.75)</span></li>
+                                <li><span class="font-medium" data-translate="decimal-to-frac">Decimal to Fraction:</span> <span data-translate="decimal-to-frac-desc">Write the decimal as a fraction with denominator 10, 100, 1000, etc. and simplify (e.g., 0.8 = 8/10 = 4/5)</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h3 class="font-semibold text-gray-700 mb-2" data-translate="example">Example:</h3>
+                            <p class="text-gray-700" data-translate="conversion-ex1">Convert 2/5 to decimal: 2 ÷ 5 = 0.4</p>
+                            <p class="text-gray-700 mt-2" data-translate="conversion-ex2">Convert 0.6 to fraction: 0.6 = 6/10 = 3/5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Coming Soon Pages -->
+        <!-- <div id="quiz" class="page">
+            <div class="bg-white rounded-xl shadow-md p-8 text-center">
+                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-pencil-alt text-green-600 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-800 mb-4" data-translate="quick-quiz">Quick Quiz</h2>
+                <p class="text-gray-600 mb-6" data-translate="quiz-coming-desc">Interactive quizzes are coming soon! Test your knowledge with engaging questions.</p>
+                <div class="bg-green-50 p-4 rounded-lg">
+                    <span class="text-green-700 font-medium" data-translate="coming-soon-detailed">Coming Soon - Stay Tuned!</span>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- <div id="games" class="page">
+            <div class="bg-white rounded-xl shadow-md p-8 text-center">
+                <div class="w-20 h-20 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-gamepad text-purple-600 text-3xl"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-blue-800 mb-4" data-translate="interactive-games">Interactive Games</h2>
+                <p class="text-gray-600 mb-6" data-translate="games-coming-desc">Fun and educational games are in development! Learn fractions and decimals through play.</p>
+                <div class="bg-purple-50 p-4 rounded-lg">
+                    <span class="text-purple-700 font-medium" data-translate="coming-soon-detailed">Coming Soon - Stay Tuned!</span>
+                </div>
+            </div>
+        </div> -->
+
+        <!-- Rewards Page -->
+        <div id="rewards" class="page">
+            <h2 class="text-xl font-bold text-blue-800 mb-4" data-translate="progress-rewards">Progress & Rewards</h2>
+            
+            <div class="bg-white rounded-xl shadow-md p-5 mb-6">
+                <h3 class="font-semibold text-blue-700 mb-4" data-translate="your-progress">Your Progress</h3>
+                
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <p class="text-2xl font-bold text-blue-800" data-translate="level-3">Level 3</p>
+                        <p class="text-sm text-gray-600" data-translate="math-explorer">Math Explorer</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-lg font-bold text-blue-800" id="currentXP">125 XP</p>
+                        <p class="text-sm text-gray-600" data-translate="xp-next">75 XP to next level</p>
+                    </div>
+                </div>
+                
+                <div class="w-full bg-gray-200 rounded-full h-3">
+                    <div class="progress-bar-fill bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full" style="width: 62%"></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2" data-translate="progress-desc">Keep learning to unlock new levels!</p>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md p-5 mb-6">
+                <h3 class="font-semibold text-blue-700 mb-4" data-translate="daily-streak">Daily Learning Streak</h3>
+                <div class="flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="w-16 h-16 bg-gradient-to-br from-orange-400 to-red-500 rounded-full flex items-center justify-center mb-2">
+                            <i class="fas fa-fire text-white text-2xl"></i>
+                        </div>
+                        <p class="text-2xl font-bold text-orange-600">7</p>
+                        <p class="text-sm text-gray-600" data-translate="days-streak">Days Streak</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-xl shadow-md p-5">
+                <h3 class="font-semibold text-blue-700 mb-4" data-translate="achievements">Achievements</h3>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center p-3 bg-blue-50 rounded-lg achievement-unlocked">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center mr-4 reward-badge">
+                            <i class="fas fa-star text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-blue-800" data-translate="first-steps">First Steps</h4>
+                            <p class="text-sm text-gray-600" data-translate="started-learning">Started learning fractions</p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full" data-translate="unlocked">Unlocked</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-green-50 rounded-lg achievement-unlocked">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-green-400 to-blue-500 flex items-center justify-center mr-4 reward-badge">
+                            <i class="fas fa-book-reader text-white text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-blue-800" data-translate="dedicated-learner">Dedicated Learner</h4>
+                            <p class="text-sm text-gray-600" data-translate="studied-all-topics">Studied all topic sections</p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full" data-translate="unlocked">Unlocked</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mr-4">
+                            <i class="fas fa-trophy text-gray-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-600" data-translate="quiz-master">Quiz Master</h4>
+                            <p class="text-sm text-gray-500" data-translate="complete-5-quizzes">Complete 5 quizzes perfectly</p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">0/5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mr-4">
+                            <i class="fas fa-gamepad text-gray-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-600" data-translate="game-champion">Game Champion</h4>
+                            <p class="text-sm text-gray-500" data-translate="play-all-games">Play all interactive games</p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full">0/3</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center p-3 bg-gray-50 rounded-lg">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center mr-4">
+                            <i class="fas fa-crown text-gray-500 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-medium text-gray-600" data-translate="math-wizard">Math Wizard</h4>
+                            <p class="text-sm text-gray-500" data-translate="reach-level-5">Reach Level 5</p>
+                        </div>
+                        <div class="ml-auto">
+                            <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full" data-translate="locked">Locked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Translation data with Hindi and improved Odia
+        const translations = {
+            en: {
+                'page-title': 'Fractions & Decimals',
+                'complete': 'Complete',
+                'level-display': 'Level 3 - 125 XP',
+                'study-materials': 'Study Materials',
+                'learn-concepts': 'Learn concepts',
+                'quick-quiz': 'Quick Quiz',
+                'test-knowledge': 'Test your knowledge',
+                'interactive-games': 'Interactive Games',
+                'learn-playing': 'Learn by playing',
+                'progress-rewards': 'Progress & Rewards',
+                'earn-achievements': 'Earn achievements',
+                'coming-soon': 'Coming Soon',
+                // 'quiz-coming-desc': 'Interactive quizzes are coming soon! Test your knowledge with engaging questions.',
+                'games-coming-desc': 'Fun and educational games are in development! Learn fractions and decimals through play.',
+                'coming-soon-detailed': 'Coming Soon - Stay Tuned!',
+                'fractions-tab': 'Fractions',
+                'decimals-tab': 'Decimals',
+                'conversion-tab': 'Conversion',
+                'understanding-fractions': 'Understanding Fractions',
+                'fraction-definition': 'A fraction represents a part of a whole. It consists of a numerator (top number) and a denominator (bottom number).',
+                'types-fractions': 'Types of Fractions:',
+                'proper-fractions': 'Proper fractions:',
+                'proper-desc': 'Numerator is less than denominator (e.g., 3/4)',
+                'improper-fractions': 'Improper fractions:',
+                'improper-desc': 'Numerator is greater than denominator (e.g., 5/3)',
+                'mixed-numbers': 'Mixed numbers:',
+                'mixed-desc': 'Combination of whole number and fraction (e.g., 1 ½)',
+                'example': 'Example:',
+                'pizza-example': 'If you have 3 out of 4 slices of pizza, you have 3/4 of the pizza.',
+                'adding-example': 'Adding fractions: 1/4 + 2/4 = 3/4 (when denominators are same)',
+                'understanding-decimals': 'Understanding Decimals',
+                'decimal-definition': 'Decimals are another way to represent fractions. The decimal point separates the whole number from the fractional part.',
+                'decimal-places': 'Decimal Places:',
+                'tenths': 'Tenths:',
+                'tenths-desc': 'First digit after decimal (e.g., 0.3 = 3/10)',
+                'hundredths': 'Hundredths:',
+                'hundredths-desc': 'Second digit after decimal (e.g., 0.25 = 25/100)',
+                'thousandths': 'Thousandths:',
+                'thousandths-desc': 'Third digit after decimal (e.g., 0.125 = 125/1000)',
+                'money-example': '$2.50 means 2 dollars and 50 cents (50/100 of a dollar).',
+                'decimal-adding': 'Adding decimals: 1.25 + 0.75 = 2.00 (align decimal points)',
+                'conversion-title': 'Conversion Between Fractions and Decimals',
+                'conversion-desc': 'Converting between fractions and decimals is an important skill in mathematics.',
+                'conversion-methods': 'Conversion Methods:',
+                'frac-to-decimal': 'Fraction to Decimal:',
+                'frac-to-decimal-desc': 'Divide numerator by denominator (e.g., 3/4 = 3 ÷ 4 = 0.75)',
+                'decimal-to-frac': 'Decimal to Fraction:',
+                'decimal-to-frac-desc': 'Write the decimal as a fraction with denominator 10, 100, 1000, etc. and simplify (e.g., 0.8 = 8/10 = 4/5)',
+                'conversion-ex1': 'Convert 2/5 to decimal: 2 ÷ 5 = 0.4',
+                'conversion-ex2': 'Convert 0.6 to fraction: 0.6 = 6/10 = 3/5',
+                'your-progress': 'Your Progress',
+                'level-3': 'Level 3',
+                'math-explorer': 'Math Explorer',
+                'xp-next': '75 XP to next level',
+                'progress-desc': 'Keep learning to unlock new levels!',
+                'daily-streak': 'Daily Learning Streak',
+                'days-streak': 'Days Streak',
+                'achievements': 'Achievements',
+                'first-steps': 'First Steps',
+                'started-learning': 'Started learning fractions',
+                'dedicated-learner': 'Dedicated Learner',
+                'studied-all-topics': 'Studied all topic sections',
+                'unlocked': 'Unlocked',
+                'quiz-master': 'Quiz Master',
+                'complete-5-quizzes': 'Complete 5 quizzes perfectly',
+                'game-champion': 'Game Champion',
+                'play-all-games': 'Play all interactive games',
+                'math-wizard': 'Math Wizard',
+                'reach-level-5': 'Reach Level 5',
+                'locked': 'Locked'
+            },
+            hi: {
+                'page-title': 'भिन्न और दशमलव',
+                'complete': 'पूर्ण',
+                'level-display': 'स्तर 3 - 125 XP',
+                'study-materials': 'अध्ययन सामग्री',
+                'learn-concepts': 'अवधारणाएं सीखें',
+                'quick-quiz': 'त्वरित प्रश्नोत्तरी',
+                'test-knowledge': 'अपने ज्ञान का परीक्षण करें',
+                'interactive-games': 'इंटरैक्टिव गेम्स',
+                'learn-playing': 'खेल खेल कर सीखें',
+                'progress-rewards': 'प्रगति और पुरस्कार',
+                'earn-achievements': 'उपलब्धियां अर्जित करें',
+                'coming-soon': 'जल्द आ रहा है',
+                'quiz-coming-desc': 'इंटरैक्टिव प्रश्नोत्तरी जल्द आ रही है! दिलचस्प प्रश्नों के साथ अपने ज्ञान का परीक्षण करें।',
+                'games-coming-desc': 'मजेदार और शैक्षिक खेल विकसित हो रहे हैं! खेल के माध्यम से भिन्न और दशमलव सीखें।',
+                'coming-soon-detailed': 'जल्द आ रहा है - बने रहें!',
+                'fractions-tab': 'भिन्न',
+                'decimals-tab': 'दशमलव',
+                'conversion-tab': 'रूपांतरण',
+                'understanding-fractions': 'भिन्न को समझना',
+                'fraction-definition': 'भिन्न किसी पूर्ण का एक हिस्सा दर्शाता है। यह अंश (ऊपर की संख्या) और हर (नीचे की संख्या) से मिलकर बनता है।',
+                'types-fractions': 'भिन्न के प्रकार:',
+                'proper-fractions': 'उचित भिन्न:',
+                'proper-desc': 'अंश हर से छोटा होता है (जैसे, 3/4)',
+                'improper-fractions': 'अनुचित भिन्न:',
+                'improper-desc': 'अंश हर से बड़ा होता है (जैसे, 5/3)',
+                'mixed-numbers': 'मिश्रित संख्याएं:',
+                'mixed-desc': 'पूर्ण संख्या और भिन्न का संयोजन (जैसे, 1 ½)',
+                'example': 'उदाहरण:',
+                'pizza-example': 'यदि आपके पास 4 पिज्जा स्लाइस में से 3 हैं, तो आपके पास पिज्जा का 3/4 हिस्सा है।',
+                'adding-example': 'भिन्न जोड़ना: 1/4 + 2/4 = 3/4 (जब हर समान हो)',
+                'understanding-decimals': 'दशमलव को समझना',
+                'decimal-definition': 'दशमलव भिन्न को दर्शाने का दूसरा तरीका है। दशमलव बिंदु पूर्ण संख्या को भिन्न भाग से अलग करता है।',
+                'decimal-places': 'दशमलव स्थान:',
+                'tenths': 'दशांश:',
+                'tenths-desc': 'दशमलव के बाद पहला अंक (जैसे, 0.3 = 3/10)',
+                'hundredths': 'शतांश:',
+                'hundredths-desc': 'दशमलव के बाद दूसरा अंक (जैसे, 0.25 = 25/100)',
+                'thousandths': 'हजारांश:',
+                'thousandths-desc': 'दशमलव के बाद तीसरा अंक (जैसे, 0.125 = 125/1000)',
+                'money-example': '$2.50 का मतलब 2 डॉलर और 50 सेंट (एक डॉलर का 50/100) है।',
+                'decimal-adding': 'दशमलव जोड़ना: 1.25 + 0.75 = 2.00 (दशमलव बिंदु को मिलाएं)',
+                'conversion-title': 'भिन्न और दशमलव के बीच रूपांतरण',
+                'conversion-desc': 'भिन्न और दशमलव के बीच रूपांतरण गणित में एक महत्वपूर्ण कौशल है।',
+                'conversion-methods': 'रूपांतरण विधियां:',
+                'frac-to-decimal': 'भिन्न से दशमलव:',
+                'frac-to-decimal-desc': 'अंश को हर से भाग दें (जैसे, 3/4 = 3 ÷ 4 = 0.75)',
+                'decimal-to-frac': 'दशमलव से भिन्न:',
+                'decimal-to-frac-desc': 'दशमलव को हर 10, 100, 1000 आदि के साथ भिन्न के रूप में लिखें और सरल करें (जैसे, 0.8 = 8/10 = 4/5)',
+                'conversion-ex1': '2/5 को दशमलव में बदलें: 2 ÷ 5 = 0.4',
+                'conversion-ex2': '0.6 को भिन्न में बदलें: 0.6 = 6/10 = 3/5',
+                'your-progress': 'आपकी प्रगति',
+                'level-3': 'स्तर 3',
+                'math-explorer': 'गणित अन्वेषक',
+                'xp-next': 'अगले स्तर के लिए 75 XP',
+                'progress-desc': 'नए स्तरों को अनलॉक करने के लिए सीखते रहें!',
+                'daily-streak': 'दैनिक अध्ययन श्रृंखला',
+                'days-streak': 'दिन की श्रृंखला',
+                'achievements': 'उपलब्धियां',
+                'first-steps': 'पहले कदम',
+                'started-learning': 'भिन्न सीखना शुरू किया',
+                'dedicated-learner': 'समर्पित शिक्षार्थी',
+                'studied-all-topics': 'सभी विषय वर्गों का अध्ययन किया',
+                'unlocked': 'अनलॉक हो गया',
+                'quiz-master': 'प्रश्नोत्तरी मास्टर',
+                'complete-5-quizzes': '5 प्रश्नोत्तरी पूर्ण रूप से पूरी करें',
+                'game-champion': 'खेल चैंपियन',
+                'play-all-games': 'सभी इंटरैक्टिव गेम खेलें',
+                'math-wizard': 'गणित जादूगर',
+                'reach-level-5': 'स्तर 5 तक पहुंचें',
+                'locked': 'लॉक किया गया'
+            },
+            or: {
+                'page-title': 'ଭଗ୍ନାଂଶ ଓ ଦଶମିକ',
+                'complete': 'ସମ୍ପୂର୍ଣ୍ଣ',
+                'level-display': 'ସ୍ତର 3 - 125 XP',
+                'study-materials': 'ଅଧ୍ୟୟନ ସାମଗ୍ରୀ',
+                'learn-concepts': 'ଧାରଣା ଶିଖନ୍ତୁ',
+                'quick-quiz': 'ତ୍ୱରିତ କୁଇଜ୍',
+                'test-knowledge': 'ନିଜ ଜ୍ଞାନ ପରୀକ୍ଷା କରନ୍ତୁ',
+                'interactive-games': 'ଇଣ୍ଟରାକ୍ଟିଭ୍ ଖେଳ',
+                'learn-playing': 'ଖେଳ ମାଧ୍ୟମରେ ଶିଖନ୍ତୁ',
+                'progress-rewards': 'ପ୍ରଗତି ଓ ପୁରସ୍କାର',
+                'earn-achievements': 'ସଫଳତା ଅର୍ଜନ କରନ୍ତୁ',
+                'coming-soon': 'ଶୀଘ୍ର ଆସୁଛି',
+                'quiz-coming-desc': 'ଇଣ୍ଟରାକ୍ଟିଭ୍ କୁଇଜ୍ ଶୀଘ୍ର ଆସୁଛି! ରୋଚକ ପ୍ରଶ୍ନ ସହିତ ନିଜ ଜ୍ଞାନ ପରୀକ୍ଷା କରନ୍ତୁ।',
+                'games-coming-desc': 'ମଜାଦାର ଏବଂ ଶିକ୍ଷାମୂଳକ ଖେଳ ବିକାଶ ହେଉଛି! ଖେଳ ମାଧ୍ୟମରେ ଭଗ୍ନାଂଶ ଓ ଦଶମିକ ଶିଖନ୍ତୁ।',
+                'coming-soon-detailed': 'ଶୀଘ୍ର ଆସୁଛି - ଅପେକ୍ଷା କରନ୍ତୁ!',
+                'fractions-tab': 'ଭଗ୍ନାଂଶ',
+                'decimals-tab': 'ଦଶମିକ',
+                'conversion-tab': 'ରୂପାନ୍ତରଣ',
+                'understanding-fractions': 'ଭଗ୍ନାଂଶ ବୁଝିବା',
+                'fraction-definition': 'ଭଗ୍ନାଂଶ ଏକ ସମ୍ପୂର୍ଣ୍ଣର ଏକ ଅଂଶକୁ ପ୍ରତିନିଧିତ୍ୱ କରେ। ଏହା ଅଂଶକ (ଉପର ସଂଖ୍ୟା) ଏବଂ ହରଣ (ତଳ ସଂଖ୍ୟା) ଦ୍ୱାରା ଗଠିତ।',
+                'types-fractions': 'ଭଗ୍ନାଂଶର ପ୍ରକାର:',
+                'proper-fractions': 'ସଠିକ ଭଗ୍ନାଂଶ:',
+                'proper-desc': 'ଅଂଶକ ହରଣଠାରୁ କମ୍ (ଯେପରିକି, 3/4)',
+                'improper-fractions': 'ଅସଠିକ ଭଗ୍ନାଂଶ:',
+                'improper-desc': 'ଅଂଶକ ହରଣଠାରୁ ଅଧିକ (ଯେପରିକି, 5/3)',
+                'mixed-numbers': 'ମିଶ୍ରିତ ସଂଖ୍ୟା:',
+                'mixed-desc': 'ପୂର୍ଣ୍ଣ ସଂଖ୍ୟା ଓ ଭଗ୍ନାଂଶର ମିଶ୍ରଣ (ଯେପରିକି, 1 ½)',
+                'example': 'ଉଦାହରଣ:',
+                'pizza-example': 'ଯଦି ଆପଣଙ୍କ ପାଖରେ 4ଟି ପିଜା ସ୍ଲାଇସ୍‌ରୁ 3ଟି ଅଛି, ତେବେ ଆପଣଙ୍କ ପାଖରେ ପିଜାର 3/4 ଭାଗ ଅଛି।',
+                'adding-example': 'ଭଗ୍ନାଂଶ ଯୋଗ: 1/4 + 2/4 = 3/4 (ଯେତେବେଳେ ହରଣ ସମାନ)',
+                'understanding-decimals': 'ଦଶମିକ ବୁଝିବା',
+                'decimal-definition': 'ଦଶମିକ ଭଗ୍ନାଂଶକୁ ପ୍ରତିନିଧିତ୍ୱ କରିବାର ଅନ୍ୟ ଏକ ଉପାୟ। ଦଶମିକ ବିନ୍ଦୁ ପୂର୍ଣ୍ଣ ସଂଖ୍ୟାକୁ ଭଗ୍ନାଂଶ ଅଂଶରୁ ଅଲଗ କରେ।',
+                'decimal-places': 'ଦଶମିକ ସ୍ଥାନ:',
+                'tenths': 'ଦଶମ:',
+                'tenths-desc': 'ଦଶମିକ ପରେ ପ୍ରଥମ ଅଙ୍କ (ଯେପରିକି, 0.3 = 3/10)',
+                'hundredths': 'ଶତତମ:',
+                'hundredths-desc': 'ଦଶମିକ ପରେ ଦ୍ୱିତୀୟ ଅଙ୍କ (ଯେପରିକି, 0.25 = 25/100)',
+                'thousandths': 'ସହସ୍ରତମ:',
+                'thousandths-desc': 'ଦଶମିକ ପରେ ତୃତୀୟ ଅଙ୍କ (ଯେପରିକି, 0.125 = 125/1000)',
+                'money-example': '$2.50 ମାନେ 2 ଡଲାର ଓ 50 ସେଣ୍ଟ (ଏକ ଡଲାରର 50/100)।',
+                'decimal-adding': 'ଦଶମିକ ଯୋଗ: 1.25 + 0.75 = 2.00 (ଦଶମିକ ବିନ୍ଦୁକୁ ମେଳାନ୍ତୁ)',
+                'conversion-title': 'ଭଗ୍ନାଂଶ ଓ ଦଶମିକ ମଧ୍ୟରେ ରୂପାନ୍ତରଣ',
+                'conversion-desc': 'ଭଗ୍ନାଂଶ ଓ ଦଶମିକ ମଧ୍ୟରେ ରୂପାନ୍ତରଣ ଗଣିତରେ ଏକ ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ କୌଶଳ।',
+                'conversion-methods': 'ରୂପାନ୍ତରଣ ପଦ୍ଧତି:',
+                'frac-to-decimal': 'ଭଗ୍ନାଂଶରୁ ଦଶମିକ:',
+                'frac-to-decimal-desc': 'ଅଂଶକକୁ ହରଣ ଦ୍ୱାରା ଭାଗ କରନ୍ତୁ (ଯେପରିକି, 3/4 = 3 ÷ 4 = 0.75)',
+                'decimal-to-frac': 'ଦଶମିକରୁ ଭଗ୍ନାଂଶ:',
+                'decimal-to-frac-desc': 'ଦଶମିକକୁ ହରଣ 10, 100, 1000 ଇତ୍ୟାଦି ସହିତ ଭଗ୍ନାଂଶ ଭାବେ ଲେଖନ୍ତୁ ଏବଂ ସରଳ କରନ୍ତୁ (ଯେପରିକି, 0.8 = 8/10 = 4/5)',
+                'conversion-ex1': '2/5କୁ ଦଶମିକରେ ପରିବର୍ତ୍ତନ: 2 ÷ 5 = 0.4',
+                'conversion-ex2': '0.6କୁ ଭଗ୍ନାଂଶରେ ପରିବର୍ତ୍ତନ: 0.6 = 6/10 = 3/5',
+                'your-progress': 'ଆପଣଙ୍କ ପ୍ରଗତି',
+                'level-3': 'ସ୍ତର 3',
+                'math-explorer': 'ଗଣିତ ଅନୁସନ୍ଧାନକାରୀ',
+                'xp-next': 'ପରବର୍ତ୍ତୀ ସ୍ତର ପାଇଁ 75 XP',
+                'progress-desc': 'ନୂତନ ସ୍ତର ଅନଲକ୍ କରିବା ପାଇଁ ଶିଖିବା ଜାରି ରଖନ୍ତୁ!',
+                'daily-streak': 'ଦୈନିକ ଶିକ୍ଷା ଧାରା',
+                'days-streak': 'ଦିନର ଧାରା',
+                'achievements': 'ସଫଳତା',
+                'first-steps': 'ପ୍ରଥମ ପାଦକ୍ଷେପ',
+                'started-learning': 'ଭଗ୍ନାଂଶ ଶିଖିବା ଆରମ୍ଭ କଲେ',
+                'dedicated-learner': 'ନିବେଦିତ ଶିକ୍ଷାର୍ଥୀ',
+                'studied-all-topics': 'ସମସ୍ତ ବିଷୟ ବିଭାଗ ଅଧ୍ୟୟନ କଲେ',
+                'unlocked': 'ଅନଲକ୍ ହୋଇଛି',
+                'quiz-master': 'କୁଇଜ୍ ମାଷ୍ଟର',
+                'complete-5-quizzes': '5ଟି କୁଇଜ୍ ସମ୍ପୂର୍ଣ୍ଣ ରୂପେ ସମାପ୍ତ କରନ୍ତୁ',
+                'game-champion': 'ଖେଳ ଚାମ୍ପିଅନ୍',
+                'play-all-games': 'ସମସ୍ତ ଇଣ୍ଟରାକ୍ଟିଭ୍ ଖେଳ ଖେଳନ୍ତୁ',
+                'math-wizard': 'ଗଣିତ ଯାଦୁଗର',
+                'reach-level-5': 'ସ୍ତର 5ରେ ପହଞ୍ଚନ୍ତୁ',
+                'locked': 'ଲକ୍ ହୋଇଛି'
+            }
+        };
+
+        let currentLanguage = 'en';
+        let currentProgress = 50;
+        let currentXP = 125;
+
+        function translatePage(language) {
+            const elements = document.querySelectorAll('[data-translate]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[language] && translations[language][key]) {
+                    element.textContent = translations[language][key];
+                }
+            });
+            currentLanguage = language;
+        }
+
+        function updateProgress(newProgress) {
+            const progressRing = document.querySelector('.progress-ring');
+            const progressPercent = document.getElementById('progressPercent');
+            const radius = 50;
+            const circumference = 2 * Math.PI * radius;
+            
+            currentProgress = newProgress;
+            progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+            progressRing.style.strokeDashoffset = `${circumference - (newProgress / 100) * circumference}`;
+            progressPercent.textContent = `${newProgress}%`;
+        }
+
+        function simulateProgressGain() {
+            if (currentProgress < 100) {
+                currentProgress += Math.floor(Math.random() * 10) + 5;
+                currentXP += Math.floor(Math.random() * 20) + 10;
+                
+                if (currentProgress > 100) currentProgress = 100;
+                
+                updateProgress(currentProgress);
+                document.getElementById('currentXP').textContent = `${currentXP} XP`;
+                
+                // Update level display
+                const levelDisplay = document.querySelector('[data-translate="level-display"]');
+                if (currentXP >= 200) {
+                    levelDisplay.textContent = translations[currentLanguage]['level-display'].replace('Level 3', 'Level 4').replace('125', currentXP);
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial progress
+            updateProgress(currentProgress);
+            
+            // Language dropdown functionality
+            const languageBtn = document.getElementById('languageBtn');
+            const languageDropdown = document.getElementById('languageDropdown');
+            const languageOptions = document.querySelectorAll('.language-option');
+
+            languageBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                languageDropdown.classList.toggle('active');
+            });
+
+            document.addEventListener('click', function() {
+                languageDropdown.classList.remove('active');
+            });
+
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const selectedLang = this.getAttribute('data-lang');
+                    
+                    languageOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    translatePage(selectedLang);
+                    languageDropdown.classList.remove('active');
+                });
+            });
+            
+            // Navigation functionality
+            const navCards = document.querySelectorAll('.option-card');
+            const pages = document.querySelectorAll('.page');
+            const backBtn = document.getElementById('backBtn');
+            
+            navCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const targetPage = this.getAttribute('data-target');
+                    
+                    if (targetPage) {
+                        pages.forEach(page => {
+                            page.classList.remove('active');
+                        });
+                        
+                        document.getElementById(targetPage).classList.add('active');
+                        
+                        // Simulate progress gain when navigating
+                        setTimeout(simulateProgressGain, 500);
+                    }
+                });
+            });
+            
+            backBtn.addEventListener('click', function() {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                document.getElementById('notes').classList.add('active');
+            });
+            
+            // Tab functionality for notes page
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    tabBtns.forEach(btn => {
+                        btn.classList.remove('text-blue-800', 'border-blue-500');
+                        btn.classList.add('text-gray-500');
+                        btn.style.borderBottom = 'none';
+                    });
+                    
+                    this.classList.add('text-blue-800', 'border-blue-500');
+                    this.classList.remove('text-gray-500');
+                    this.style.borderBottom = '2px solid #3b82f6';
+                    
+                    tabContents.forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Simulate learning progress when switching tabs
+                    setTimeout(simulateProgressGain, 300);
+                });
+            });
+
+            // Add click handlers for coming soon pages
+            const comingSoonCards = document.querySelectorAll('[data-target="quiz"], [data-target="games"]');
+            comingSoonCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const target = this.getAttribute('data-target');
+                    const message = target === 'quiz' ? 
+                        translations[currentLanguage]['quiz-coming-desc'] : 
+                        translations[currentLanguage]['games-coming-desc'];
+                    
+                    // Show a nice message instead of alert
+                    showNotification(message);
+                });
+            });
+        });
+
+       
+    </script>
+    
+    <style>
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(-10px); }
+        }
+    </style>
+</body>
+</html>

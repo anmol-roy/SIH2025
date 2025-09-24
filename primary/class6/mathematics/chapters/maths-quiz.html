@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fractions & Decimals Quiz</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        background: #f0f2f5;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .quiz-container {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        width: 95%;
+        max-width: 650px;
+        padding: 30px;
+        text-align: center;
+        box-sizing: border-box;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: #333;
+      }
+
+      .start-btn,
+      .restart-btn {
+        background: #007bff;
+        color: white;
+        padding: 12px 25px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 1.1em;
+        transition: 0.3s;
+      }
+
+      .start-btn:hover,
+      .restart-btn:hover {
+        background: #0056b3;
+      }
+
+      .progress-container {
+        background: #e0e0e0;
+        border-radius: 10px;
+        height: 14px;
+        width: 100%;
+        margin: 20px 0;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        background: #28a745;
+        height: 100%;
+        width: 0%;
+        transition: width 0.4s ease;
+      }
+
+      .timer {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+        color: #ff5722;
+      }
+
+      .question {
+        font-size: 1.3em;
+        margin-bottom: 20px;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .option {
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        background: #fafafa;
+      }
+
+      .option:hover {
+        background: #007bff;
+        color: white;
+        border-color: #007bff;
+      }
+
+      .option.selected {
+        background: #28a745;
+        color: white;
+        border-color: #28a745;
+      }
+
+      .option.incorrect {
+        background: #dc3545;
+        color: white;
+        border-color: #dc3545;
+      }
+
+      .option:disabled {
+        cursor: not-allowed;
+        opacity: 0.7;
+      }
+
+      .result {
+        margin-top: 20px;
+        font-size: 1.2em;
+        display: none;
+      }
+
+      .final-result {
+        font-size: 1.4em;
+        margin: 20px 0;
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        border-left: 5px solid #28a745;
+      }
+
+      .score-board {
+        margin: 15px 0;
+        font-weight: bold;
+        color: #444;
+      }
+
+      .streak {
+        font-size: 1em;
+        margin-top: 8px;
+        color: #ff9800;
+      }
+
+      .question-number {
+        color: #666;
+        font-size: 0.9em;
+        margin-bottom: 10px;
+      }
+
+      .quit-btn,
+      .back-to-materials-btn {
+        background: #6c757d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        margin: 10px 5px;
+        transition: 0.3s;
+      }
+
+      .quit-btn:hover,
+      .back-to-materials-btn:hover {
+        background: #5a6268;
+      }
+
+      .button-group {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="quiz-container">
+      <!-- Start Screen -->
+      <div class="start-screen">
+        <h2>Fractions & Decimals Quiz</h2>
+        <p>Test your knowledge with 20 questions and earn XP points!</p>
+        <p><strong>Rules:</strong> 30 seconds per question • 10 XP per correct answer • Bonus XP for streaks!</p>
+        <div class="button-group">
+          <button class="start-btn">Start Quiz</button>
+          <a href="numbers.html" class="back-to-materials-btn" style="text-decoration: none; display: inline-block;">Back to Materials</a>
+        </div>
+      </div>
+
+      <!-- Quiz Screen -->
+      <div class="quiz-content" style="display: none">
+        <div class="quiz-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+          <div class="timer">Time Left: <span id="time">30</span>s</div>
+          <a href="numbers.html" class="quit-btn" style="text-decoration: none; display: inline-block;">Quit Quiz</a>
+        </div>
+        <div class="progress-container"><div class="progress-bar"></div></div>
+        <div class="question-number">Question <span id="current-q">1</span> of <span id="total-q">20</span></div>
+        <div class="question">Question text</div>
+        <div class="options"></div>
+        <div class="score-board">
+          Score: <span id="score">0</span> | XP: <span id="xp">0</span>
+          <div class="streak" id="streak">Streak: 0</div>
+        </div>
+        <div class="result"></div>
+        <button class="restart-btn" style="display: none">Restart Quiz</button>
+      </div>
+    </div>
+
+    <script>
+      const quizData = [
+        {
+          question: "1/2 as a decimal is?",
+          options: ["0.25", "0.5", "0.75", "1"],
+          answer: "0.5",
+        },
+        {
+          question: "What is 0.25 as a fraction?",
+          options: ["1/2", "1/3", "1/4", "1/5"],
+          answer: "1/4",
+        },
+        {
+          question: "Which is greater: 3/4 or 0.7?",
+          options: ["3/4", "0.7", "Equal", "Can't compare"],
+          answer: "3/4",
+        },
+        {
+          question: "Convert 2.5 into a fraction.",
+          options: ["2/5", "25/10", "5/2", "1/2"],
+          answer: "5/2",
+        },
+        {
+          question: "What is 1/5 as a decimal?",
+          options: ["0.2", "0.25", "0.5", "0.1"],
+          answer: "0.2",
+        },
+        {
+          question: "Simplify 4/8",
+          options: ["1/4", "1/2", "2/3", "2/4"],
+          answer: "1/2",
+        },
+        {
+          question: "0.75 equals which fraction?",
+          options: ["3/4", "2/3", "1/2", "7/10"],
+          answer: "3/4",
+        },
+        {
+          question: "Which is smaller: 0.4 or 2/5?",
+          options: ["0.4", "2/5", "Equal", "Can't compare"],
+          answer: "Equal",
+        },
+        {
+          question: "Decimal of 7/10 is?",
+          options: ["0.7", "0.77", "0.17", "0.71"],
+          answer: "0.7",
+        },
+        {
+          question: "Fraction of 0.6 is?",
+          options: ["1/2", "3/5", "2/3", "5/6"],
+          answer: "3/5",
+        },
+        {
+          question: "Convert 5/2 into decimal.",
+          options: ["2.2", "2.5", "2.0", "2.1"],
+          answer: "2.5",
+        },
+        {
+          question: "Which is greater: 0.33 or 1/3?",
+          options: ["0.33", "1/3", "Equal", "None"],
+          answer: "1/3",
+        },
+        {
+          question: "Decimal form of 9/4?",
+          options: ["2.2", "2.25", "2.5", "2.0"],
+          answer: "2.25",
+        },
+        {
+          question: "Fraction of 1.2?",
+          options: ["12/10", "6/5", "Both A & B", "None"],
+          answer: "Both A & B",
+        },
+        {
+          question: "0.05 as a fraction?",
+          options: ["1/10", "1/20", "1/50", "1/100"],
+          answer: "1/20",
+        },
+        {
+          question: "Simplify 10/100",
+          options: ["1/10", "1/20", "1/5", "1/2"],
+          answer: "1/10",
+        },
+        {
+          question: "Which is bigger: 0.9 or 9/11?",
+          options: ["0.9", "9/11", "Equal", "Can't say"],
+          answer: "0.9",
+        },
+        {
+          question: "Decimal of 2/8?",
+          options: ["0.25", "0.2", "0.5", "0.4"],
+          answer: "0.25",
+        },
+        {
+          question: "Convert 7/2 to decimal.",
+          options: ["3.2", "3.5", "3.7", "4"],
+          answer: "3.5",
+        },
+        {
+          question: "Which is smaller: 1/8 or 0.15?",
+          options: ["1/8", "0.15", "Equal", "None"],
+          answer: "1/8",
+        },
+      ];
+
+      let currentQuestion = 0,
+        score = 0,
+        xp = 0,
+        streak = 0;
+      let timeLeft = 30,
+        timerInterval;
+      let isAnswered = false;
+
+      const timerEl = document.getElementById("time");
+      const questionEl = document.querySelector(".question");
+      const optionsEl = document.querySelector(".options");
+      const resultEl = document.querySelector(".result");
+      const scoreEl = document.getElementById("score");
+      const xpEl = document.getElementById("xp");
+      const streakEl = document.getElementById("streak");
+      const restartBtn = document.querySelector(".restart-btn");
+      const startBtn = document.querySelector(".start-btn");
+      const quizContent = document.querySelector(".quiz-content");
+      const startScreen = document.querySelector(".start-screen");
+      const progressBar = document.querySelector(".progress-bar");
+      const currentQEl = document.getElementById("current-q");
+      const totalQEl = document.getElementById("total-q");
+
+      // Initialize total questions
+      totalQEl.textContent = quizData.length;
+
+      // Function to load the question
+      function loadQuestion() {
+        if (currentQuestion >= quizData.length) {
+          endQuiz();
+          return;
+        }
+
+        isAnswered = false;
+        clearInterval(timerInterval);
+        timeLeft = 30;
+        timerEl.textContent = timeLeft;
+        startTimer();
+
+        const currentQuiz = quizData[currentQuestion];
+        questionEl.textContent = currentQuiz.question;
+        currentQEl.textContent = currentQuestion + 1;
+        
+        // Clear previous options
+        optionsEl.innerHTML = "";
+        
+        currentQuiz.options.forEach((option) => {
+          const button = document.createElement("button");
+          button.classList.add("option");
+          button.textContent = option;
+          button.onclick = () => checkAnswer(option, button);
+          optionsEl.appendChild(button);
+        });
+
+        updateProgress();
+      }
+
+      function checkAnswer(selected, buttonEl) {
+        if (isAnswered) return; // Prevent multiple clicks
+        
+        isAnswered = true;
+        clearInterval(timerInterval);
+        
+        // Disable all buttons
+        const allOptions = document.querySelectorAll('.option');
+        allOptions.forEach(btn => btn.disabled = true);
+
+        const correctAnswer = quizData[currentQuestion].answer;
+        
+        if (selected === correctAnswer) {
+          score++;
+          xp += 1;
+          streak++;
+          buttonEl.classList.add('selected');
+          
+          // Bonus XP for streaks
+          if (streak % 3 === 0 && streak > 0) {
+            xp += 2;
+          }
+        } else {
+          streak = 0;
+          buttonEl.classList.add('incorrect');
+          
+          // Highlight correct answer
+          allOptions.forEach(btn => {
+            if (btn.textContent === correctAnswer) {
+              btn.classList.add('selected');
+            }
+          });
+        }
+
+        updateUI();
+        
+        // Move to next question after a delay
+        setTimeout(() => {
+          currentQuestion++;
+          loadQuestion();
+        }, 1500);
+      }
+
+      function startTimer() {
+        timerInterval = setInterval(() => {
+          timeLeft--;
+          timerEl.textContent = timeLeft;
+          
+          if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            
+            if (!isAnswered) {
+              // Time up - mark as incorrect and show correct answer
+              isAnswered = true;
+              streak = 0;
+              
+              const allOptions = document.querySelectorAll('.option');
+              const correctAnswer = quizData[currentQuestion].answer;
+              
+              allOptions.forEach(btn => {
+                btn.disabled = true;
+                if (btn.textContent === correctAnswer) {
+                  btn.classList.add('selected');
+                }
+              });
+              
+              updateUI();
+              
+              setTimeout(() => {
+                currentQuestion++;
+                loadQuestion();
+              }, 1500);
+            }
+          }
+        }, 1000);
+      }
+
+      function endQuiz() {
+        clearInterval(timerInterval);
+        
+        // Hide quiz elements
+        document.querySelector('.timer').style.display = 'none';
+        document.querySelector('.progress-container').style.display = 'none';
+        document.querySelector('.question-number').style.display = 'none';
+        questionEl.style.display = 'none';
+        optionsEl.style.display = 'none';
+        
+        // Show final results
+        resultEl.style.display = 'block';
+        resultEl.innerHTML = `
+          <div class="final-result">
+            <h3>Quiz Complete! 🎉</h3>
+            <p><strong>Final Score: ${score}/${quizData.length}</strong></p>
+            <p>Total XP Earned: <strong>${xp}</strong></p>
+            <p>Best Streak: <strong>${Math.max(...streakHistory)}</strong></p>
+            <p>Percentage: <strong>${Math.round((score/quizData.length)*100)}%</strong></p>
+            ${score === quizData.length ? '<p style="color: #28a745;">Perfect Score! 🏆</p>' : 
+              score >= quizData.length * 0.8 ? '<p style="color: #28a745;">Excellent! 🌟</p>' :
+              score >= quizData.length * 0.6 ? '<p style="color: #ffc107;">Good job! 👍</p>' :
+              '<p style="color: #ff5722;">Keep practicing! 📚</p>'}
+            <div class="button-group">
+              <button class="restart-btn" onclick="restartQuiz()">Restart Quiz</button>
+              <a href="numbers.html" class="back-to-materials-btn" style="text-decoration: none; display: inline-block;">Back to Materials</a>
+            </div>
+          </div>
+        `;
+        
+        restartBtn.style.display = 'none'; // Hide the old restart button since it's now in the result
+      }
+
+      function restartQuiz() {
+        // Reset all variables
+        currentQuestion = 0;
+        score = 0;
+        xp = 0;
+        streak = 0;
+        streakHistory = [0];
+        timeLeft = 30;
+        isAnswered = false;
+        
+        // Show quiz elements
+        document.querySelector('.timer').style.display = 'block';
+        document.querySelector('.progress-container').style.display = 'block';
+        document.querySelector('.question-number').style.display = 'block';
+        questionEl.style.display = 'block';
+        optionsEl.style.display = 'flex';
+        resultEl.style.display = 'none';
+        restartBtn.style.display = 'none';
+        
+        // Reset progress bar
+        progressBar.style.width = '0%';
+        
+        updateUI();
+        loadQuestion();
+      }
+
+      function updateUI() {
+        scoreEl.textContent = score;
+        xpEl.textContent = xp;
+        streakEl.textContent = `Streak: ${streak}`;
+      }
+
+      function updateProgress() {
+        const progress = (currentQuestion / quizData.length) * 100;
+        progressBar.style.width = `${progress}%`;
+      }
+
+      // Track streak history for final results
+      let streakHistory = [0];
+
+      // Event listeners
+      restartBtn.addEventListener("click", restartQuiz);
+
+      startBtn.addEventListener("click", () => {
+        startScreen.style.display = "none";
+        quizContent.style.display = "block";
+        loadQuestion();
+      });
+
+      // Track streak history
+      const originalCheckAnswer = checkAnswer;
+      window.checkAnswer = function(...args) {
+        originalCheckAnswer.apply(this, args);
+        streakHistory.push(streak);
+      };
+    </script>
+  </body>
+</html>

@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Progress - LearnRural</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    .nav-item {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+    }
+    .nav-tooltip {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    .nav-item:hover .nav-tooltip {
+      opacity: 1;
+    }
+    .progress-card {
+      transition: all 0.3s ease;
+    }
+    .progress-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.2);
+    }
+    .progress-bar {
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.1) 50%, transparent 100%);
+      animation: shimmer 2s infinite;
+    }
+    @keyframes shimmer {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .language-dropdown {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .language-switcher.open .language-dropdown {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-menu {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .chart-container {
+      position: relative;
+      height: 200px;
+    }
+    .achievement-badge {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    @media (min-width: 768px) {
+      .mobile-menu-btn { display: none; }
+      .mobile-overlay { display: none; }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+  
+  <!-- Mobile Menu Button -->
+  <button id="mobileMenuBtn" class="mobile-menu-btn fixed top-4 left-4 z-50 bg-blue-700 bg-opacity-80 p-3 rounded-lg md:hidden">
+    <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <!-- Left Sidebar Navigation -->
+  <div id="sidebar" class="mobile-menu fixed left-0 top-0 bottom-0 w-64 bg-blue-900 bg-opacity-30 backdrop-blur-md min-h-screen p-4 z-50 md:transform-none md:w-20 lg:w-64">
+    <!-- Logo Section -->
+    <div class="flex items-center justify-center lg:justify-start mb-8 mt-4">
+      <div class="bg-blue-700 bg-opacity-30 p-2 rounded-lg">
+        <svg viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="28" width="52" height="26" rx="4" fill="rgba(255,255,255,0.18)" />
+          <path d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0" stroke="#fff" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z" fill="#fff" opacity="0.95" />
+        </svg>
+      </div>
+      <div class="ml-3 md:hidden lg:block">
+        <div class="font-bold text-white text-lg">LearnRural</div>
+        <div class="text-blue-200 text-xs">नवीन शिक्षा • New Learning</div>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="mt-10">
+      <a href="studentdashboard.html" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">📚</span>
+        <span class="nav-text md:hidden lg:block">Dashboard</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Dashboard</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">🎓</span>
+        <span class="nav-text md:hidden lg:block">My Courses</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">My Courses</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 active group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">📊</span>
+        <span class="nav-text md:hidden lg:block">Progress</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Progress</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">🏆</span>
+        <span class="nav-text md:hidden lg:block">Achievements</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Achievements</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">⚙️</span>
+        <span class="nav-text md:hidden lg:block">Settings</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 md:ml-20 lg:ml-64 p-4 md:p-6">
+    <!-- Header -->
+    <header class="bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <button onclick="history.back()" class="bg-blue-700 bg-opacity-30 hover:bg-opacity-40 p-2 rounded-lg transition">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+          </svg>
+        </button>
+        <div>
+          <h1 class="text-xl md:text-2xl font-bold text-white" data-translate="progress.title">Your Learning Progress</h1>
+          <p class="text-blue-200 text-sm" data-translate="progress.subtitle">Track your achievements and continue learning</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-4 self-end sm:self-auto">
+        <!-- Language Switcher -->
+        <div class="language-switcher relative" id="languageSwitcher">
+          <button class="language-btn bg-blue-700 bg-opacity-30 hover:bg-opacity-40 py-2 px-3 rounded-lg flex items-center space-x-2 transition" id="languageBtn">
+            <span class="flag text-lg" id="currentFlag">🇬🇧</span>
+            <span id="currentLang" class="font-medium">EN</span>
+            <span class="dropdown-arrow text-xs">▼</span>
+          </button>
+          <div class="language-dropdown absolute right-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-lg py-1 z-50" id="languageDropdown">
+            <button data-lang="en" class="w-full text-left px-4 py-2 hover:bg-blue-600 flex items-center space-x-3">
+              <span class="flag text-lg">🇬🇧</span>
+              <div class="flex flex-col">
+                <span class="lang-name font-medium">English</span>
+                <span class="lang-native text-blue-200 text-sm">English</span>
+              </div>
+            </button>
+            <button data-lang="hi" class="w-full text-left px-4 py-2 hover:bg-blue-600 flex items-center space-x-3">
+              <span class="flag text-lg">🇮🇳</span>
+              <div class="flex flex-col">
+                <span class="lang-name font-medium">Hindi</span>
+                <span class="lang-native text-blue-200 text-sm">हिंदी</span>
+              </div>
+            </button>
+            <button data-lang="or" class="w-full text-left px-4 py-2 hover:bg-blue-600 flex items-center space-x-3">
+              <span class="flag text-lg">🏛️</span>
+              <div class="flex flex-col">
+                <span class="lang-name font-medium">Odia</span>
+                <span class="lang-native text-blue-200 text-sm">ଓଡ଼ିଆ</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        
+        <button class="login-btn bg-blue-600 hover:bg-blue-500 py-2 px-4 rounded-lg font-medium transition" id="loginBtn">Login</button>
+      </div>
+    </header>
+
+    <!-- Overall Progress Stats -->
+    <section class="mb-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <!-- Total Lessons -->
+        <div class="progress-card bg-gradient-to-br from-blue-700 to-blue-800 rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">📚</span>
+            </div>
+            <span class="text-blue-200 text-sm" data-translate="progress.stats.lessons">Lessons</span>
+          </div>
+          <div class="text-2xl md:text-3xl font-bold mb-1">47</div>
+          <div class="text-blue-200 text-sm" data-translate="progress.stats.completed">Completed</div>
+        </div>
+
+        <!-- Study Time -->
+        <div class="progress-card bg-gradient-to-br from-purple-700 to-purple-800 rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">⏰</span>
+            </div>
+            <span class="text-blue-200 text-sm" data-translate="progress.stats.time">Study Time</span>
+          </div>
+          <div class="text-2xl md:text-3xl font-bold mb-1">23h</div>
+          <div class="text-blue-200 text-sm" data-translate="progress.stats.thisWeek">This Week</div>
+        </div>
+
+        <!-- Streak -->
+        <div class="progress-card bg-gradient-to-br from-green-700 to-green-800 rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">🔥</span>
+            </div>
+            <span class="text-blue-200 text-sm" data-translate="progress.stats.streak">Streak</span>
+          </div>
+          <div class="text-2xl md:text-3xl font-bold mb-1">12</div>
+          <div class="text-blue-200 text-sm" data-translate="progress.stats.days">Days</div>
+        </div>
+
+        <!-- Overall Score -->
+        <div class="progress-card bg-gradient-to-br from-amber-700 to-amber-800 rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">⭐</span>
+            </div>
+            <span class="text-blue-200 text-sm" data-translate="progress.stats.score">Average</span>
+          </div>
+          <div class="text-2xl md:text-3xl font-bold mb-1">85%</div>
+          <div class="text-blue-200 text-sm" data-translate="progress.stats.performance">Performance</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Subject Progress -->
+    <section class="mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-6" data-translate="progress.subjects.title">Subject Progress</h2>
+      
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        <!-- Mathematics -->
+        <div class="progress-card bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="bg-blue-700 bg-opacity-30 p-2 rounded-lg">
+                <span class="text-xl">📊</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg" data-translate="subjects.mathematics.title">Mathematics</h3>
+                <p class="text-blue-200 text-sm">12 <span data-translate="progress.chapters">chapters</span> • 60 <span data-translate="progress.lessons">lessons</span></p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-bold">78%</div>
+              <div class="text-blue-200 text-xs" data-translate="progress.complete">Complete</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span data-translate="progress.currentChapter">Current: Fractions</span>
+              <span>47/60</span>
+            </div>
+            <div class="w-full bg-blue-900 bg-opacity-30 rounded-full h-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-blue-500 to-blue-400 h-full rounded-full relative" style="width: 78%">
+                <div class="progress-bar absolute inset-0 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm text-blue-200">
+            <span data-translate="progress.lastStudied">Last studied: 2 days ago</span>
+            <span data-translate="progress.nextLesson">Next: Decimal Operations</span>
+          </div>
+        </div>
+
+        <!-- Science -->
+        <div class="progress-card bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="bg-purple-700 bg-opacity-30 p-2 rounded-lg">
+                <span class="text-xl">🔬</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg" data-translate="subjects.science.title">Science</h3>
+                <p class="text-blue-200 text-sm">15 <span data-translate="progress.chapters">chapters</span> • 75 <span data-translate="progress.lessons">lessons</span></p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-bold">65%</div>
+              <div class="text-blue-200 text-xs" data-translate="progress.complete">Complete</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span data-translate="progress.currentChapter">Current: Light & Sound</span>
+              <span>49/75</span>
+            </div>
+            <div class="w-full bg-blue-900 bg-opacity-30 rounded-full h-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-purple-500 to-purple-400 h-full rounded-full relative" style="width: 65%">
+                <div class="progress-bar absolute inset-0 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm text-blue-200">
+            <span data-translate="progress.lastStudied">Last studied: 1 day ago</span>
+            <span data-translate="progress.nextLesson">Next: Sound Waves</span>
+          </div>
+        </div>
+
+        <!-- Social Science -->
+        <div class="progress-card bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="bg-green-700 bg-opacity-30 p-2 rounded-lg">
+                <span class="text-xl">🌍</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg" data-translate="subjects.social.title">Social Science</h3>
+                <p class="text-blue-200 text-sm">10 <span data-translate="progress.chapters">chapters</span> • 50 <span data-translate="progress.lessons">lessons</span></p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-bold">92%</div>
+              <div class="text-blue-200 text-xs" data-translate="progress.complete">Complete</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span data-translate="progress.currentChapter">Current: Indian Constitution</span>
+              <span>46/50</span>
+            </div>
+            <div class="w-full bg-blue-900 bg-opacity-30 rounded-full h-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-green-500 to-green-400 h-full rounded-full relative" style="width: 92%">
+                <div class="progress-bar absolute inset-0 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm text-blue-200">
+            <span data-translate="progress.lastStudied">Last studied: Today</span>
+            <span data-translate="progress.nextLesson">Next: Fundamental Rights</span>
+          </div>
+        </div>
+
+        <!-- English -->
+        <div class="progress-card bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 md:p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-3">
+              <div class="bg-amber-700 bg-opacity-30 p-2 rounded-lg">
+                <span class="text-xl">📚</span>
+              </div>
+              <div>
+                <h3 class="font-bold text-lg" data-translate="subjects.english.title">English</h3>
+                <p class="text-blue-200 text-sm">11 <span data-translate="progress.chapters">chapters</span> • 55 <span data-translate="progress.lessons">lessons</span></p>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-2xl font-bold">71%</div>
+              <div class="text-blue-200 text-xs" data-translate="progress.complete">Complete</div>
+            </div>
+          </div>
+          
+          <div class="mb-4">
+            <div class="flex justify-between text-sm mb-2">
+              <span data-translate="progress.currentChapter">Current: Grammar</span>
+              <span>39/55</span>
+            </div>
+            <div class="w-full bg-blue-900 bg-opacity-30 rounded-full h-2 overflow-hidden">
+              <div class="bg-gradient-to-r from-amber-500 to-amber-400 h-full rounded-full relative" style="width: 71%">
+                <div class="progress-bar absolute inset-0 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="flex justify-between text-sm text-blue-200">
+            <span data-translate="progress.lastStudied">Last studied: 3 days ago</span>
+            <span data-translate="progress.nextLesson">Next: Tenses</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Achievements -->
+    <section class="mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-6" data-translate="progress.achievements.title">Recent Achievements</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="achievement-badge bg-gradient-to-br from-yellow-600 to-yellow-700 rounded-xl p-4 text-center">
+          <div class="text-4xl mb-2">🏆</div>
+          <h3 class="font-bold mb-1" data-translate="progress.achievements.streak">7-Day Streak</h3>
+          <p class="text-yellow-200 text-sm" data-translate="progress.achievements.streakDesc">Keep up the momentum!</p>
+        </div>
+        
+        <div class="achievement-badge bg-gradient-to-br from-green-600 to-green-700 rounded-xl p-4 text-center">
+          <div class="text-4xl mb-2">⭐</div>
+          <h3 class="font-bold mb-1" data-translate="progress.achievements.perfect">Perfect Score</h3>
+          <p class="text-green-200 text-sm" data-translate="progress.achievements.perfectDesc">Aced the last quiz!</p>
+        </div>
+        
+        <div class="achievement-badge bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl p-4 text-center">
+          <div class="text-4xl mb-2">📖</div>
+          <h3 class="font-bold mb-1" data-translate="progress.achievements.reader">Speed Reader</h3>
+          <p class="text-blue-200 text-sm" data-translate="progress.achievements.readerDesc">Completed 10 lessons</p>
+        </div>
+        
+        <div class="achievement-badge bg-gradient-to-br from-purple-600 to-purple-700 rounded-xl p-4 text-center">
+          <div class="text-4xl mb-2">🧠</div>
+          <h3 class="font-bold mb-1" data-translate="progress.achievements.thinker">Quick Thinker</h3>
+          <p class="text-purple-200 text-sm" data-translate="progress.achievements.thinkerDesc">Solved in record time</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Weekly Activity Chart -->
+    <section class="mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-6" data-translate="progress.activity.title">Weekly Activity</h2>
+      
+      <div class="bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 md:p-6">
+        <div class="chart-container mb-4">
+          <div class="flex items-end justify-between h-full">
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-500 rounded-t mb-2" style="height: 60px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.mon">Mon</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-500 rounded-t mb-2" style="height: 80px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.tue">Tue</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-500 rounded-t mb-2" style="height: 40px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.wed">Wed</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-500 rounded-t mb-2" style="height: 100px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.thu">Thu</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-500 rounded-t mb-2" style="height: 90px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.fri">Fri</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-500 rounded-t mb-2" style="height: 70px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.sat">Sat</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="w-8 bg-blue-600 rounded-t mb-2" style="height: 120px;"></div>
+              <span class="text-xs text-blue-200" data-translate="progress.days.sun">Sun</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-between text-sm text-blue-200">
+          <span data-translate="progress.activity.total">Total: 23 hours this week</span>
+          <span data-translate="progress.activity.average">Average: 3.3h/day</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Actions -->
+    <section>
+      <h2 class="text-xl md:text-2xl font-bold mb-6" data-translate="progress.actions.title">Quick Actions</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <button class="bg-gradient-to-br from-blue-700 to-blue-800 rounded-xl p-4 md:p-6 text-left hover:scale-105 transition-transform">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">📚</span>
+            </div>
+            <h3 class="font-bold" data-translate="progress.actions.resume">Resume Learning</h3>
+          </div>
+          <p class="text-blue-200 text-sm" data-translate="progress.actions.resumeDesc">Continue where you left off</p>
+        </button>
+        
+        <button class="bg-gradient-to-br from-green-700 to-green-800 rounded-xl p-4 md:p-6 text-left hover:scale-105 transition-transform">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">🎯</span>
+            </div>
+            <h3 class="font-bold" data-translate="progress.actions.practice">Practice Quiz</h3>
+          </div>
+          <p class="text-green-200 text-sm" data-translate="progress.actions.practiceDesc">Test your knowledge</p>
+        </button>
+        
+        <button class="bg-gradient-to-br from-purple-700 to-purple-800 rounded-xl p-4 md:p-6 text-left hover:scale-105 transition-transform">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="bg-white bg-opacity-20 p-2 rounded-lg">
+              <span class="text-2xl">📊</span>
+            </div>
+            <h3 class="font-bold" data-translate="progress.actions.report">View Report</h3>
+          </div>
+          <p class="text-purple-200 text-sm" data-translate="progress.actions.reportDesc">Detailed analytics</p>
+        </button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const sidebar = document.getElementById('sidebar');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    let isMobileMenuOpen = false;
+
+    function toggleMobileMenu() {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      sidebar.classList.toggle('open', isMobileMenuOpen);
+      mobileOverlay.classList.toggle('open', isMobileMenuOpen);
+      menuIcon.classList.toggle('hidden', isMobileMenuOpen);
+      closeIcon.classList.toggle('hidden', !isMobileMenuOpen);
+      document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    }
+
+    function closeMobileMenu() {
+      if (isMobileMenuOpen) {
+        isMobileMenuOpen = false;
+        sidebar.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    });
+
+    // Language switcher functionality
+    const languageSwitcher = document.getElementById('languageSwitcher');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const currentFlag = document.getElementById('currentFlag');
+    const currentLang = document.getElementById('currentLang');
+
+    // Complete translation data for progress page
+    const translations = {
+      en: {
+        flag: '🇬🇧',
+        code: 'EN',
+        login: 'Login',
+        progress: {
+          title: "Your Learning Progress",
+          subtitle: "Track your achievements and continue learning",
+          complete: "Complete",
+          chapters: "chapters",
+          lessons: "lessons",
+          currentChapter: "Current: Fractions",
+          lastStudied: "Last studied: 2 days ago",
+          nextLesson: "Next: Decimal Operations",
+          stats: {
+            lessons: "Lessons",
+            completed: "Completed",
+            time: "Study Time",
+            thisWeek: "This Week",
+            streak: "Streak",
+            days: "Days",
+            score: "Average",
+            performance: "Performance"
+          },
+          subjects: {
+            title: "Subject Progress"
+          },
+          achievements: {
+            title: "Recent Achievements",
+            streak: "7-Day Streak",
+            streakDesc: "Keep up the momentum!",
+            perfect: "Perfect Score",
+            perfectDesc: "Aced the last quiz!",
+            reader: "Speed Reader",
+            readerDesc: "Completed 10 lessons",
+            thinker: "Quick Thinker",
+            thinkerDesc: "Solved in record time"
+          },
+          activity: {
+            title: "Weekly Activity",
+            total: "Total: 23 hours this week",
+            average: "Average: 3.3h/day"
+          },
+          days: {
+            mon: "Mon",
+            tue: "Tue", 
+            wed: "Wed",
+            thu: "Thu",
+            fri: "Fri",
+            sat: "Sat",
+            sun: "Sun"
+          },
+          actions: {
+            title: "Quick Actions",
+            resume: "Resume Learning",
+            resumeDesc: "Continue where you left off",
+            practice: "Practice Quiz",
+            practiceDesc: "Test your knowledge",
+            report: "View Report",
+            reportDesc: "Detailed analytics"
+          }
+        },
+        subjects: {
+          mathematics: { title: "Mathematics" },
+          science: { title: "Science" },
+          social: { title: "Social Science" },
+          english: { title: "English" }
+        }
+      },
+      hi: {
+        flag: '🇮🇳',
+        code: 'HI',
+        login: 'लॉगिन',
+        progress: {
+          title: "आपकी शिक्षा प्रगति",
+          subtitle: "अपनी उपलब्धियों को ट्रैक करें और सीखना जारी रखें",
+          complete: "पूर्ण",
+          chapters: "अध्याय",
+          lessons: "पाठ",
+          currentChapter: "वर्तमान: भिन्न",
+          lastStudied: "अंतिम अध्ययन: 2 दिन पहले",
+          nextLesson: "अगला: दशमलव संक्रियाएं",
+          stats: {
+            lessons: "पाठ",
+            completed: "पूर्ण",
+            time: "अध्ययन समय",
+            thisWeek: "इस सप्ताह",
+            streak: "लगातार",
+            days: "दिन",
+            score: "औसत",
+            performance: "प्रदर्शन"
+          },
+          subjects: {
+            title: "विषय प्रगति"
+          },
+          achievements: {
+            title: "हाल की उपलब्धियां",
+            streak: "7-दिन लगातार",
+            streakDesc: "गति बनाए रखें!",
+            perfect: "पूर्ण स्कोर",
+            perfectDesc: "अंतिम प्रश्नोत्तरी में सफल!",
+            reader: "तेज़ पाठक",
+            readerDesc: "10 पाठ पूरे किए",
+            thinker: "तेज़ विचारक",
+            thinkerDesc: "रिकॉर्ड समय में हल किया"
+          },
+          activity: {
+            title: "साप्ताहिक गतिविधि",
+            total: "कुल: इस सप्ताह 23 घंटे",
+            average: "औसत: 3.3 घंटे/दिन"
+          },
+          days: {
+            mon: "सोम",
+            tue: "मंगल", 
+            wed: "बुध",
+            thu: "गुरु",
+            fri: "शुक्र",
+            sat: "शनि",
+            sun: "रवि"
+          },
+          actions: {
+            title: "त्वरित क्रियाएं",
+            resume: "सीखना जारी रखें",
+            resumeDesc: "जहाँ छोड़ा था वहाँ से जारी रखें",
+            practice: "अभ्यास प्रश्नोत्तरी",
+            practiceDesc: "अपना ज्ञान परखें",
+            report: "रिपोर्ट देखें",
+            reportDesc: "विस्तृत विश्लेषण"
+          }
+        },
+        subjects: {
+          mathematics: { title: "गणित" },
+          science: { title: "विज्ञान" },
+          social: { title: "सामाजिक विज्ञान" },
+          english: { title: "अंग्रेजी" }
+        }
+      },
+      or: {
+        flag: '🏛️',
+        code: 'OD',
+        login: 'ଲଗଇନ୍',
+        progress: {
+          title: "ଆପଣଙ୍କର ଶିକ୍ଷଣ ପ୍ରଗତି",
+          subtitle: "ଆପଣଙ୍କର ସଫଳତାଗୁଡ଼ିକୁ ଟ୍ରାକ କରନ୍ତୁ ଏବଂ ଶିକ୍ଷଣ ଜାରି ରଖନ୍ତୁ",
+          complete: "ସମ୍ପୂର୍ଣ୍ଣ",
+          chapters: "ଅଧ୍ୟାୟଗୁଡ଼ିକ",
+          lessons: "ପାଠଗୁଡ଼ିକ",
+          currentChapter: "ବର୍ତ୍ତମାନ: ଭଗ୍ନାଂଶ",
+          lastStudied: "ଶେଷ ଅଧ୍ୟୟନ: 2 ଦିନ ପୂର୍ବେ",
+          nextLesson: "ପରବର୍ତ୍ତୀ: ଦଶମିକ କାର୍ଯ୍ୟ",
+          stats: {
+            lessons: "ପାଠଗୁଡ଼ିକ",
+            completed: "ସମ୍ପୂର୍ଣ୍ଣ",
+            time: "ଅଧ୍ୟୟନ ସମୟ",
+            thisWeek: "ଏହି ସପ୍ତାହ",
+            streak: "କ୍ରମାଗତ",
+            days: "ଦିନ",
+            score: "ହାରାହାରି",
+            performance: "ପ୍ରଦର୍ଶନ"
+          },
+          subjects: {
+            title: "ବିଷୟ ପ୍ରଗତି"
+          },
+          achievements: {
+            title: "ସମ୍ପ୍ରତି ସଫଳତାଗୁଡ଼ିକ",
+            streak: "7-ଦିନ କ୍ରମାଗତ",
+            streakDesc: "ଗତି ବଜାୟ ରଖନ୍ତୁ!",
+            perfect: "ପୂର୍ଣ୍ଣ ସ୍କୋର",
+            perfectDesc: "ଶେଷ କୁଇଜ୍‌ରେ ସଫଳ!",
+            reader: "ଦ୍ରୁତ ପାଠକ",
+            readerDesc: "10 ପାଠ ସମ୍ପୂର୍ଣ୍ଣ କରିଛନ୍ତି",
+            thinker: "ଦ୍ରୁତ ଚିନ୍ତକ",
+            thinkerDesc: "ରେକର୍ଡ ସମୟରେ ସମାଧାନ"
+          },
+          activity: {
+            title: "ସାପ୍ତାହିକ କାର୍ଯ୍ୟକଳାପ",
+            total: "ମୋଟ: ଏହି ସପ୍ତାହ 23 ଘଣ୍ଟା",
+            average: "ହାରାହାରି: 3.3 ଘଣ୍ଟା/ଦିନ"
+          },
+          days: {
+            mon: "ସୋମ",
+            tue: "ମଙ୍ଗଳ", 
+            wed: "ବୁଧ",
+            thu: "ଗୁରୁ",
+            fri: "ଶୁକ୍ର",
+            sat: "ଶନି",
+            sun: "ରବି"
+          },
+          actions: {
+            title: "ଦ୍ରୁତ କାର୍ଯ୍ୟଗୁଡ଼ିକ",
+            resume: "ଶିକ୍ଷଣ ଜାରି ରଖନ୍ତୁ",
+            resumeDesc: "ଯେଉଁଠାରେ ଛାଡ଼ିଥିଲେ ସେଠାରୁ ଚାଲୁ କରନ୍ତୁ",
+            practice: "ଅଭ୍ୟାସ କୁଇଜ୍",
+            practiceDesc: "ଆପଣଙ୍କର ଜ୍ଞାନ ପରୀକ୍ଷା କରନ୍ତୁ",
+            report: "ରିପୋର୍ଟ ଦେଖନ୍ତୁ",
+            reportDesc: "ବିସ୍ତୃତ ବିଶ୍ଳେଷଣ"
+          }
+        },
+        subjects: {
+          mathematics: { title: "ଗଣିତ" },
+          science: { title: "ବିଜ୍ଞାନ" },
+          social: { title: "ସାମାଜିକ ବିଜ୍ଞାନ" },
+          english: { title: "ଇଂରାଜୀ" }
+        }
+      }
+    };
+
+    let currentLanguage = 'en';
+    let isLanguageDropdownOpen = false;
+
+    // Get nested property from object using dot notation
+    function getNestedProperty(obj, path) {
+      return path.split('.').reduce((current, key) => current && current[key], obj);
+    }
+
+    // Update all translatable elements
+    function updateTranslations(langCode) {
+      const langData = translations[langCode];
+      if (!langData) return;
+
+      // Update all elements with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = getNestedProperty(langData, key);
+        if (translation) {
+          element.textContent = translation;
+        }
+      });
+
+      // Update login button
+      const loginBtn = document.getElementById('loginBtn');
+      if (loginBtn) {
+        loginBtn.textContent = langData.login;
+      }
+    }
+
+    // Toggle language dropdown
+    function toggleLanguageDropdown() {
+      isLanguageDropdownOpen = !isLanguageDropdownOpen;
+      languageSwitcher.classList.toggle('open', isLanguageDropdownOpen);
+    }
+
+    // Close language dropdown
+    function closeLanguageDropdown() {
+      isLanguageDropdownOpen = false;
+      languageSwitcher.classList.remove('open');
+    }
+
+    // Change language
+    function changeLanguage(langCode) {
+      if (translations[langCode]) {
+        currentLanguage = langCode;
+        const lang = translations[langCode];
+        
+        // Update button display
+        currentFlag.textContent = lang.flag;
+        currentLang.textContent = lang.code;
+        
+        // Update all translations
+        updateTranslations(langCode);
+        
+        // Close dropdown
+        closeLanguageDropdown();
+      }
+    }
+
+    // Language switcher event listeners
+    languageBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleLanguageDropdown();
+    });
+
+    languageDropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const button = e.target.closest('button[data-lang]');
+      if (button) {
+        changeLanguage(button.dataset.lang);
+      }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isLanguageDropdownOpen && !languageSwitcher.contains(e.target)) {
+        closeLanguageDropdown();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (isLanguageDropdownOpen) {
+          closeLanguageDropdown();
+          languageBtn.focus();
+        } else if (isMobileMenuOpen) {
+          closeMobileMenu();
+        }
+      }
+    });
+
+    // Login button functionality
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const loginTexts = {
+        en: 'Login clicked! Welcome to LearnRural Progress!',
+        hi: 'लॉगिन पर क्लिक किया गया! LearnRural प्रगति में आपका स्वागत है!',
+        or: 'ଲଗଇନ୍ କ୍ଲିକ୍ କରାଗଲା! LearnRural ପ୍ରଗତିରେ ସ୍ୱାଗତ!'
+      };
+      alert(loginTexts[currentLanguage]);
+    });
+
+    // Quick action buttons
+    const actionButtons = document.querySelectorAll('section:last-child button');
+    actionButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const actions = ['resume', 'practice', 'report'];
+        const actionTexts = {
+          en: {
+            resume: 'Resuming your last lesson...',
+            practice: 'Starting practice quiz...',
+            report: 'Loading detailed report...'
+          },
+          hi: {
+            resume: 'आपका अंतिम पाठ शुरू कर रहे हैं...',
+            practice: 'अभ्यास प्रश्नोत्तरी शुरू कर रहे हैं...',
+            report: 'विस्तृत रिपोर्ट लोड कर रहे हैं...'
+          },
+          or: {
+            resume: 'ଆପଣଙ୍କର ଶେଷ ପାଠ ଆରମ୍ଭ କରୁଛୁ...',
+            practice: 'ଅଭ୍ୟାସ କୁଇଜ୍ ଆରମ୍ଭ କରୁଛୁ...',
+            report: 'ବିସ୍ତୃତ ରିପୋର୍ଟ ଲୋଡ୍ କରୁଛୁ...'
+          }
+        };
+        const action = actions[index];
+        alert(actionTexts[currentLanguage][action]);
+      });
+    });
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTranslations(currentLanguage);
+      
+      // Add smooth scrolling
+      document.documentElement.style.scrollBehavior = 'smooth';
+      
+      // Animate progress bars on load
+      const progressBars = document.querySelectorAll('[style*="width"]');
+      progressBars.forEach((bar, index) => {
+        bar.style.width = '0%';
+        setTimeout(() => {
+          bar.style.transition = 'width 1.5s ease-out';
+          bar.style.width = bar.getAttribute('style').match(/width:\s*(\d+%)/)[1];
+        }, index * 200);
+      });
+
+      // Animate achievement badges
+      const badges = document.querySelectorAll('.achievement-badge');
+      badges.forEach((badge, index) => {
+        badge.style.opacity = '0';
+        badge.style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          badge.style.transition = 'all 0.6s ease-out';
+          badge.style.opacity = '1';
+          badge.style.transform = 'translateY(0)';
+        }, index * 150);
+      });
+
+      // Add intersection observer for scroll animations
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
+          }
+        });
+      }, observerOptions);
+
+      // Observe all cards for animation
+      document.querySelectorAll('.progress-card').forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        card.style.transition = 'all 0.6s ease-out';
+        observer.observe(card);
+      });
+    });
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (isLanguageDropdownOpen) {
+          closeLanguageDropdown();
+        }
+      }, 150);
+    });
+
+    // Add support for reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.style.setProperty('--transition-duration', '0.1s');
+      // Disable animations for users who prefer reduced motion
+      document.querySelectorAll('.achievement-badge, .progress-card').forEach(el => {
+        el.style.animation = 'none';
+      });
+    }
+  </script>
+</body>
+</html>

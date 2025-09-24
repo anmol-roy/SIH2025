@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rural Learning — Header</title>
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    :root{
+      --green:#2E7D32;
+      --blue:#1565C0;
+      --accent:#FBC02D;
+      --white:#ffffff;
+      --muted: rgba(255,255,255,0.85);
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Poppins", "Noto Sans Devanagari", system-ui, Arial;
+      background:#f3f7f6;
+      color:#0b2a1f;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Header Styles */
+    .site-header{
+      position: sticky;
+      top: 0;
+      width:100%;
+      background: linear-gradient(135deg, rgba(255,224,178,0.95), rgba(255,204,188,0.95));    
+      color:var(--white);
+      padding:clamp(12px, 3vw, 20px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:clamp(8px, 2vw, 16px);
+      box-shadow: 0 6px 18px rgba(16,24,32,0.12);
+      flex-wrap:wrap;
+      min-height: 70px;
+      z-index: 1000;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:clamp(8px, 2vw, 12px);
+      min-width:0;
+      flex-shrink: 0;
+    }
+    
+    .logo-fig{
+      width:clamp(44px, 8vw, 56px);
+      height:clamp(44px, 8vw, 56px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border-radius:clamp(8px, 2vw, 12px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+    
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+    
+    .app-name{
+      font-weight:700;
+      line-height:1.2;
+      font-size:clamp(0.9rem, 2.5vw, 1.1rem);
+      letter-spacing:0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .app-sub{
+      font-size:clamp(0.65rem, 1.8vw, 0.8rem);
+      opacity:0.95;
+      margin-top:2px;
+      font-family: "Noto Sans Devanagari", "Poppins";
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .greeting-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:clamp(4px, 1vw, 8px);
+      text-align:center;
+      flex:1;
+      min-width:0;
+      max-width: 100%;
+    }
+    
+    .greeting {
+      font-size:clamp(0.9rem, 2.2vw, 1.15rem);
+      font-weight:600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    .decor-row{
+      display:flex;
+      gap:clamp(6px, 1.5vw, 10px);
+      margin-top:clamp(4px, 1vw, 6px);
+      align-items:center;
+      justify-content:center;
+      opacity:0.95;
+      flex-wrap:wrap;
+    }
+    
+    .decor-row svg{ 
+      width:clamp(20px, 4vw, 26px); 
+      height:clamp(20px, 4vw, 26px); 
+    }
+
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:clamp(8px, 2vw, 12px);
+      flex-shrink:0;
+    }
+
+    /* Language Switcher */
+    .language-switcher {
+      position: relative;
+      display: inline-block;
+    }
+
+    .language-btn {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 12px);
+      border-radius: clamp(6px, 1.5vw, 8px);
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: clamp(4px, 1vw, 6px);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      min-width: clamp(80px, 15vw, 100px);
+      justify-content: center;
+    }
+
+    .language-btn:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    .dropdown-arrow {
+      font-size: 0.7em;
+      transition: transform 0.2s ease;
+    }
+
+    .language-switcher.open .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #ffffff;
+      border-radius: 6px;
+      min-width: clamp(180px, 25vw, 220px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      overflow: hidden;
+      z-index: 9999;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .dropdown-content::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      border-width: 0 8px 8px 8px;
+      border-style: solid;
+      border-color: transparent transparent #fff transparent;
+      filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
+    }
+
+    .dropdown-content button {
+      width: 100%;
+      padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: clamp(8px, 2vw, 12px);
+      cursor: pointer;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      color: #333;
+      transition: background 0.2s ease;
+      text-align: left;
+    }
+
+    .dropdown-content button:hover {
+      background: #f8f9fa;
+      color: var(--blue);
+    }
+
+    .dropdown-content button.active {
+      background: #e3f2fd;
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .flag {
+      font-size: clamp(16px, 3vw, 20px);
+      flex-shrink: 0;
+    }
+
+    .lang-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 2px;
+    }
+
+    .lang-name {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .lang-native {
+      font-size: 0.85em;
+      opacity: 0.7;
+      font-family: "Noto Sans Devanagari", "Poppins", system-ui;
+    }
+
+    .language-switcher.open .dropdown-content {
+      display: block;
+      animation: fadeInDown 0.2s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-btn{
+      background:var(--accent);
+      color:#111;
+      border:none;
+      padding:clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px);
+      border-radius:clamp(8px, 2vw, 10px);
+      font-weight:700;
+      font-size:clamp(0.8rem, 2vw, 0.9rem);
+      cursor:pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+      min-width: clamp(60px, 12vw, 80px);
+      text-decoration: none;
+      display: inline-block;
+    }
+    
+    .login-btn:hover{
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    }
+
+    /* Main Content Styles */
+    .maindiv {
+      background: linear-gradient(135deg, rgba(74, 119, 77, 0.95), rgba(59, 129, 185, 0.95));
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .main-content {
+      padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      flex: 1;
+    }
+
+    .top-section {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(18px);
+  border-radius: 10px;
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: clamp(2rem, 5vw, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  animation: slideDown 0.8s ease-out;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔥 streak + welcome */
+.streak-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: clamp(1.2rem, 3vw, 1.8rem);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.welcome-text {
+  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.4;
+  flex: 1;
+  min-width: 220px;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.streak-badge {
+  background: linear-gradient(135deg, #ff6b6b, #ffa726);
+  color: white;
+  padding: clamp(0.5rem, 2vw, 0.7rem) clamp(1rem, 3vw, 1.3rem);
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  animation: pulse 2s infinite;
+  box-shadow: 0 4px 18px rgba(255, 107, 107, 0.35);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 📖 text + image block */
+.description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: clamp(1rem, 5vw, 2.5rem);
+  flex-wrap: wrap;
+}
+
+.para {
+  flex: 1;
+  min-width: 260px;
+}
+
+.description-text {
+  color: rgba(255, 255, 255, 0.92);
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.7;
+  margin: 0;
+  text-align: justify;
+}
+
+.illustration-img {
+  border-radius: 12px;
+  height: auto;
+  max-height: 260px;
+  max-width: 100%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+
+    .education-levels {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: clamp(1.5rem, 4vw, 2rem);
+      margin-top: 2rem;
+    }
+
+    .level-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      padding: clamp(1.5rem, 4vw, 2rem);
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+      transform: translateY(30px);
+      backdrop-filter: blur(10px);
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+
+    .level-card:nth-child(1) { animation-delay: 0.2s; }
+    .level-card:nth-child(2) { animation-delay: 0.4s; }
+    .level-card:nth-child(3) { animation-delay: 0.6s; }
+
+    .level-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .level-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(102, 126, 234, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .level-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-image {
+      width: 100%;
+      height: clamp(120px, 20vw, 150px);
+      border-radius: 12px;
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .level-card:hover .card-image {
+      transform: scale(1.05);
+    }
+
+    .primary .card-image {
+      background: linear-gradient(135deg, #5cff98 0%, #2aa1dd 100%);
+    }
+
+    .secondary .card-image {
+      background: linear-gradient(135deg, #2aa1dd 0%, #fed6e3 100%);
+    }
+
+    .senior-secondary .card-image {
+      background: linear-gradient(135deg, #d299c2 0%, #e8dc90 100%);
+    }
+
+    .level-title {
+      font-size: clamp(1.2rem, 3vw, 1.4rem);
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .level-subtitle {
+      color: #666;
+      font-size: clamp(0.85rem, 2vw, 0.9rem);
+      line-height: 1.5;
+      position: relative;
+      z-index: 2;
+      margin: 0;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+    
+
+    /* Responsive Design */
+    @media (max-width: 740px) {
+      .site-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+      
+      .brand { 
+        justify-content: flex-start;
+        order: 1;
+      }
+      
+      .actions { 
+        order: 2; 
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      
+      .greeting-wrap { 
+        display: none;
+      }
+
+      .dropdown-content {
+        right: 0;
+        min-width: 180px;
+      }
+
+      .description {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+      
+      .illustration-img {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+      }
+      
+      .education-levels {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .streak-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+      }
+      
+      .welcome-text {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .main-content {
+        padding: 1.5rem 1rem;
+      }
+      
+      .level-card {
+        padding: 1.5rem;
+      }
+      
+      .description-text {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .site-header {
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      
+      .actions {
+        gap: 6px;
+      }
+      
+      .language-btn {
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        min-width: 70px;
+      }
+      
+      .dropdown-content {
+        min-width: 160px;
+        right: -10px;
+      }
+
+      .main-content {
+        padding: 1rem 0.75rem;
+      }
+      
+      .top-section {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      
+      .streak-badge {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+      }
+      
+      .level-card {
+        padding: 1rem;
+      }
+      
+      .card-image {
+        height: 100px;
+        font-size: 2rem;
+      }
+    }
+
+    /* Touch devices optimization */
+    @media (hover: none) and (pointer: coarse) {
+      .language-btn, .login-btn {
+        min-height: 44px;
+      }
+      
+      .dropdown-content button {
+        padding: 14px 16px;
+        min-height: 44px;
+      }
+      
+      .language-btn:hover, .login-btn:hover {
+        transform: none;
+      }
+
+      .level-card {
+        min-height: 44px;
+      }
+      
+      .level-card:hover {
+        transform: translateY(-5px) scale(1.01);
+      }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #1a1a1a;
+        color: #e0e0e0;
+      }
+      
+      .site-header {
+        background: linear-gradient(135deg, rgba(46,125,50,0.98), rgba(33,150,243,0.98));
+        box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      }
+      
+      .dropdown-content {
+        background: #2d2d2d;
+        border-color: rgba(255,255,255,0.1);
+      }
+      
+      .dropdown-content button {
+        color: #e0e0e0;
+      }
+      
+      .dropdown-content button:hover {
+        background: #3d3d3d;
+        color: #64b5f6;
+      }
+
+      .maindiv {
+        background: linear-gradient(135deg, rgba(32, 61, 35, 0.95), rgba(25, 55, 79, 0.95));
+      }
+      
+      .top-section {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+      
+      .level-card {
+        background: rgba(255, 255, 255, 0.9);
+      }
+      
+      .welcome-text {
+        color: #e0e0e0;
+      }
+      
+      .description-text {
+        color: rgba(255, 255, 255, 0.8);
+      }
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .language-btn, .login-btn, .level-card, .streak-badge, .card-image, .top-section {
+        animation: none;
+        transition: none;
+      }
+      
+      .language-btn:active, .login-btn:active {
+        transform: none;
+      }
+      
+      .dropdown-content {
+        animation: none;
+      }
+
+      .level-card:hover {
+        transform: none;
+      }
+      
+      .level-card:hover .card-image {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header" role="banner" aria-label="App header">
+    <!-- Left: Brand -->
+    <div class="brand">
+      <div class="logo-fig" aria-hidden="true">
+        <a href="../Frontend/index.html">
+          <svg viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="6" y="28" width="52" height="26" rx="4" fill="rgba(255,255,255,0.18)" />
+            <path d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0" stroke="#fff" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z" fill="#fff" opacity="0.95" />
+          </svg>
+        </a>
+      </div>
+      <div class="brand-text">
+        <div class="app-name" data-translate="brand.name">LearnRural</div>
+        <div class="app-sub" data-translate="brand.subtitle">नवीन शिक्षा • New Learning</div>
+      </div>
+    </div>
+     
+    <!-- Center: Greeting -->
+    <div class="greeting-wrap">
+      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to LearnRural</div>
+      <div class="decor-row" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M3 6h13v12H3z" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" />
+          <path d="M16 6h3v12" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M20 4s-4 1-8 5-8 9-8 9 4-1 8-5 8-9 8-9z" stroke="#fff" stroke-opacity="0.9" stroke-width="1.1" />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2l10 6-10 6L2 8 12 2z" stroke="#fff" stroke-opacity="0.95" stroke-width="1.1" />
+          <path d="M12 14v6" stroke="#fff" stroke-opacity="0.95" stroke-width="1.1" />
+        </svg>
+      </div>
+    </div>
+     
+    <!-- Right: Actions -->
+    <div class="actions">
+      <!-- Language Switcher -->
+      <div class="language-switcher" id="languageSwitcher">
+        <button class="language-btn" id="languageBtn" aria-label="Select Language">
+          <span class="flag" id="currentFlag">🇬🇧</span>
+          <span id="currentLang">EN</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="dropdown-content" id="languageDropdown">
+          <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
+            <span class="flag">🇬🇧</span>
+            <div class="lang-info">
+              <span class="lang-name">English</span>
+              <span class="lang-native">English</span>
+            </div>
+          </button>
+          <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
+            <span class="flag">🇮🇳</span>
+            <div class="lang-info">
+              <span class="lang-name">Hindi</span>
+              <span class="lang-native">हिंदी</span>
+            </div>
+          </button>
+          <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
+            <span class="flag">🏛️</span>
+            <div class="lang-info">
+              <span class="lang-name">Odia</span>
+              <span class="lang-native">ଓଡ଼ିଆ</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <a href="login.html" class="login-btn" data-translate="login">Login</a>
+    </div>
+  </header>
+
+  <div class="maindiv"> 
+    <main class="main-content">
+     <section class="top-section">
+  <div class="streak-info">
+    <div class="welcome-text" data-translate="welcome">
+      Start your learning journey today!
+    </div>
+    <div class="streak-badge">
+      🔥 <span data-translate="streak">Streak 7 days</span>
+    </div>
+  </div>
+
+  <div class="description">
+    <div class="para">
+      <p class="description-text" data-translate="description">
+        Empowering rural communities through quality education. <br>
+        Choose your level and begin learning with interactive content
+        designed for rural learners.
+      </p>
+    </div>
+    <img
+      class="illustration-img"
+      src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
+      alt="Learning illustration"
+    />
+  </div>
+</section>
+
+
+      <section class="education-levels">
+        <a href="primary/index.html" class="level-card primary">
+          <div class="card-image">
+            <span>📚</span>
+          </div>
+          <h3 class="level-title" data-translate="primary.title">Primary</h3>
+          <p class="level-subtitle" data-translate="primary.description">Foundational learning for young minds</p>
+        </a>
+
+        <a href="secondary/index.html" class="level-card secondary">
+          <div class="card-image">
+            <span>🎓</span>
+          </div>
+          <h3 class="level-title" data-translate="secondary.title">Secondary</h3>
+          <p class="level-subtitle" data-translate="secondary.description">Building knowledge and skills</p>
+        </a>
+
+        <a href="seniorSecondary/index.html" class="level-card senior-secondary">
+          <div class="card-image">
+            <span>🚀</span>
+          </div>
+          <h3 class="level-title" data-translate="senior.title">Senior Secondary</h3>
+          <p class="level-subtitle" data-translate="senior.description">Advanced learning for career readiness</p>
+        </a>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Complete translation data
+    const translations = {
+      en: {
+        flag: '🇬🇧',
+        code: 'EN',
+        greeting: '👋 Welcome to LearnRural',
+        'brand.name': 'LearnRural',
+        'brand.subtitle': 'नवीन शिक्षा • New Learning',
+        welcome: 'Start your learning journey today!',
+        streak: 'Streak 7 days',
+        description: 'Empowering rural communities through quality education. Choose your level and begin learning with interactive content designed for rural learners.',
+        'primary.title': 'Primary',
+        'primary.description': 'Foundational learning for young minds',
+        'secondary.title': 'Secondary',
+        'secondary.description': 'Building knowledge and skills',
+        'senior.title': 'Senior Secondary',
+        'senior.description': 'Advanced learning for career readiness',
+        login: 'Login'
+      },
+      hi: {
+        flag: '🇮🇳',
+        code: 'HI',
+        greeting: '👋 नमस्ते! LearnRural में आपका स्वागत है',
+        'brand.name': 'LearnRural',
+        'brand.subtitle': 'नवीन शिक्षा • New Learning',
+        welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
+        streak: '7 दिन की लकीर',
+        description: 'गुणवत्तापूर्ण शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना। अपना स्तर चुनें और ग्रामीण शिक्षार्थियों के लिए डिज़ाइन की गई इंटरैक्टिव सामग्री के साथ सीखना शुरू करें।',
+        'primary.title': 'प्राथमिक',
+        'primary.description': 'युवा मस्तिष्क के लिए मूलभूत शिक्षा',
+        'secondary.title': 'माध्यमिक',
+        'secondary.description': 'ज्ञान और कौशल का निर्माण',
+        'senior.title': 'उच्च माध्यमिक',
+        'senior.description': 'करियर तैयारी के लिए उन्नत शिक्षा',
+        login: 'लॉगिन'
+      },
+      or: {
+        flag: '🏛️',
+        code: 'OD',
+        greeting: '👋 ନମସ୍କାର! LearnRural କୁ ସ୍ୱାଗତ',
+        'brand.name': 'LearnRural',
+        'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
+        welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
+        streak: '7 ଦିନର ଧାରା',
+        description: 'ଗୁଣବତ୍ତା ଶିକ୍ଷା ମାଧ୍ୟମରେ ଗ୍ରାମାଞ୍ଚଳ ସମୁଦାୟକୁ ସଶକ୍ତ କରିବା। ଆପଣଙ୍କର ସ୍ତର ବାଛନ୍ତୁ ଏବଂ ଗ୍ରାମାଞ୍ଚଳ ଶିକ୍ଷାର୍ଥୀମାନଙ୍କ ପାଇଁ ଡିଜାଇନ୍ ହୋଇଥିବା ଇଣ୍ଟରାକ୍ଟିଭ୍ ବିଷୟବସ୍ତୁ ସହିତ ଶିକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ।',
+        'primary.title': 'ପ୍ରାଥମିକ',
+        'primary.description': 'ଯୁବ ମନ ପାଇଁ ମୂଳଦୁଆ ଶିକ୍ଷା',
+        'secondary.title': 'ମାଧ୍ୟମିକ',
+        'secondary.description': 'ଜ୍ଞାନ ଏବଂ ଦକ୍ଷତା ନିର୍ମାଣ',
+        'senior.title': 'ଉଚ୍ଚ ମାଧ୍ୟମିକ',
+        'senior.description': 'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା',
+        login: 'ଲଗଇନ୍'
+      }
+    };
+
+    // Language switcher functionality
+    const languageSwitcher = document.getElementById('languageSwitcher');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const currentFlag = document.getElementById('currentFlag');
+    const currentLang = document.getElementById('currentLang');
+    const greetingText = document.getElementById('greetingText');
+
+    let currentLanguage = 'en';
+    let isOpen = false;
+
+    // Get nested property from object using dot notation
+    function getNestedProperty(obj, path) {
+      return path.split('.').reduce((current, key) => current && current[key], obj);
+    }
+
+    // Update all translatable elements
+    function updateTranslations(langCode) {
+      const langData = translations[langCode];
+      if (!langData) return;
+
+      // Update all elements with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = getNestedProperty(langData, key) || langData[key];
+        if (translation) {
+          element.textContent = translation;
+        }
+      });
+
+      // Update greeting separately
+      greetingText.textContent = langData.greeting;
+    }
+
+    // Toggle dropdown
+    function toggleDropdown() {
+      isOpen = !isOpen;
+      languageSwitcher.classList.toggle('open', isOpen);
+      
+      if (isOpen) {
+        updateActiveLanguage();
+      }
+    }
+
+    // Update active language in dropdown
+    function updateActiveLanguage() {
+      const buttons = languageDropdown.querySelectorAll('button');
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLanguage);
+      });
+    }
+
+    // Close dropdown
+    function closeDropdown() {
+      isOpen = false;
+      languageSwitcher.classList.remove('open');
+    }
+
+    // Change language
+    function changeLanguage(langCode) {
+      if (translations[langCode]) {
+        currentLanguage = langCode;
+        const lang = translations[langCode];
+        
+        // Update button display
+        currentFlag.textContent = lang.flag;
+        currentLang.textContent = lang.code;
+        
+        // Update all translations
+        updateTranslations(langCode);
+        
+        // Store preference
+        localStorage.setItem('preferred-language', langCode);
+        
+        // Close dropdown
+        closeDropdown();
+
+        // Trigger custom event for other components
+        window.dispatchEvent(new CustomEvent('languageChanged', {
+          detail: { language: langCode }
+        }));
+      }
+    }
+
+    // Event listeners
+    languageBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleDropdown();
+    });
+
+    languageDropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const button = e.target.closest('button[data-lang]');
+      if (button) {
+        changeLanguage(button.dataset.lang);
+      }
+    });
+
+    // Close when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isOpen && !languageSwitcher.contains(e.target)) {
+        closeDropdown();
+      }
+    });
+
+    // Close when pressing Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeDropdown();
+        languageBtn.focus();
+      }
+    });
+
+    // Load saved language preference
+    function loadLanguagePreference() {
+      const saved = localStorage.getItem('preferred-language');
+      if (saved && translations[saved]) {
+        changeLanguage(saved);
+      } else {
+        updateTranslations(currentLanguage);
+      }
+    }
+
+    // Handle window resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      if (isOpen) {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          closeDropdown();
+        }, 150);
+      }
+    });
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLanguagePreference();
+      updateActiveLanguage();
+    });
+  </script>
+</body>
+</html>

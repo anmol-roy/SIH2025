@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>LearnRural Dashboard</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Poppins', 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    .nav-item {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+    }
+    .nav-tooltip {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translateY(-50%);
+      margin-left: 0.5rem;
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1000;
+    }
+    .nav-item:hover .nav-tooltip {
+      opacity: 1;
+    }
+    .subject-card {
+      transition: all 0.3s ease;
+    }
+    .subject-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+    .language-dropdown {
+      display: none;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .language-switcher.open .language-dropdown {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .mobile-menu {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-overlay {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .mobile-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    @media (min-width: 768px) {
+      .mobile-menu-btn { display: none; }
+      .mobile-overlay { display: none; }
+    }
+    @media (max-width: 767px) {
+      #greetingText { display : none; }
+      
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+  <!-- Mobile Menu Overlay -->
+  <div id="mobileOverlay" class="mobile-overlay fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"></div>
+  
+  <!-- Mobile Menu Button -->
+  <button id="mobileMenuBtn" class="mobile-menu-btn fixed top-4 left-4 z-50 bg-blue-700 bg-opacity-80 p-3 rounded-lg md:hidden">
+    <svg id="menuIcon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+    </svg>
+    <svg id="closeIcon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+  </button>
+
+  <!-- Left Sidebar Navigation -->
+  <div id="sidebar" class="mobile-menu fixed left-0 top-0 bottom-0 w-64 bg-blue-900 bg-opacity-30 backdrop-blur-md min-h-screen p-4 z-50 md:transform-none md:w-20 lg:w-64">
+    <!-- Logo Section -->
+    <div class="flex items-center justify-center lg:justify-start mb-8 mt-4">
+      <div class="bg-blue-700 bg-opacity-30 p-2 rounded-lg">
+        <svg viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="6" y="28" width="52" height="26" rx="4" fill="rgba(255,255,255,0.18)" />
+          <path d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0" stroke="#fff" stroke-width="1.2" stroke-linecap="round" />
+          <path d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z" fill="#fff" opacity="0.95" />
+        </svg>
+      </div>
+      <div class="ml-3 md:hidden lg:block">
+        <div class="font-bold text-white text-lg">LearnRural</div>
+        <div class="text-blue-200 text-xs">नवीन शिक्षा • New Learning</div>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="mt-10">
+      <a href="#" class="nav-item flex items-center p-3 mb-2 active group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">📚</span>
+        <span class="nav-text md:hidden lg:block">Dashboard</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Dashboard</span>
+      </a>
+      <a href="courses2.html" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">🎓</span>
+        <span class="nav-text md:hidden lg:block">My Courses</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">My Courses</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">📊</span>
+        <span class="nav-text md:hidden lg:block">Progress</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Progress</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">🏆</span>
+        <span class="nav-text md:hidden lg:block">Achievements</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Achievements</span>
+      </a>
+      <a href="#" class="nav-item flex items-center p-3 mb-2 group">
+        <span class="nav-icon text-xl mr-4 md:mr-0 lg:mr-4">⚙️</span>
+        <span class="nav-text md:hidden lg:block">Settings</span>
+        <span class="nav-tooltip hidden md:block lg:hidden">Settings</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <div class="flex-1 md:ml-20 lg:ml-64 p-4 md:p-6">
+    <!-- Header -->
+    <header class="bg-blue-900 bg-opacity-20 backdrop-blur-md rounded-xl p-4 mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div class="text-white font-medium text-lg md:text-xl" id="greetingText">👋 नमस्ते! Welcome to LearnRural</div>
+      
+      <div class="flex items-center space-x-4 self-end sm:self-auto">
+        <!-- Language Switcher -->
+        <div class="language-switcher relative" id="languageSwitcher">
+          <button class="language-btn bg-blue-700 bg-opacity-30 hover:bg-opacity-40 py-2 px-3 rounded-lg flex items-center space-x-2 transition" id="languageBtn">
+            <span class="flag text-lg" id="currentFlag">🇬🇧</span>
+            <span id="currentLang" class="font-medium">EN</span>
+            <span class="dropdown-arrow text-xs">▼</span>
+          </button>
+          <div class="language-dropdown absolute right-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-lg py-1 z-50" id="languageDropdown">
+            <button data-lang="en" class="w-full text-left px-4 py-2 hover:bg-blue-600 flex items-center space-x-3">
+              <span class="flag text-lg">🇬🇧</span>
+              <div class="flex flex-col">
+                <span class="lang-name font-medium">English</span>
+                <span class="lang-native text-blue-200 text-sm">English</span>
+              </div>
+            </button>
+            <button data-lang="hi" class="w-full text-left px-4 py-2 hover:bg-blue-600 flex items-center space-x-3">
+              <span class="flag text-lg">🇮🇳</span>
+              <div class="flex flex-col">
+                <span class="lang-name font-medium">Hindi</span>
+                <span class="lang-native text-blue-200 text-sm">हिंदी</span>
+              </div>
+            </button>
+            <button data-lang="or" class="w-full text-left px-4 py-2 hover:bg-blue-600 flex items-center space-x-3">
+              <span class="flag text-lg">🏛️</span>
+              <div class="flex flex-col">
+                <span class="lang-name font-medium">Odia</span>
+                <span class="lang-native text-blue-200 text-sm">ଓଡ଼ିଆ</span>
+              </div>
+            </button>
+          </div>
+        </div>
+        
+        <button class="login-btn bg-blue-600 hover:bg-blue-500 py-2 px-4 rounded-lg font-medium transition" id="loginBtn">Login</button>
+      </div>
+    </header>
+
+    <!-- Continue Learning Section -->
+    <section class="mb-8">
+      <h2 class="text-xl md:text-2xl font-bold mb-4">Continue Learning</h2>
+      <div class="bg-gradient-to-r from-blue-700 to-purple-700 rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start md:items-center">
+        <div class="flex-grow mb-4 md:mb-0 md:pr-6">
+          <h3 class="text-lg md:text-xl font-bold mb-2">Numbers & Operations</h3>
+          <p class="text-blue-100 mb-4 text-sm md:text-base">Learn whole numbers, addition, subtraction, multiplication, and division.</p>
+          <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
+            <span class="text-blue-200 text-sm">5 Lessons</span>
+            <span class="bg-green-500 bg-opacity-30 text-green-200 text-xs px-3 py-1 rounded-full w-fit">Easy</span>
+          </div>
+        </div>
+        <button class="bg-white text-blue-800 font-semibold py-2 px-4 md:px-6 rounded-lg hover:bg-blue-100 transition w-full md:w-auto">Continue</button>
+      </div>
+    </section>
+
+    <!-- Subjects Grid -->
+    <section>
+      <h2 class="text-xl md:text-2xl font-bold mb-4" data-translate="subjects.title">Choose Your Subject</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 md:gap-6">
+        <!-- Mathematics Card -->
+        <a href="mathematics/index.html" class="subject-card mathematics bg-gradient-to-br from-blue-700 to-blue-800 rounded-xl p-4 md:p-6 block">
+          <div class="flex items-center mb-4">
+            <div class="bg-white bg-opacity-20 p-2 md:p-3 rounded-lg mr-3 md:mr-4">
+              <span class="text-xl md:text-2xl">📊</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold" data-translate="subjects.mathematics.title">Mathematics</h3>
+          </div>
+          <p class="text-blue-100 mb-4 text-sm md:text-base" data-translate="subjects.mathematics.description">
+            Build problem-solving skills with numbers, algebra, geometry, and mathematical reasoning.
+          </p>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+            <span class="text-blue-200 text-xs md:text-sm" data-translate="subjects.mathematics.lessons">12 Chapters • 60 Lessons</span>
+            <span class="bg-yellow-500 bg-opacity-30 text-yellow-200 text-xs px-3 py-1 rounded-full w-fit" data-translate="difficulty.medium">Medium</span>
+          </div>
+        </a>
+
+        <!-- Science Card -->
+        <a href="science/index.html" class="subject-card science bg-gradient-to-br from-purple-700 to-purple-800 rounded-xl p-4 md:p-6 block">
+          <div class="flex items-center mb-4">
+            <div class="bg-white bg-opacity-20 p-2 md:p-3 rounded-lg mr-3 md:mr-4">
+              <span class="text-xl md:text-2xl">🔬</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold" data-translate="subjects.science.title">Science</h3>
+          </div>
+          <p class="text-blue-100 mb-4 text-sm md:text-base" data-translate="subjects.science.description">
+            Discover the wonders of physics, chemistry, biology through experiments and observations.
+          </p>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+            <span class="text-blue-200 text-xs md:text-sm" data-translate="subjects.science.lessons">15 Chapters • 75 Lessons</span>
+            <span class="bg-red-500 bg-opacity-30 text-red-200 text-xs px-3 py-1 rounded-full w-fit" data-translate="difficulty.hard">Hard</span>
+          </div>
+        </a>
+
+        <!-- Social Science Card -->
+        <a href="social-science/index.html" class="subject-card social-science bg-gradient-to-br from-green-700 to-green-800 rounded-xl p-4 md:p-6 block">
+          <div class="flex items-center mb-4">
+            <div class="bg-white bg-opacity-20 p-2 md:p-3 rounded-lg mr-3 md:mr-4">
+              <span class="text-xl md:text-2xl">🌍</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold" data-translate="subjects.social.title">Social Science</h3>
+          </div>
+          <p class="text-blue-100 mb-4 text-sm md:text-base" data-translate="subjects.social.description">
+            Explore history, geography, civics, and understand society and human relationships.
+          </p>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+            <span class="text-blue-200 text-xs md:text-sm" data-translate="subjects.social.lessons">10 Chapters • 50 Lessons</span>
+            <span class="bg-green-500 bg-opacity-30 text-green-200 text-xs px-3 py-1 rounded-full w-fit" data-translate="difficulty.easy">Easy</span>
+          </div>
+        </a>
+
+        <!-- English Card -->
+        <a href="english/index.html" class="subject-card english bg-gradient-to-br from-amber-700 to-amber-800 rounded-xl p-4 md:p-6 block">
+          <div class="flex items-center mb-4">
+            <div class="bg-white bg-opacity-20 p-2 md:p-3 rounded-lg mr-3 md:mr-4">
+              <span class="text-xl md:text-2xl">📚</span>
+            </div>
+            <h3 class="text-lg md:text-xl font-bold" data-translate="subjects.english.title">English</h3>
+          </div>
+          <p class="text-blue-100 mb-4 text-sm md:text-base" data-translate="subjects.english.description">
+            Improve reading, writing, speaking, and grammar skills with stories and exercises.
+          </p>
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
+            <span class="text-blue-200 text-xs md:text-sm" data-translate="subjects.english.lessons">11 Chapters • 55 Lessons</span>
+            <span class="bg-yellow-500 bg-opacity-30 text-yellow-200 text-xs px-3 py-1 rounded-full w-fit" data-translate="difficulty.medium">Medium</span>
+          </div>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileOverlay = document.getElementById('mobileOverlay');
+    const sidebar = document.getElementById('sidebar');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    let isMobileMenuOpen = false;
+
+    function toggleMobileMenu() {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      sidebar.classList.toggle('open', isMobileMenuOpen);
+      mobileOverlay.classList.toggle('open', isMobileMenuOpen);
+      menuIcon.classList.toggle('hidden', isMobileMenuOpen);
+      closeIcon.classList.toggle('hidden', !isMobileMenuOpen);
+      
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = isMobileMenuOpen ? 'hidden' : '';
+    }
+
+    function closeMobileMenu() {
+      if (isMobileMenuOpen) {
+        isMobileMenuOpen = false;
+        sidebar.classList.remove('open');
+        mobileOverlay.classList.remove('open');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    }
+
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+
+    // Close mobile menu on window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    });
+
+    // Language switcher functionality
+    const languageSwitcher = document.getElementById('languageSwitcher');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const currentFlag = document.getElementById('currentFlag');
+    const currentLang = document.getElementById('currentLang');
+    const greetingText = document.getElementById('greetingText');
+
+    // Complete translation data
+    const translations = {
+      en: {
+        flag: '🇬🇧',
+        code: 'EN',
+        greeting: '👋 Welcome to LearnRural',
+        login: 'Login',
+        subjects: {
+          title: "Choose Your Subject",
+          mathematics: {
+            title: "Mathematics",
+            description: "Build problem-solving skills with numbers, algebra, geometry, and mathematical reasoning.",
+            lessons: "12 Chapters • 60 Lessons"
+          },
+          science: {
+            title: "Science", 
+            description: "Discover the wonders of physics, chemistry, biology through experiments and observations.",
+            lessons: "15 Chapters • 75 Lessons"
+          },
+          social: {
+            title: "Social Science",
+            description: "Explore history, geography, civics, and understand society and human relationships.",
+            lessons: "10 Chapters • 50 Lessons"
+          },
+          english: {
+            title: "English",
+            description: "Improve reading, writing, speaking, and grammar skills with stories and exercises.",
+            lessons: "11 Chapters • 55 Lessons"
+          }
+        },
+        difficulty: { easy: "Easy", medium: "Medium", hard: "Hard" }
+      },
+      hi: {
+        flag: '🇮🇳',
+        code: 'HI',
+        greeting: '👋 नमस्ते! LearnRural में आपका स्वागत है',
+        login: 'लॉगिन',
+        subjects: {
+          title: "अपना विषय चुनें",
+          mathematics: {
+            title: "गणित",
+            description: "संख्याओं, बीजगणित, ज्यामिति के साथ समस्या समाधान कौशल का निर्माण करें।",
+            lessons: "12 अध्याय • 60 पाठ"
+          },
+          science: {
+            title: "विज्ञान",
+            description: "प्रयोगों के माध्यम से भौतिकी, रसायन विज्ञान, जीव विज्ञान की खोज करें।",
+            lessons: "15 अध्याय • 75 पाठ"
+          },
+          social: {
+            title: "सामाजिक विज्ञान", 
+            description: "इतिहास, भूगोल, नागरिक शास्त्र का अन्वेषण करें।",
+            lessons: "10 अध्याय • 50 पाठ"
+          },
+          english: {
+            title: "अंग्रेजी",
+            description: "कहानियों के साथ पढ़ने, लिखने, बोलने का कौशल सुधारें।",
+            lessons: "11 अध्याय • 55 पाठ"
+          }
+        },
+        difficulty: { easy: "आसान", medium: "मध्यम", hard: "कठिन" }
+      },
+      or: {
+        flag: '🏛️',
+        code: 'OD',
+        greeting: '👋 ନମସ୍କାର! LearnRural କୁ ସ୍ୱାଗତ',
+        login: 'ଲଗଇନ୍',
+        subjects: {
+          title: "ଆପଣଙ୍କର ବିଷୟ ବାଛନ୍ତୁ",
+          mathematics: {
+            title: "ଗଣିତ",
+            description: "ସଂଖ୍ୟା, ବୀଜଗଣିତ, ଜ୍ୟାମିତି ସହିତ ସମସ୍ୟା ସମାଧାନ କୌଶଳ ଗଢ଼ନ୍ତୁ।",
+            lessons: "12 ଅଧ୍ୟାୟ • 60 ପାଠ"
+          },
+          science: {
+            title: "ବିଜ୍ଞାନ",
+            description: "ପ୍ରୟୋଗ ମାଧ୍ୟମରେ ପଦାର୍ଥ, ରସାୟନ, ଜୀବ ବିଜ୍ଞାନ ଆବିଷ୍କାର କରନ୍ତୁ।",
+            lessons: "15 ଅଧ୍ୟାୟ • 75 ପାଠ"
+          },
+          social: {
+            title: "ସାମାଜିକ ବିଜ୍ଞାନ",
+            description: "ଇତିହାସ, ଭୂଗୋଳ, ନାଗରିକ ଶାସ୍ତ୍ର ଅନ୍ୱେଷଣ କରନ୍ତୁ।",
+            lessons: "10 ଅଧ୍ୟାୟ • 50 ପାଠ"
+          },
+          english: {
+            title: "ଇଂରାଜୀ",
+            description: "କାହାଣୀ ସହିତ ପଢ଼ିବା, ଲେଖିବା, କହିବା କୌଶଳ ଉନ୍ନତି କରନ୍ତୁ।",
+            lessons: "11 ଅଧ୍ୟାୟ • 55 ପାଠ"
+          }
+        },
+        difficulty: { easy: "ସହଜ", medium: "ମଧ୍ୟମ", hard: "କଠିନ" }
+      }
+    };
+
+    let currentLanguage = 'en';
+    let isLanguageDropdownOpen = false;
+
+    // Get nested property from object using dot notation
+    function getNestedProperty(obj, path) {
+      return path.split('.').reduce((current, key) => current && current[key], obj);
+    }
+
+    // Update all translatable elements
+    function updateTranslations(langCode) {
+      const langData = translations[langCode];
+      if (!langData) return;
+
+      // Update all elements with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = getNestedProperty(langData, key);
+        if (translation) {
+          element.textContent = translation;
+        }
+      });
+
+      // Update greeting and login button
+      if (greetingText) {
+        greetingText.textContent = langData.greeting;
+      }
+
+      const loginBtn = document.getElementById('loginBtn');
+      if (loginBtn) {
+        loginBtn.textContent = langData.login;
+      }
+    }
+
+    // Toggle language dropdown
+    function toggleLanguageDropdown() {
+      isLanguageDropdownOpen = !isLanguageDropdownOpen;
+      languageSwitcher.classList.toggle('open', isLanguageDropdownOpen);
+    }
+
+    // Close language dropdown
+    function closeLanguageDropdown() {
+      isLanguageDropdownOpen = false;
+      languageSwitcher.classList.remove('open');
+    }
+
+    // Change language
+    function changeLanguage(langCode) {
+      if (translations[langCode]) {
+        currentLanguage = langCode;
+        const lang = translations[langCode];
+        
+        // Update button display
+        currentFlag.textContent = lang.flag;
+        currentLang.textContent = lang.code;
+        
+        // Update all translations
+        updateTranslations(langCode);
+        
+        // Close dropdown
+        closeLanguageDropdown();
+      }
+    }
+
+    // Language switcher event listeners
+    languageBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleLanguageDropdown();
+    });
+
+    languageDropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const button = e.target.closest('button[data-lang]');
+      if (button) {
+        changeLanguage(button.dataset.lang);
+      }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (isLanguageDropdownOpen && !languageSwitcher.contains(e.target)) {
+        closeLanguageDropdown();
+      }
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (isLanguageDropdownOpen) {
+          closeLanguageDropdown();
+          languageBtn.focus();
+        } else if (isMobileMenuOpen) {
+          closeMobileMenu();
+        }
+      }
+    });
+
+    // Login button functionality
+    document.getElementById('loginBtn').addEventListener('click', () => {
+      const loginTexts = {
+        en: 'Login clicked! Welcome to LearnRural!',
+        hi: 'लॉगिन पर क्लिक किया गया! LearnRural में आपका स्वागत है!',
+        or: 'ଲଗଇନ୍ କ୍ଲିକ୍ କରାଗଲା! LearnRural କୁ ସ୍ୱାଗତ!'
+      };
+      alert(loginTexts[currentLanguage]);
+    });
+
+    // Initialize on DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTranslations(currentLanguage);
+      
+      // Add smooth scrolling
+      document.documentElement.style.scrollBehavior = 'smooth';
+      
+      // Focus management for accessibility
+      const focusableElements = document.querySelectorAll(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      
+      focusableElements.forEach(element => {
+        element.addEventListener('focus', () => {
+          element.style.outline = '2px solid #3b82f6';
+          element.style.outlineOffset = '2px';
+        });
+        
+        element.addEventListener('blur', () => {
+          element.style.outline = 'none';
+        });
+      });
+
+      // Add click handlers for subject cards
+      const subjectCards = document.querySelectorAll('.subject-card');
+      subjectCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          // Allow normal anchor navigation
+          console.log('Navigating to subject:', card.classList[1]);
+        });
+      });
+
+      // Add touch support for mobile devices
+      if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+      }
+    });
+
+    // Handle window resize for responsive behavior
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (isLanguageDropdownOpen) {
+          closeLanguageDropdown();
+        }
+      }, 150);
+    });
+
+    // Performance optimization: throttle scroll events
+    let ticking = false;
+    function updateScrollPosition() {
+      // Add any scroll-based animations here if needed
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollPosition);
+        ticking = true;
+      }
+    });
+
+    // Add loading states for better UX
+    window.addEventListener('beforeunload', () => {
+      document.body.style.opacity = '0.8';
+    });
+
+    // Preload critical resources
+    const preloadLinks = [
+      'mathematics/index.html',
+      'science/index.html',
+      'social-science/index.html',
+      'english/index.html'
+    ];
+
+    preloadLinks.forEach(href => {
+      const link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = href;
+      document.head.appendChild(link);
+    });
+
+    // Add error handling for navigation
+    window.addEventListener('error', (e) => {
+      console.error('Navigation error:', e);
+      // Could show user-friendly error message here
+    });
+
+    // Add support for reduced motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.style.setProperty('--transition-duration', '0.1s');
+    }
+  </script>
+</body>
+</html>
