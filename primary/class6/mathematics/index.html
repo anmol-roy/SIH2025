@@ -4,47 +4,794 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mathematics</title>
-  <link rel="stylesheet" href="mathematics.css">
-  <style></style>
+  <style>
+    /* =============================    General Page Styling ============================= */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f0f4ff, #e0f7fa);
+      color: #333;
+      line-height: 1.6;
+    }
+
+    /* =============================    Header Styling ============================= */
+    :root{
+      --green:#2E7D32;
+      --blue:#1565C0;
+      --accent:#FBC02D;
+      --white:#ffffff;
+      --muted: rgba(255,255,255,0.85);
+      --radius:12px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: "Poppins", "Noto Sans Devanagari", system-ui, Arial;
+      background:#f3f7f6;
+      color:#0b2a1f;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Header container */
+    .site-header{
+      position: sticky;
+      width:100%;
+      background: linear-gradient(135deg, rgba(255,224,178,0.95), rgba(255,204,188,0.95));    
+       color:var(--white);
+      padding:clamp(12px, 3vw, 20px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:clamp(8px, 2vw, 16px);
+      box-shadow: 0 6px 18px rgba(16,24,32,0.12);
+      flex-wrap:wrap;
+      min-height: 70px;
+    }
+
+    /* left: logo area */
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:clamp(8px, 2vw, 12px);
+      min-width:0;
+      flex-shrink: 0;
+    }
+    .logo-fig{
+      width:clamp(44px, 8vw, 56px);
+      height:clamp(44px, 8vw, 56px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
+      border-radius:clamp(8px, 2vw, 12px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+    }
+    .brand-text{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+    }
+    .app-name{
+      font-weight:700;
+      line-height:1.2;
+      font-size:clamp(0.9rem, 2.5vw, 1.1rem);
+      letter-spacing:0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .app-sub{
+      font-size:clamp(0.65rem, 1.8vw, 0.8rem);
+      opacity:0.95;
+      margin-top:2px;
+      font-family: "Noto Sans Devanagari", "Poppins";
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* center: greeting */
+    .greeting-wrap{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      gap:clamp(4px, 1vw, 8px);
+      text-align:center;
+      flex:1;
+      min-width:0;
+      max-width: 100%;
+    }
+    .greeting {
+      font-size:clamp(0.9rem, 2.2vw, 1.15rem);
+      font-weight:600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+
+    /* right: actions */
+    .actions{
+      display:flex;
+      align-items:center;
+      gap:clamp(8px, 2vw, 12px);
+      flex-shrink:0;
+    }
+
+    /* Language Switcher */
+    .language-switcher {
+      position: relative;
+      display: inline-block;
+    }
+
+    .language-btn {
+      background: rgba(255,255,255,0.15);
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 12px);
+      border-radius: clamp(6px, 1.5vw, 8px);
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: clamp(4px, 1vw, 6px);
+      transition: all 0.2s ease;
+      backdrop-filter: blur(10px);
+      min-width: clamp(80px, 15vw, 100px);
+      justify-content: center;
+    }
+
+    .language-btn:hover {
+      background: rgba(255,255,255,0.25);
+      border-color: rgba(255,255,255,0.3);
+      transform: translateY(-1px);
+    }
+
+    .language-btn:active {
+      transform: translateY(0);
+    }
+
+    .dropdown-arrow {
+      font-size: 0.7em;
+      transition: transform 0.2s ease;
+    }
+
+    .language-switcher.open .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Dropdown Content */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: #ffffff;
+      border-radius: 8px;
+      min-width: clamp(180px, 25vw, 220px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      overflow: hidden;
+      z-index: 1000;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* Arrow pointing up */
+    .dropdown-content::before {
+      content: "";
+      position: absolute;
+      top: -8px;
+      right: 20px;
+      border-width: 0 8px 8px 8px;
+      border-style: solid;
+      border-color: transparent transparent #fff transparent;
+      filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
+    }
+
+    /* Dropdown Items */
+    .dropdown-content button {
+      width: 100%;
+      padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      gap: clamp(8px, 2vw, 12px);
+      cursor: pointer;
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      color: #333;
+      transition: background 0.2s ease;
+      text-align: left;
+    }
+
+    .dropdown-content button:hover {
+      background: #f8f9fa;
+      color: var(--blue);
+    }
+
+    .dropdown-content button.active {
+      background: #e3f2fd;
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .flag {
+      font-size: clamp(16px, 3vw, 20px);
+      flex-shrink: 0;
+    }
+
+    .lang-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 2px;
+    }
+
+    .lang-name {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    .lang-native {
+      font-size: 0.85em;
+      opacity: 0.7;
+      font-family: "Noto Sans Devanagari", "Poppins", system-ui;
+    }
+
+    /* Active dropdown */
+    .language-switcher.open .dropdown-content {
+      display: block;
+      animation: fadeInDown 0.2s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .login-btn{
+      background:var(--accent);
+      color:#111;
+      border:none;
+      padding:clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px);
+      border-radius:clamp(8px, 2vw, 10px);
+      font-weight:700;
+      font-size:clamp(0.8rem, 2vw, 0.9rem);
+      cursor:pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      white-space: nowrap;
+      min-width: clamp(60px, 12vw, 80px);
+    }
+    .login-btn:hover{
+      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+    }
+    .login-btn:active{ 
+      transform: translateY(1px);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    /* small decorative icons */
+    .decor-row{
+      display:flex;
+      gap:clamp(6px, 1.5vw, 10px);
+      margin-top:clamp(4px, 1vw, 6px);
+      align-items:center;
+      justify-content:center;
+      opacity:0.95;
+      flex-wrap:wrap;
+    }
+    .decor-row svg{ 
+      width:clamp(20px, 4vw, 26px); 
+      height:clamp(20px, 4vw, 26px); 
+    }
+
+    /* =============================    Main Container ============================= */
+    .main-container {
+      padding: 20px;
+      max-width: 1200px;
+      margin: auto;
+      /* background-color: #bee8ff; */
+    }
+
+    /* =============================    Page Header ============================= */
+    .page-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 10px;
+    }
+
+    .page-description {
+      font-size: 1.1rem;
+      color: #555;
+    }
+
+    /* =============================    Progress Section ============================= */
+    .progress-section {
+      margin: 30px 0;
+    }
+
+    .progress-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+    }
+
+    .progress-item {
+      background: #fbfeff;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .progress-number {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #0077b6;
+    }
+
+    .progress-label {
+      margin-top: 5px;
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    /* =============================    Quick Actions ============================= */
+    .quick-actions {
+      margin: 40px 0;
+    }
+
+    .quick-actions h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 15px;
+    }
+
+    .action-card {
+      background: linear-gradient(135deg, #00b4d8, #0077b6);
+      color: #fff;
+      border-radius: 14px;
+      padding: 15px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    .action-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0px 5px 18px rgba(0, 119, 182, 0.3);
+    }
+
+    /* =============================    Chapters Grid ============================= */
+    .chapters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .chapter-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 20px;
+      text-decoration: none;
+      color: #333;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .chapter-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.15);
+    }
+
+    .chapter-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .chapter-title {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #2c3e50;
+    }
+
+    .chapter-description {
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      color: #555;
+    }
+
+    .chapter-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #777;
+    }
+
+    /* Difficulty Badges */
+    .difficulty-badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .difficulty-easy {
+      background: #27ae60;
+    }
+
+    .difficulty-medium {
+      background: #f39c12;
+    }
+
+    .difficulty-hard {
+      background: #e74c3c;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      background: linear-gradient(135deg, #ff512f, #dd2476);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      z-index: 1000;
+    }
+    .back-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    /* Mobile-first responsive breakpoints */
+    
+    /* Very small phones (320px and below) */
+    @media (max-width: 320px){
+      .site-header{
+        padding: 10px 12px;
+        gap: 8px;
+      }
+      .actions{
+        gap: 6px;
+      }
+      .language-btn{
+        padding: 6px 8px;
+        font-size: 0.7rem;
+        min-width: 70px;
+      }
+      .dropdown-content{
+        min-width: 160px;
+        right: -10px;
+      }
+    }
+
+    /* Small phones (480px and below) */
+    @media (max-width: 740px){
+      .site-header{
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 16px;
+      }
+      
+      .brand{ 
+        justify-content: flex-start;
+        order: 1;
+      }
+      
+      .actions{ 
+        order: 2; 
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      
+      .greeting-wrap{ 
+        display: none; /* Hide greeting on mobile */
+      }
+
+      .dropdown-content{
+        right: 0;
+        min-width: 180px;
+      }
+    }
+
+    /* Medium phones (600px and below) */
+    @media (max-width: 600px) and (min-width: 481px){
+      .site-header{
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+      }
+      
+      .brand{
+        flex: 1;
+        min-width: 200px;
+      }
+      
+      .greeting-wrap{
+        flex-basis: 100%;
+        order: 3;
+      }
+      
+      .actions{
+        flex-shrink: 0;
+        gap: 10px;
+      }
+    }
+
+    /* Tablets (768px and below) */
+    @media (max-width: 768px) and (min-width: 601px){
+      .site-header{
+        gap: 20px;
+      }
+      
+      .greeting{
+        font-size: 1rem;
+      }
+      
+      .actions{
+        gap: 12px;
+      }
+    }
+
+    /* Touch devices optimization */
+    @media (hover: none) and (pointer: coarse) {
+      .language-btn, .login-btn{
+        min-height: 44px; /* iOS touch target minimum */
+      }
+      
+      .dropdown-content button{
+        padding: 14px 16px;
+        min-height: 44px;
+      }
+      
+      .language-btn:hover, .login-btn:hover{
+        transform: none;
+      }
+    }
+
+    /* Landscape orientation on mobile */
+    @media (max-height: 500px) and (orientation: landscape) {
+      .site-header{
+        flex-direction: row;
+        padding: 8px 16px;
+        min-height: 60px;
+      }
+      
+      .greeting-wrap{
+        order: 2;
+      }
+      
+      .actions{
+        order: 3;
+        gap: 8px;
+      }
+      
+      .brand{
+        order: 1;
+        justify-content: flex-start;
+      }
+      
+      .decor-row{
+        display: none;
+      }
+    }
+
+    /* Dark mode support */
+    @media (prefers-color-scheme: dark) {
+      body{
+        background: #1a1a1a;
+        color: #e0e0e0;
+      }
+      
+      .site-header{
+        background: linear-gradient(135deg, rgba(46,125,50,0.98), rgba(33,150,243,0.98));
+        box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      }
+      
+      .dropdown-content{
+        background: #2d2d2d;
+        border-color: rgba(255,255,255,0.1);
+      }
+      
+      .dropdown-content button{
+        color: #e0e0e0;
+      }
+      
+      .dropdown-content button:hover{
+        background: #3d3d3d;
+        color: #64b5f6;
+      }
+    }
+
+    /* Reduced motion preference */
+    @media (prefers-reduced-motion: reduce) {
+      .language-btn, .login-btn{
+        transition: none;
+      }
+      
+      .language-btn:active, .login-btn:active{
+        transform: none;
+      }
+      
+      .dropdown-content{
+        animation: none;
+      }
+    }
+
+    /* Click outside to close dropdown */
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 999;
+      display: none;
+    }
+
+    .language-switcher.open ~ .overlay {
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <!-- Back Button -->
-   <div  > 
-     <a href="../index.html" class="back-btn" aria-label="Go Back">←</a>
-     
-  <!-- Language Switcher -->
-  <div class="language-switcher" id="languageSwitcher">
-    <button class="language-btn" id="languageBtn" aria-label="Select Language">
-      <span class="flag" id="currentFlag">🇬🇧</span>
-      <span id="currentLang">EN</span>
-      <span class="dropdown-arrow">▼</span>
-    </button>
-    <div class="dropdown-content" id="languageDropdown">
-      <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
-        <span class="flag">🇬🇧</span>
-        <div class="lang-info">
-          <span class="lang-name">English</span>
-          <span class="lang-native">English</span>
-        </div>
-      </button>
-      <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
-        <span class="flag">🇮🇳</span>
-        <div class="lang-info">
-          <span class="lang-name">Hindi</span>
-          <span class="lang-native">हिंदी</span>
-        </div>
-      </button>
-      <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
-        <span class="flag">🏛️</span>
-        <div class="lang-info">
-          <span class="lang-name">Odia</span>
-          <span class="lang-native">ଓଡ଼ିଆ</span>
-        </div>
-      </button>
+  <header class="site-header" role="banner" aria-label="App header">
+    <!-- Left: Brand -->
+    <div class="brand">
+      <div class="logo-fig" aria-hidden="true">
+        <a href="index.html">
+          <svg
+            viewBox="0 0 64 64"
+            width="36"
+            height="36"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              x="6"
+              y="28"
+              width="52"
+              height="26"
+              rx="4"
+              fill="rgba(255,255,255,0.18)"
+            />
+            <path
+              d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0"
+              stroke="#fff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+            />
+            <path
+              d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z"
+              fill="#fff"
+              opacity="0.95"
+            />
+          </svg>
+        </a>
+      </div>
+      <div class="brand-text">
+        <div class="app-name">LearnRural</div>
+        <div class="app-sub">नवीन शिक्षा • New Learning</div>
+      </div>
     </div>
-  </div>
-</div>
+     
+    <!-- Center: Greeting -->
+    <div class="greeting-wrap">
+      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to LearnRural</div>
+      <div class="decor-row" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M3 6h13v12H3z"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.2"
+          />
+          <path
+            d="M16 6h3v12"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.2"
+          />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M20 4s-4 1-8 5-8 9-8 9 4-1 8-5 8-9 8-9z"
+            stroke="#fff"
+            stroke-opacity="0.9"
+            stroke-width="1.1"
+          />
+        </svg>
+        <svg viewBox="0 0 24 24" fill="none">
+          <path
+            d="M12 2l10 6-10 6L2 8 12 2z"
+            stroke="#fff"
+            stroke-opacity="0.95"
+            stroke-width="1.1"
+          />
+          <path
+            d="M12 14v6"
+            stroke="#fff"
+            stroke-opacity="0.95"
+            stroke-width="1.1"
+          />
+        </svg>
+      </div>
+    </div>
+     
+    <!-- Right: Actions -->
+    <div class="actions">
+      <!-- Language Switcher -->
+      <div class="language-switcher" id="languageSwitcher">
+        <button class="language-btn" id="languageBtn" aria-label="Select Language">
+          <span class="flag" id="currentFlag">🇬🇧</span>
+          <span id="currentLang">EN</span>
+          <span class="dropdown-arrow">▼</span>
+        </button>
+        <div class="dropdown-content" id="languageDropdown">
+          <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
+            <span class="flag">🇬🇧</span>
+            <div class="lang-info">
+              <span class="lang-name">English</span>
+              <span class="lang-native">English</span>
+            </div>
+          </button>
+          <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
+            <span class="flag">🇮🇳</span>
+            <div class="lang-info">
+              <span class="lang-name">Hindi</span>
+              <span class="lang-native">हिंदी</span>
+            </div>
+          </button>
+          <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
+            <span class="flag">🏛️</span>
+            <div class="lang-info">
+              <span class="lang-name">Odia</span>
+              <span class="lang-native">ଓଡ଼ିଆ</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      <button class="login-btn" id="loginBtn">Login</button>
+    </div>
+  </header>
 
+  <div style="background-color: #ddf3ff;" class="main" >
   <main class="main-container mathematics-container">
     <!-- Header -->
     <section class="page-header">
@@ -151,8 +898,65 @@
 
    
   </main>
+  </div>
 
-  <script src="mathematics.js"></script>
+  <script src="mathematics.js" ></script>
+  <script>
+    // Language switcher functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const languageSwitcher = document.getElementById('languageSwitcher');
+      const languageBtn = document.getElementById('languageBtn');
+      const languageDropdown = document.getElementById('languageDropdown');
+      const currentFlag = document.getElementById('currentFlag');
+      const currentLang = document.getElementById('currentLang');
+      
+      // Toggle dropdown
+      languageBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        languageSwitcher.classList.toggle('open');
+      });
+      
+      // Close dropdown when clicking outside
+      document.addEventListener('click', function() {
+        languageSwitcher.classList.remove('open');
+      });
+      
+      // Prevent dropdown from closing when clicking inside
+      languageDropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+      
+      // Handle language selection
+      const languageButtons = languageDropdown.querySelectorAll('button');
+      languageButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          const lang = this.getAttribute('data-lang');
+          const flag = this.getAttribute('data-flag');
+          const name = this.getAttribute('data-name');
+          
+          // Update current language display
+          currentFlag.textContent = flag;
+          currentLang.textContent = lang.toUpperCase();
+          
+          // Update active state
+          languageButtons.forEach(btn => btn.classList.remove('active'));
+          this.classList.add('active');
+          
+          // Close dropdown
+          languageSwitcher.classList.remove('open');
+          
+          // Here you would typically update the page content based on the selected language
+          console.log(`Language changed to: ${name} (${lang})`);
+        });
+      });
+      
+      // Login button functionality
+      const loginBtn = document.getElementById('loginBtn');
+      loginBtn.addEventListener('click', function() {
+        alert('Login functionality would go here');
+      });
+    });
+  </script>
   
 </body>
 </html>
