@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LearnRural - Teacher Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/lucide@latest/icons.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+    <div class="logo">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0 5.356-2H20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-6a4 4 0 0 1-4-4z"></path>
+      </svg>
+      <span>LearnRural</span>
+      <span class="tagline">ନୂତନ ଶିକ୍ଷା • New Learning</span>
+    </div>
+
+    <nav>
+      <ul>
+        <li><a href="#dashboard" class="active"><i data-lucide="home"></i> Dashboard</a></li>
+        <li><a href="#students"><i data-lucide="users"></i> My Classes / Students</a></li>
+        <li><a href="#lessons"><i data-lucide="book-open"></i> Lessons / Courses</a></li>
+        <li><a href="#quizzes"><i data-lucide="file-text"></i> Quizzes & Assignments</a></li>
+        <li><a href="#analytics"><i data-lucide="bar-chart-2"></i> Progress & Analytics</a></li>
+        <li><a href="#achievements"><i data-lucide="trophy"></i> Achievements / Badges</a></li>
+        <li><a href="#notifications"><i data-lucide="bell"></i> Notifications</a></li>
+        <li><a href="#settings"><i data-lucide="settings"></i> Settings / Profile</a></li>
+        <li><a href="#" id="logout-btn"><i data-lucide="log-out"></i> Logout</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    <!-- TOP BAR -->
+    <header class="top-bar">
+      <div class="welcome">
+        <span>👋 Welcome, Ms. Sharma</span>
+      </div>
+
+      <div class="controls">
+        <div class="language-selector">
+          <button id="lang-btn">🌐 EN | हिंदी | ଓଡ଼ିଆ</button>
+          <div class="lang-dropdown" id="lang-dropdown">
+            <a href="#" data-lang="en">🇬🇧 English</a>
+            <a href="#" data-lang="hi">🇮🇳 हिंदी</a>
+            <a href="#" data-lang="or">🇮🇳 ଓଡ଼ିଆ</a>
+          </div>
+        </div>
+
+        <button class="icon-btn" id="notif-btn">
+          <i data-lucide="bell"></i>
+          <span class="badge">3</span>
+        </button>
+
+        <div class="avatar-dropdown">
+          <img src="https://via.placeholder.com/32" alt="Profile" class="avatar" id="avatar-btn">
+          <div class="dropdown-menu" id="profile-menu">
+            <a href="#profile">View Profile</a>
+            <a href="#settings">Settings</a>
+            <a href="#" id="logout-mobile">Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- DASHBOARD HOME -->
+    <section id="dashboard" class="content-section active">
+      <h1>Continue Teaching</h1>
+      <div class="hero-card">
+        <h3>Numbers & Operations</h3>
+        <p>Learn whole numbers, addition, subtraction, multiplication, and division.</p>
+        <div class="meta">
+          <span>5 Lessons</span>
+          <span class="tag easy">Easy</span>
+        </div>
+        <button class="btn-primary">Continue</button>
+      </div>
+
+      <h2>Choose Your Subject</h2>
+      <div class="subject-grid">
+        <div class="subject-card math">
+          <div class="icon"><i data-lucide="calculator"></i></div>
+          <h3>Mathematics</h3>
+          <p>Build problem-solving skills with numbers, algebra, geometry, and mathematical reasoning.</p>
+          <div class="meta">
+            <span>12 Chapters • 60 Lessons</span>
+            <span class="tag medium">Medium</span>
+          </div>
+          <button class="btn-outline">View Details</button>
+        </div>
+
+        <div class="subject-card science">
+          <div class="icon"><i data-lucide="flask"></i></div>
+          <h3>Science</h3>
+          <p>Discover the wonders of physics, chemistry, biology through experiments and observations.</p>
+          <div class="meta">
+            <span>15 Chapters • 75 Lessons</span>
+            <span class="tag hard">Hard</span>
+          </div>
+          <button class="btn-outline">View Details</button>
+        </div>
+
+        <div class="subject-card social">
+          <div class="icon"><i data-lucide="globe"></i></div>
+          <h3>Social Science</h3>
+          <p>Explore history, geography, civics, and understand society and human relationships.</p>
+          <div class="meta">
+            <span>10 Chapters • 50 Lessons</span>
+            <span class="tag easy">Easy</span>
+          </div>
+          <button class="btn-outline">View Details</button>
+        </div>
+
+        <div class="subject-card english">
+          <div class="icon"><i data-lucide="book-open"></i></div>
+          <h3>English</h3>
+          <p>Improve reading, writing, speaking, and grammar skills with stories and exercises.</p>
+          <div class="meta">
+            <span>11 Chapters • 55 Lessons</span>
+            <span class="tag medium">Medium</span>
+          </div>
+          <button class="btn-outline">View Details</button>
+        </div>
+      </div>
+
+      <h2>Recent Activity</h2>
+      <div class="activity-feed">
+        <div class="activity-item">
+          <i data-lucide="file-text" class="icon-note"></i>
+          <div>
+            <strong>Rahul K.</strong> submitted Quiz 3 — Score: <span class="score">85%</span>
+          </div>
+          <span class="time">2 hrs ago</span>
+        </div>
+        <div class="activity-item">
+          <i data-lucide="message-circle" class="icon-question"></i>
+          <div>
+            <strong>Priya M.</strong> asked question in “Cell Biology” lesson
+          </div>
+          <span class="time">4 hrs ago</span>
+        </div>
+        <div class="activity-item">
+          <i data-lucide="trophy" class="icon-badge"></i>
+          <div>
+            <strong>Arjun S.</strong> earned “Math Wizard” badge!
+          </div>
+          <span class="time">Yesterday</span>
+        </div>
+        <div class="activity-item">
+          <i data-lucide="bar-chart-2" class="icon-chart"></i>
+          <div>
+            <strong>Class 8B</strong> completed 90% of “Fractions” module
+          </div>
+          <span class="time">2 days ago</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STUDENTS SECTION -->
+    <section id="students" class="content-section">
+      <h1>My Students</h1>
+
+      <div class="add-student">
+        <input type="text" id="student-id" placeholder="Enter 12-character Student ID (e.g., STU-XXXX-XXXX-XX)" maxlength="14">
+        <button id="connect-btn" class="btn-primary">Connect</button>
+      </div>
+
+      <div class="search-filter">
+        <input type="text" id="search-student" placeholder="Search by name or ID...">
+        <select id="filter-progress">
+          <option value="">All Progress Levels</option>
+          <option value="low">Low (<50%)</option>
+          <option value="medium">Medium (50-79%)</option>
+          <option value="high">High (≥80%)</option>
+        </select>
+      </div>
+
+      <div class="student-list">
+        <div class="student-card">
+          <img src="https://via.placeholder.com/40" alt="Student" class="avatar">
+          <div class="info">
+            <h4>Rahul Kumar</h4>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 85%; background: #10B981;"></div>
+            </div>
+            <div class="badges">
+              <span title="Math Wizard">🏆</span>
+              <span title="Quiz Master">🏅</span>
+              <span title="Explorer">🌍</span>
+            </div>
+          </div>
+          <div class="stats">
+            <span class="quiz-score">85%</span>
+            <button class="btn-small">View Profile</button>
+          </div>
+        </div>
+
+        <div class="student-card">
+          <img src="https://via.placeholder.com/40" alt="Student" class="avatar">
+          <div class="info">
+            <h4>Priya Mehta</h4>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 62%; background: #F59E0B;"></div>
+            </div>
+            <div class="badges">
+              <span title="Science Star">🔬</span>
+              <span title="Quick Learner">⚡</span>
+            </div>
+          </div>
+          <div class="stats">
+            <span class="quiz-score">72%</span>
+            <button class="btn-small">View Profile</button>
+          </div>
+        </div>
+
+        <div class="student-card">
+          <img src="https://via.placeholder.com/40" alt="Student" class="avatar">
+          <div class="info">
+            <h4>Arjun Singh</h4>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width: 92%; background: #10B981;"></div>
+            </div>
+            <div class="badges">
+              <span title="Math Wizard">🏆</span>
+              <span title="Perfect Score">💯</span>
+              <span title="Top Student">⭐</span>
+            </div>
+          </div>
+          <div class="stats">
+            <span class="quiz-score">94%</span>
+            <button class="btn-small">View Profile</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LESSONS SECTION -->
+    <section id="lessons" class="content-section">
+      <h1>Lessons & Courses</h1>
+
+      <div class="lesson-actions">
+        <button class="btn-primary" id="add-lesson-btn">➕ Add New Lesson</button>
+        <select id="sort-lessons">
+          <option value="all">All Topics</option>
+          <option value="math">Mathematics</option>
+          <option value="science">Science</option>
+          <option value="social">Social Science</option>
+          <option value="english">English</option>
+        </select>
+      </div>
+
+      <div class="lesson-list">
+        <div class="lesson-card">
+          <h3>Introduction to Fractions</h3>
+          <p>Type: Video • Topic: Mathematics • Difficulty: Easy</p>
+          <div class="meta">
+            <span>Assigned To: Class 8A, 8B</span>
+            <span class="status published">Published</span>
+          </div>
+          <div class="actions">
+            <button class="btn-icon"><i data-lucide="edit"></i></button>
+            <button class="btn-icon"><i data-lucide="trash-2"></i></button>
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <h3>Cell Biology Basics</h3>
+          <p>Type: Interactive Exercise • Topic: Science • Difficulty: Medium</p>
+          <div class="meta">
+            <span>Assigned To: Class 9A</span>
+            <span class="status draft">Draft</span>
+          </div>
+          <div class="actions">
+            <button class="btn-icon"><i data-lucide="edit"></i></button>
+            <button class="btn-icon"><i data-lucide="trash-2"></i></button>
+          </div>
+        </div>
+
+        <div class="lesson-card">
+          <h3>Grammar Rules: Tenses</h3>
+          <p>Type: PDF Worksheet • Topic: English • Difficulty: Hard</p>
+          <div class="meta">
+            <span>Assigned To: Class 7B</span>
+            <span class="status published">Published</span>
+          </div>
+          <div class="actions">
+            <button class="btn-icon"><i data-lucide="edit"></i></button>
+            <button class="btn-icon"><i data-lucide="trash-2"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+    <!-- QUIZZES SECTION -->
+    <section id="quizzes" class="content-section">
+      <h1>Quizzes & Assignments</h1>
+
+      <div class="quiz-actions">
+        <button class="btn-primary" id="create-quiz-btn">➕ Create New Quiz</button>
+      </div>
+
+      <div class="assign-quiz-panel">
+        <h3>Assign Quiz to Students</h3>
+        <select id="select-quiz">
+          <option value="">Select Quiz</option>
+          <option value="q1">Quiz 1: Fractions</option>
+          <option value="q2">Quiz 2: Cell Biology</option>
+          <option value="q3">Quiz 3: Grammar Tenses</option>
+        </select>
+        <div class="assign-options">
+          <label><input type="radio" name="assign-to" value="all" checked> All Class</label>
+          <label><input type="radio" name="assign-to" value="custom"> Custom Selection</label>
+        </div>
+        <input type="date" id="due-date" placeholder="Due Date">
+        <button class="btn-primary">Assign Now</button>
+      </div>
+
+      <h3>Quiz Performance</h3>
+      <table class="quiz-table">
+        <thead>
+          <tr>
+            <th>Student</th>
+            <th>Quiz</th>
+            <th>Score</th>
+            <th>Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Rahul Kumar</td>
+            <td>Quiz 1: Fractions</td>
+            <td><span class="score">85%</span></td>
+            <td>2025-04-01</td>
+            <td><button class="btn-small">Review</button></td>
+          </tr>
+          <tr>
+            <td>Priya Mehta</td>
+            <td>Quiz 2: Cell Biology</td>
+            <td><span class="score">72%</span></td>
+            <td>2025-04-03</td>
+            <td><button class="btn-small">Review</button></td>
+          </tr>
+          <tr>
+            <td>Arjun Singh</td>
+            <td>Quiz 3: Grammar Tenses</td>
+            <td><span class="score">94%</span></td>
+            <td>2025-04-05</td>
+            <td><button class="btn-small">Review</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ANALYTICS SECTION -->
+    <section id="analytics" class="content-section">
+      <h1>Progress & Analytics</h1>
+
+      <div class="chart-container">
+        <canvas id="classProgressChart"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="quizPerformanceChart"></canvas>
+      </div>
+
+      <div class="chart-container">
+        <canvas id="badgesEarnedChart"></canvas>
+      </div>
+
+      <div class="download-report">
+        <button class="btn-primary">📥 Download Report (PDF)</button>
+        <button class="btn-secondary">📊 Export Data (CSV)</button>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS SECTION -->
+    <section id="achievements" class="content-section">
+      <h1>Achievements & Badges</h1>
+
+      <div class="badge-grid">
+        <div class="badge-card">
+          <div class="badge-icon">🏆</div>
+          <h4>Math Wizard</h4>
+          <p>Earned by 12 students</p>
+          <button class="btn-small">Award</button>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">🔬</div>
+          <h4>Science Star</h4>
+          <p>Earned by 8 students</p>
+          <button class="btn-small">Award</button>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">🌍</div>
+          <h4>Explorer</h4>
+          <p>Earned by 15 students</p>
+          <button class="btn-small">Award</button>
+        </div>
+        <div class="badge-card">
+          <div class="badge-icon">⚡</div>
+          <h4>Quick Learner</h4>
+          <p>Earned by 5 students</p>
+          <button class="btn-small">Award</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- NOTIFICATIONS SECTION -->
+    <section id="notifications" class="content-section">
+      <h1>Notifications</h1>
+
+      <div class="notification-list">
+        <div class="notification-item unread">
+          <i data-lucide="file-text"></i>
+          <div>
+            <strong>New Quiz Submission</strong>
+            <p>Rahul Kumar submitted Quiz 3 — Score: 85%</p>
+          </div>
+          <span class="time">2 hrs ago</span>
+        </div>
+        <div class="notification-item">
+          <i data-lucide="message-circle"></i>
+          <div>
+            <strong>Question Asked</strong>
+            <p>Priya Mehta asked about cell division in Science lesson</p>
+          </div>
+          <span class="time">4 hrs ago</span>
+        </div>
+        <div class="notification-item">
+          <i data-lucide="trophy"></i>
+          <div>
+            <strong>Badge Earned</strong>
+            <p>Arjun Singh earned “Math Wizard” badge!</p>
+          </div>
+          <span class="time">Yesterday</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SETTINGS SECTION -->
+    <section id="settings" class="content-section">
+      <h1>Settings & Profile</h1>
+
+      <div class="profile-card">
+        <img src="https://via.placeholder.com/80" alt="Profile" class="profile-avatar">
+        <div class="profile-info">
+          <h3>Ms. Sharma</h3>
+          <p>Grade 8 & 9 STEM Teacher</p>
+          <p>sharma.teacher@learnrural.edu</p>
+        </div>
+      </div>
+
+      <div class="setting-group">
+        <h3>Account Settings</h3>
+        <div class="setting-item">
+          <label>Name:</label>
+          <input type="text" value="Ms. Sharma">
+        </div>
+        <div class="setting-item">
+          <label>Email:</label>
+          <input type="email" value="sharma.teacher@learnrural.edu">
+        </div>
+        <div class="setting-item">
+          <label>Password:</label>
+          <input type="password" placeholder="Change password...">
+        </div>
+        <button class="btn-primary">Save Changes</button>
+      </div>
+
+      <div class="setting-group">
+        <h3>Preferences</h3>
+        <div class="setting-item">
+          <label>Theme:</label>
+          <select>
+            <option>Light</option>
+            <option>Dark</option>
+            <option selected>Auto</option>
+          </select>
+        </div>
+        <div class="setting-item">
+          <label>Notification Sound:</label>
+          <select>
+            <option>On</option>
+            <option selected>Off</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MOBILE MENU TOGGLE -->
+  <button id="mobile-menu-toggle" class="mobile-menu-btn">
+    <i data-lucide="menu"></i>
+  </button>
+
+  <!-- MODAL FOR STUDENT PROFILE -->
+  <div id="student-profile-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Student Profile: Rahul Kumar</h2>
+      <div class="profile-tabs">
+        <button class="tab-btn active" data-tab="progress">Lesson Progress</button>
+        <button class="tab-btn" data-tab="quizzes">Quiz Scores</button>
+        <button class="tab-btn" data-tab="badges">Badges</button>
+        <button class="tab-btn" data-tab="time">Time Spent</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="progress-pane">
+          <ul class="progress-list">
+            <li>Introduction to Fractions — <strong>90%</strong></li>
+            <li>Decimals & Percentages — <strong>75%</strong></li>
+            <li>Algebra Basics — <strong>60%</strong></li>
+          </ul>
+        </div>
+        <div class="tab-pane" id="quizzes-pane">
+          <table>
+            <thead>
+              <tr><th>Quiz</th><th>Score</th><th>Date</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Quiz 1: Fractions</td><td>85%</td><td>2025-04-01</td></tr>
+              <tr><td>Quiz 2: Decimals</td><td>78%</td><td>2025-04-08</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane" id="badges-pane">
+          <div class="badge-list">
+            <span>🏆 Math Wizard</span>
+            <span>🏅 Quiz Master</span>
+            <span>🌍 Explorer</span>
+          </div>
+        </div>
+        <div class="tab-pane" id="time-pane">
+          <div class="time-chart">
+            <div class="time-bar" style="width: 80%;">Fractions (4.5 hrs)</div>
+            <div class="time-bar" style="width: 60%;">Decimals (3.2 hrs)</div>
+            <div class="time-bar" style="width: 40%;">Algebra (2.1 hrs)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

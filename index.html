@@ -6,11 +6,109 @@
   <title>Rural Learning — Header</title>
   <!-- Fonts -->
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
     rel="stylesheet"
   />
 
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
+    /* Enhanced Carousel Animation */
+    @keyframes smoothScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    
+    .carousel-container {
+      overflow: hidden;
+      position: relative;
+      width: 100%;
+      mask: linear-gradient(
+        to right,
+        transparent 0%,
+        black 10%,
+        black 90%,
+        transparent 100%
+      );
+    }
+    
+    .scrolling-wrapper {
+      display: flex;
+      width: 200%;
+      animation: smoothScroll 30s linear infinite;
+      will-change: transform;
+    }
+    
+    .scrolling-wrapper:hover {
+      animation-play-state: paused;
+    }
+    
+    .carousel-item {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 16px;
+      box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.08),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      min-width: 280px;
+      margin-right: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    
+    .carousel-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    .carousel-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .carousel-item:hover::before {
+      transform: scaleX(1);
+    }
+    
+    .topic-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+      text-align: center;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+      transition: transform 0.3s ease;
+    }
+    
+    .carousel-item:hover .topic-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+    
+    .topic-title {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+      line-height: 1.4;
+    }
+    
+    .topic-description {
+      font-size: 0.875rem;
+      color: #6b7280;
+      line-height: 1.5;
+      margin: 0;
+    }
+
     :root{
       --green:#2E7D32;
       --blue:#1565C0;
@@ -28,43 +126,51 @@
       color:#0b2a1f;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
     }
 
-    /* Header Styles */
+    /* Enhanced Header Styles */
     .site-header{
       position: sticky;
       top: 0;
       width:100%;
       background: linear-gradient(135deg, rgba(255,224,178,0.95), rgba(255,204,188,0.95));    
       color:var(--white);
-      padding:clamp(12px, 3vw, 20px);
+      padding:clamp(8px, 2vw, 16px) clamp(12px, 3vw, 20px);
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:clamp(8px, 2vw, 16px);
       box-shadow: 0 6px 18px rgba(16,24,32,0.12);
       flex-wrap:wrap;
-      min-height: 70px;
+      min-height: 60px;
       z-index: 1000;
+      backdrop-filter: blur(20px);
     }
 
     .brand{
       display:flex;
       align-items:center;
-      gap:clamp(8px, 2vw, 12px);
+      gap:clamp(6px, 1.5vw, 10px);
       min-width:0;
       flex-shrink: 0;
     }
     
     .logo-fig{
-      width:clamp(44px, 8vw, 56px);
-      height:clamp(44px, 8vw, 56px);
+      width:clamp(36px, 6vw, 48px);
+      height:clamp(36px, 6vw, 48px);
       background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
-      border-radius:clamp(8px, 2vw, 12px);
+      border-radius:clamp(6px, 1.5vw, 10px);
       display:flex;
       align-items:center;
       justify-content:center;
       flex-shrink:0;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    
+    .logo-fig:hover {
+      transform: scale(1.05);
     }
     
     .brand-text{
@@ -76,7 +182,7 @@
     .app-name{
       font-weight:700;
       line-height:1.2;
-      font-size:clamp(0.9rem, 2.5vw, 1.1rem);
+      font-size:clamp(0.8rem, 2.2vw, 1rem);
       letter-spacing:0.2px;
       white-space: nowrap;
       overflow: hidden;
@@ -84,7 +190,7 @@
     }
     
     .app-sub{
-      font-size:clamp(0.65rem, 1.8vw, 0.8rem);
+      font-size:clamp(0.6rem, 1.5vw, 0.75rem);
       opacity:0.95;
       margin-top:2px;
       font-family: "Noto Sans Devanagari", "Poppins";
@@ -106,7 +212,7 @@
     }
     
     .greeting {
-      font-size:clamp(0.9rem, 2.2vw, 1.15rem);
+      font-size:clamp(0.8rem, 2vw, 1.1rem);
       font-weight:600;
       white-space: nowrap;
       overflow: hidden;
@@ -116,8 +222,8 @@
 
     .decor-row{
       display:flex;
-      gap:clamp(6px, 1.5vw, 10px);
-      margin-top:clamp(4px, 1vw, 6px);
+      gap:clamp(4px, 1vw, 8px);
+      margin-top:clamp(2px, 0.5vw, 4px);
       align-items:center;
       justify-content:center;
       opacity:0.95;
@@ -125,18 +231,18 @@
     }
     
     .decor-row svg{ 
-      width:clamp(20px, 4vw, 26px); 
-      height:clamp(20px, 4vw, 26px); 
+      width:clamp(16px, 3vw, 22px); 
+      height:clamp(16px, 3vw, 22px); 
     }
 
     .actions{
       display:flex;
       align-items:center;
-      gap:clamp(8px, 2vw, 12px);
+      gap:clamp(6px, 1.5vw, 10px);
       flex-shrink:0;
     }
 
-    /* Language Switcher */
+    /* Enhanced Language Switcher */
     .language-switcher {
       position: relative;
       display: inline-block;
@@ -146,17 +252,18 @@
       background: rgba(255,255,255,0.15);
       color: var(--white);
       border: 1px solid rgba(255,255,255,0.2);
-      padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 12px);
+      padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 10px);
       border-radius: clamp(6px, 1.5vw, 8px);
-      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
+      font-size: clamp(0.7rem, 1.6vw, 0.8rem);
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: clamp(4px, 1vw, 6px);
+      gap: clamp(3px, 0.8vw, 5px);
       transition: all 0.2s ease;
       backdrop-filter: blur(10px);
-      min-width: clamp(80px, 15vw, 100px);
+      min-width: clamp(70px, 12vw, 90px);
       justify-content: center;
+      min-height: 36px;
     }
 
     .language-btn:hover {
@@ -177,23 +284,24 @@
     .dropdown-content {
       display: none;
       position: absolute;
-      top: calc(100% + 8px);
+      top: calc(100% + 6px);
       right: 0;
       background: #ffffff;
-      border-radius: 6px;
-      min-width: clamp(180px, 25vw, 220px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      border-radius: 8px;
+      min-width: clamp(160px, 22vw, 200px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
       overflow: hidden;
       z-index: 9999;
       border: 1px solid rgba(0,0,0,0.1);
+      backdrop-filter: blur(20px);
     }
 
     .dropdown-content::before {
       content: "";
       position: absolute;
-      top: -8px;
-      right: 20px;
-      border-width: 0 8px 8px 8px;
+      top: -6px;
+      right: 16px;
+      border-width: 0 6px 6px 6px;
       border-style: solid;
       border-color: transparent transparent #fff transparent;
       filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
@@ -201,17 +309,18 @@
 
     .dropdown-content button {
       width: 100%;
-      padding: clamp(10px, 2.5vw, 12px) clamp(12px, 3vw, 16px);
+      padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 14px);
       border: none;
       background: transparent;
       display: flex;
       align-items: center;
-      gap: clamp(8px, 2vw, 12px);
+      gap: clamp(6px, 1.5vw, 10px);
       cursor: pointer;
-      font-size: clamp(0.8rem, 2vw, 0.9rem);
+      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
       color: #333;
       transition: background 0.2s ease;
       text-align: left;
+      min-height: 40px;
     }
 
     .dropdown-content button:hover {
@@ -226,7 +335,7 @@
     }
 
     .flag {
-      font-size: clamp(16px, 3vw, 20px);
+      font-size: clamp(14px, 2.5vw, 18px);
       flex-shrink: 0;
     }
 
@@ -268,21 +377,25 @@
       background:var(--accent);
       color:#111;
       border:none;
-      padding:clamp(8px, 2vw, 12px) clamp(12px, 3vw, 16px);
-      border-radius:clamp(8px, 2vw, 10px);
+      padding:clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 14px);
+      border-radius:clamp(6px, 1.5vw, 8px);
       font-weight:700;
-      font-size:clamp(0.8rem, 2vw, 0.9rem);
+      font-size:clamp(0.7rem, 1.8vw, 0.85rem);
       cursor:pointer;
       box-shadow: 0 4px 12px rgba(0,0,0,0.14);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: all 0.2s ease;
       white-space: nowrap;
-      min-width: clamp(60px, 12vw, 80px);
+      min-width: clamp(50px, 10vw, 70px);
       text-decoration: none;
       display: inline-block;
+      text-align: center;
+      min-height: 36px;
+      line-height: 1.4;
     }
     
     .login-btn:hover{
       box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+      transform: translateY(-1px);
     }
 
     /* Main Content Styles */
@@ -294,7 +407,7 @@
     }
 
     .main-content {
-      padding: clamp(2rem, 5vw, 3rem) clamp(1rem, 3vw, 2rem);
+      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(0.75rem, 2vw, 1.5rem);
       max-width: 1200px;
       margin: 0 auto;
       width: 100%;
@@ -302,92 +415,92 @@
     }
 
     .top-section {
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(18px);
-  border-radius: 10px;
-  padding: clamp(1.5rem, 4vw, 2.5rem);
-  margin-bottom: clamp(2rem, 5vw, 3rem);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  animation: slideDown 0.8s ease-out;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-}
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      border-radius: clamp(8px, 2vw, 12px);
+      padding: clamp(1rem, 3vw, 2rem);
+      margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      animation: slideDown 0.8s ease-out;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
 
-/* 🔥 streak + welcome */
-.streak-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: clamp(1.2rem, 3vw, 1.8rem);
-  gap: 1rem;
-  flex-wrap: wrap;
-}
+    /* 🔥 streak + welcome */
+    .streak-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
 
-.welcome-text {
-  font-size: clamp(1.2rem, 2.6vw, 1.6rem);
-  font-weight: 600;
-  color: var(--white);
-  line-height: 1.4;
-  flex: 1;
-  min-width: 220px;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+    .welcome-text {
+      font-size: clamp(1rem, 2.2vw, 1.4rem);
+      font-weight: 600;
+      color: var(--white);
+      line-height: 1.4;
+      flex: 1;
+      min-width: 180px;
+      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
 
-.streak-badge {
-  background: linear-gradient(135deg, #ff6b6b, #ffa726);
-  color: white;
-  padding: clamp(0.5rem, 2vw, 0.7rem) clamp(1rem, 3vw, 1.3rem);
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: clamp(0.85rem, 2vw, 1rem);
-  animation: pulse 2s infinite;
-  box-shadow: 0 4px 18px rgba(255, 107, 107, 0.35);
-  white-space: nowrap;
-  flex-shrink: 0;
-}
+    .streak-badge {
+      background: linear-gradient(135deg, #ff6b6b, #ffa726);
+      color: white;
+      padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2.5vw, 1.1rem);
+      border-radius: 16px;
+      font-weight: 600;
+      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+      animation: pulse 2s infinite;
+      box-shadow: 0 4px 18px rgba(255, 107, 107, 0.35);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
 
-/* 📖 text + image block */
-.description {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: clamp(1rem, 5vw, 2.5rem);
-  flex-wrap: wrap;
-}
+    /* 📖 text + image block */
+    .description {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: clamp(1rem, 4vw, 2rem);
+      flex-wrap: wrap;
+    }
 
-.para {
-  flex: 1;
-  min-width: 260px;
-}
+    .para {
+      flex: 1;
+      min-width: 220px;
+    }
 
-.description-text {
-  color: rgba(255, 255, 255, 0.92);
-  font-size: clamp(1rem, 2.2vw, 1.15rem);
-  line-height: 1.7;
-  margin: 0;
-  text-align: justify;
-}
+    .description-text {
+      color: rgba(255, 255, 255, 0.92);
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      line-height: 1.7;
+      margin: 0;
+      text-align: justify;
+    }
 
-.illustration-img {
-  border-radius: 12px;
-  height: auto;
-  max-height: 260px;
-  max-width: 100%;
-  object-fit: cover;
-  flex-shrink: 0;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
+    .illustration-img {
+      border-radius: clamp(8px, 2vw, 12px);
+      height: auto;
+      max-height: clamp(180px, 25vw, 240px);
+      max-width: 100%;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
 
     .education-levels {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: clamp(1.5rem, 4vw, 2rem);
-      margin-top: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 30vw, 300px), 1fr));
+      gap: clamp(1rem, 3vw, 1.5rem);
+      margin-top: clamp(1.5rem, 3vw, 2rem);
     }
 
     .level-card {
       background: rgba(255, 255, 255, 0.95);
-      border-radius: 12px;
-      padding: clamp(1.5rem, 4vw, 2rem);
+      border-radius: clamp(8px, 2vw, 12px);
+      padding: clamp(1rem, 3vw, 1.5rem);
       text-align: center;
       cursor: pointer;
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -401,6 +514,7 @@
       text-decoration: none;
       display: block;
       color: inherit;
+      min-height: clamp(200px, 25vw, 260px);
     }
 
     .level-card:nth-child(1) { animation-delay: 0.2s; }
@@ -420,7 +534,7 @@
     }
 
     .level-card:hover {
-      transform: translateY(-10px) scale(1.02);
+      transform: translateY(-8px) scale(1.02);
       border-color: rgba(102, 126, 234, 0.3);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
       text-decoration: none;
@@ -433,13 +547,13 @@
 
     .card-image {
       width: 100%;
-      height: clamp(120px, 20vw, 150px);
-      border-radius: 12px;
-      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      height: clamp(80px, 15vw, 120px);
+      border-radius: clamp(6px, 1.5vw, 10px);
+      margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: clamp(2.5rem, 6vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 2.8rem);
       position: relative;
       overflow: hidden;
       transition: transform 0.3s ease;
@@ -462,7 +576,7 @@
     }
 
     .level-title {
-      font-size: clamp(1.2rem, 3vw, 1.4rem);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
       font-weight: 600;
       color: #333;
       margin-bottom: 0.5rem;
@@ -472,11 +586,31 @@
 
     .level-subtitle {
       color: #666;
-      font-size: clamp(0.85rem, 2vw, 0.9rem);
+      font-size: clamp(0.8rem, 1.8vw, 0.85rem);
       line-height: 1.5;
       position: relative;
       z-index: 2;
       margin: 0;
+    }
+
+    /* Enhanced Carousel Section */
+    .carousel-section {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(15px);
+      border-radius: clamp(8px, 2vw, 12px);
+      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(0.5rem, 2vw, 1.5rem);
+      margin-top: clamp(1.5rem, 4vw, 2.5rem);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-title {
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: clamp(1rem, 3vw, 1.5rem);
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     @keyframes slideDown {
@@ -498,31 +632,32 @@
     }
 
     @keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); }
-}
-    
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
 
-    /* Responsive Design */
-    @media (max-width: 740px) {
+    /* Enhanced Mobile Responsiveness */
+    @media (max-width: 768px) {
       .site-header {
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        gap: 12px;
-        padding: 12px 16px;
+        gap: 8px;
+        padding: 8px 12px;
+        min-height: 56px;
       }
       
       .brand { 
         justify-content: flex-start;
         order: 1;
+        gap: 6px;
       }
       
       .actions { 
         order: 2; 
         justify-content: flex-end;
-        gap: 8px;
+        gap: 6px;
       }
       
       .greeting-wrap { 
@@ -531,105 +666,197 @@
 
       .dropdown-content {
         right: 0;
-        min-width: 180px;
+        min-width: 160px;
       }
 
       .description {
         flex-direction: column;
-        gap: 1.5rem;
+        gap: 1.2rem;
         text-align: center;
       }
       
       .illustration-img {
         width: 100%;
-        max-width: 200px;
+        max-width: 180px;
         margin: 0 auto;
       }
       
       .education-levels {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.2rem;
       }
       
       .streak-info {
         flex-direction: column;
         text-align: center;
-        gap: 1rem;
+        gap: 0.8rem;
       }
       
       .welcome-text {
         text-align: center;
       }
+
+      .carousel-item {
+        min-width: 240px;
+        margin-right: 1rem;
+        padding: 1.2rem;
+      }
     }
 
     @media (max-width: 480px) {
-      .main-content {
-        padding: 1.5rem 1rem;
-      }
-      
-      .level-card {
-        padding: 1.5rem;
-      }
-      
-      .description-text {
-        text-align: center;
-      }
-    }
-
-    @media (max-width: 320px) {
-      .site-header {
-        padding: 10px 12px;
-        gap: 8px;
-      }
-      
-      .actions {
-        gap: 6px;
-      }
-      
-      .language-btn {
-        padding: 6px 8px;
-        font-size: 0.7rem;
-        min-width: 70px;
-      }
-      
-      .dropdown-content {
-        min-width: 160px;
-        right: -10px;
-      }
-
       .main-content {
         padding: 1rem 0.75rem;
       }
       
       .top-section {
         padding: 1rem;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+      
+      .level-card {
+        padding: 1.2rem;
+        min-height: 180px;
+      }
+      
+      .description-text {
+        text-align: center;
+        font-size: 0.85rem;
+      }
+
+      .carousel-item {
+        min-width: 200px;
+        margin-right: 0.8rem;
+        padding: 1rem;
+      }
+
+      .topic-icon {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .topic-title {
+        font-size: 0.95rem;
+      }
+
+      .topic-description {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .site-header {
+        padding: 6px 10px;
+        gap: 6px;
+        min-height: 52px;
+      }
+      
+      .actions {
+        gap: 4px;
+      }
+      
+      .language-btn {
+        padding: 4px 6px;
+        font-size: 0.65rem;
+        min-width: 60px;
+        min-height: 32px;
+      }
+      
+      .login-btn {
+        padding: 4px 8px;
+        font-size: 0.65rem;
+        min-width: 45px;
+        min-height: 32px;
+      }
+      
+      .dropdown-content {
+        min-width: 140px;
+        right: -5px;
+      }
+
+      .main-content {
+        padding: 0.8rem 0.6rem;
+      }
+      
+      .top-section {
+        padding: 0.8rem;
+        margin-bottom: 1rem;
       }
       
       .streak-badge {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.7rem;
       }
       
       .level-card {
         padding: 1rem;
+        min-height: 160px;
       }
       
       .card-image {
-        height: 100px;
+        height: 70px;
+        font-size: 1.8rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .carousel-section {
+        padding: 1rem 0.3rem;
+      }
+
+      .carousel-item {
+        min-width: 180px;
+        margin-right: 0.6rem;
+        padding: 0.8rem;
+      }
+
+      .topic-icon {
         font-size: 2rem;
+        margin-bottom: 0.6rem;
+      }
+
+      .topic-title {
+        font-size: 0.85rem;
+      }
+
+      .topic-description {
+        font-size: 0.75rem;
+      }
+
+      .carousel-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+      }
+    }
+
+    /* Ultra small devices */
+    @media (max-width: 320px) {
+      .carousel-item {
+        min-width: 160px;
+        margin-right: 0.5rem;
+        padding: 0.7rem;
+      }
+
+      .topic-icon {
+        font-size: 1.8rem;
+      }
+
+      .topic-title {
+        font-size: 0.8rem;
+      }
+
+      .topic-description {
+        font-size: 0.7rem;
       }
     }
 
     /* Touch devices optimization */
     @media (hover: none) and (pointer: coarse) {
       .language-btn, .login-btn {
-        min-height: 44px;
+        min-height: 40px;
       }
       
       .dropdown-content button {
-        padding: 14px 16px;
-        min-height: 44px;
+        padding: 12px 14px;
+        min-height: 40px;
       }
       
       .language-btn:hover, .login-btn:hover {
@@ -637,11 +864,15 @@
       }
 
       .level-card {
-        min-height: 44px;
+        min-height: 40px;
       }
       
       .level-card:hover {
-        transform: translateY(-5px) scale(1.01);
+        transform: translateY(-4px) scale(1.01);
+      }
+
+      .carousel-item:hover {
+        transform: translateY(-4px) scale(1.01);
       }
     }
 
@@ -691,11 +922,24 @@
       .description-text {
         color: rgba(255, 255, 255, 0.8);
       }
+
+      .carousel-item {
+        background: rgba(45, 45, 45, 0.9);
+        border-color: rgba(255, 255, 255, 0.1);
+      }
+
+      .topic-title {
+        color: #e0e0e0;
+      }
+
+      .topic-description {
+        color: #b0b0b0;
+      }
     }
 
     /* Reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
-      .language-btn, .login-btn, .level-card, .streak-badge, .card-image, .top-section {
+      .language-btn, .login-btn, .level-card, .streak-badge, .card-image, .top-section, .carousel-item {
         animation: none;
         transition: none;
       }
@@ -715,6 +959,36 @@
       .level-card:hover .card-image {
         transform: none;
       }
+
+      .scrolling-wrapper {
+        animation: none;
+      }
+
+      .carousel-item:hover {
+        transform: none;
+      }
+    }
+
+    /* High contrast mode */
+    @media (prefers-contrast: high) {
+      .site-header {
+        background: #000;
+        border-bottom: 2px solid #fff;
+      }
+
+      .level-card {
+        border: 2px solid #333;
+        background: #fff;
+      }
+
+      .carousel-item {
+        border: 2px solid #333;
+        background: #fff;
+      }
+
+      .dropdown-content {
+        border: 2px solid #333;
+      }
     }
   </style>
 </head>
@@ -724,7 +998,7 @@
     <div class="brand">
       <div class="logo-fig" aria-hidden="true">
         <a href="../Frontend/index.html">
-          <svg viewBox="0 0 64 64" width="36" height="36" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg viewBox="0 0 64 64" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="6" y="28" width="52" height="26" rx="4" fill="rgba(255,255,255,0.18)" />
             <path d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0" stroke="#fff" stroke-width="1.2" stroke-linecap="round" />
             <path d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z" fill="#fff" opacity="0.95" />
@@ -816,10 +1090,10 @@
       class="illustration-img"
       src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
       alt="Learning illustration"
+      loading="lazy"
     />
   </div>
 </section>
-
 
       <section class="education-levels">
         <a href="primary/index.html" class="level-card primary">
@@ -846,204 +1120,685 @@
           <p class="level-subtitle" data-translate="senior.description">Advanced learning for career readiness</p>
         </a>
       </section>
+       
+       <!-- Enhanced Carousel Section -->
+       <section class="carousel-section">
+    <h2 class="carousel-title" data-translate="carousel.title">🔥 Popular STEM Topics</h2>
+
+    <!-- Carousel Container -->
+    <div class="carousel-container">
+      <div class="scrolling-wrapper" id="carouselWrapper">
+
+        <!-- First Set -->
+        <div class="flex">
+          <div class="carousel-item">
+            <div class="topic-icon">⚡</div>
+            <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
+            <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">➗</div>
+            <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
+            <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">💻</div>
+            <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
+            <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🌍</div>
+            <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
+            <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🧬</div>
+            <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
+            <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🌌</div>
+            <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
+            <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🧪</div>
+            <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
+            <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">📐</div>
+            <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
+            <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
+          </div>
+        </div>
+
+        <!-- Second Set (Exact Duplicate for Loop) -->
+        <div class="flex">
+          <div class="carousel-item">
+            <div class="topic-icon">⚡</div>
+            <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
+            <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">➗</div>
+            <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
+            <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">💻</div>
+            <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
+            <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🌍</div>
+            <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
+            <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🧬</div>
+            <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
+            <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🌌</div>
+            <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
+            <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">🧪</div>
+            <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
+            <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.</p>
+          </div>
+          
+          <div class="carousel-item">
+            <div class="topic-icon">📐</div>
+            <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
+            <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
     </main>
   </div>
 
-  <script>
-    // Complete translation data
-    const translations = {
-      en: {
-        flag: '🇬🇧',
-        code: 'EN',
-        greeting: '👋 Welcome to LearnRural',
-        'brand.name': 'LearnRural',
-        'brand.subtitle': 'नवीन शिक्षा • New Learning',
-        welcome: 'Start your learning journey today!',
-        streak: 'Streak 7 days',
-        description: 'Empowering rural communities through quality education. Choose your level and begin learning with interactive content designed for rural learners.',
-        'primary.title': 'Primary',
-        'primary.description': 'Foundational learning for young minds',
-        'secondary.title': 'Secondary',
-        'secondary.description': 'Building knowledge and skills',
-        'senior.title': 'Senior Secondary',
-        'senior.description': 'Advanced learning for career readiness',
-        login: 'Login'
-      },
-      hi: {
-        flag: '🇮🇳',
-        code: 'HI',
-        greeting: '👋 नमस्ते! LearnRural में आपका स्वागत है',
-        'brand.name': 'LearnRural',
-        'brand.subtitle': 'नवीन शिक्षा • New Learning',
-        welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
-        streak: '7 दिन की लकीर',
-        description: 'गुणवत्तापूर्ण शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना। अपना स्तर चुनें और ग्रामीण शिक्षार्थियों के लिए डिज़ाइन की गई इंटरैक्टिव सामग्री के साथ सीखना शुरू करें।',
-        'primary.title': 'प्राथमिक',
-        'primary.description': 'युवा मस्तिष्क के लिए मूलभूत शिक्षा',
-        'secondary.title': 'माध्यमिक',
-        'secondary.description': 'ज्ञान और कौशल का निर्माण',
-        'senior.title': 'उच्च माध्यमिक',
-        'senior.description': 'करियर तैयारी के लिए उन्नत शिक्षा',
-        login: 'लॉगिन'
-      },
-      or: {
-        flag: '🏛️',
-        code: 'OD',
-        greeting: '👋 ନମସ୍କାର! LearnRural କୁ ସ୍ୱାଗତ',
-        'brand.name': 'LearnRural',
-        'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
-        welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
-        streak: '7 ଦିନର ଧାରା',
-        description: 'ଗୁଣବତ୍ତା ଶିକ୍ଷା ମାଧ୍ୟମରେ ଗ୍ରାମାଞ୍ଚଳ ସମୁଦାୟକୁ ସଶକ୍ତ କରିବା। ଆପଣଙ୍କର ସ୍ତର ବାଛନ୍ତୁ ଏବଂ ଗ୍ରାମାଞ୍ଚଳ ଶିକ୍ଷାର୍ଥୀମାନଙ୍କ ପାଇଁ ଡିଜାଇନ୍ ହୋଇଥିବା ଇଣ୍ଟରାକ୍ଟିଭ୍ ବିଷୟବସ୍ତୁ ସହିତ ଶିକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ।',
-        'primary.title': 'ପ୍ରାଥମିକ',
-        'primary.description': 'ଯୁବ ମନ ପାଇଁ ମୂଳଦୁଆ ଶିକ୍ଷା',
-        'secondary.title': 'ମାଧ୍ୟମିକ',
-        'secondary.description': 'ଜ୍ଞାନ ଏବଂ ଦକ୍ଷତା ନିର୍ମାଣ',
-        'senior.title': 'ଉଚ୍ଚ ମାଧ୍ୟମିକ',
-        'senior.description': 'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା',
-        login: 'ଲଗଇନ୍'
-      }
-    };
 
-    // Language switcher functionality
-    const languageSwitcher = document.getElementById('languageSwitcher');
-    const languageBtn = document.getElementById('languageBtn');
-    const languageDropdown = document.getElementById('languageDropdown');
-    const currentFlag = document.getElementById('currentFlag');
-    const currentLang = document.getElementById('currentLang');
-    const greetingText = document.getElementById('greetingText');
 
-    let currentLanguage = 'en';
-    let isOpen = false;
+<script>
+    // Enhanced translation data with all content
+const translations = {
+  en: {
+    flag: '🇬🇧',
+    code: 'EN',
+    greeting: '👋 Welcome to LearnRural',
+    'brand.name': 'LearnRural',
+    'brand.subtitle': 'नवीन शिक्षा • New Learning',
+    welcome: 'Start your learning journey today!',
+    streak: 'Streak 7 days',
+    description: 'Empowering rural communities through quality education. Choose your level and begin learning with interactive content designed for rural learners.',
+    'primary.title': 'Primary',
+    'primary.description': 'Foundational learning for young minds',
+    'secondary.title': 'Secondary',
+    'secondary.description': 'Building knowledge and skills',
+    'senior.title': 'Senior Secondary',
+    'senior.description': 'Advanced learning for career readiness',
+    'carousel.title': '🔥 Popular STEM Topics',
+    'topics.physics': 'Physics – Electricity',
+    'topics.physics.desc': 'Circuits, current, and energy flow.',
+    'topics.algebra': 'Math – Algebra',
+    'topics.algebra.desc': 'Equations and problem-solving skills.',
+    'topics.coding': 'Coding – Basics',
+    'topics.coding.desc': 'Fun coding games and challenges.',
+    'topics.geography': 'Geography – Earth',
+    'topics.geography.desc': 'Maps, climates, and resources.',
+    'topics.biology': 'Biology – Genetics',
+    'topics.biology.desc': 'DNA, traits, and inheritance.',
+    'topics.astronomy': 'Astronomy – Space',
+    'topics.astronomy.desc': 'Planets, stars, and galaxies.',
+    'topics.chemistry': 'Chemistry – Reactions',
+    'topics.chemistry.desc': 'Experiments with acids and bases.',
+    'topics.geometry': 'Math – Geometry',
+    'topics.geometry.desc': 'Shapes, angles, and theorems.',
+    login: 'Login'
+  },
+  hi: {
+    flag: '🇮🇳',
+    code: 'HI',
+    greeting: '👋 नमस्ते! LearnRural में आपका स्वागत है',
+    'brand.name': 'LearnRural',
+    'brand.subtitle': 'नवीन शिक्षा • New Learning',
+    welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
+    streak: '7 दिन की लकीर',
+    description: 'गुणवत्तापूर्ण शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना। अपना स्तर चुनें और ग्रामीण शिक्षार्थियों के लिए डिज़ाइन की गई इंटरैक्टिव सामग्री के साथ सीखना शुरू करें।',
+    'primary.title': 'प्राथमिक',
+    'primary.description': 'युवा मस्तिष्क के लिए मूलभूत शिक्षा',
+    'secondary.title': 'माध्यमिक',
+    'secondary.description': 'ज्ञान और कौशल का निर्माण',
+    'senior.title': 'उच्च माध्यमिक',
+    'senior.description': 'करियर तैयारी के लिए उन्नत शिक्षा',
+    'carousel.title': '🔥 लोकप्रिय STEM विषय',
+    'topics.physics': 'भौतिकी – विद्युत',
+    'topics.physics.desc': 'सर्किट, धारा और ऊर्जा प्रवाह।',
+    'topics.algebra': 'गणित – बीजगणित',
+    'topics.algebra.desc': 'समीकरण और समस्या-समाधान कौशल।',
+    'topics.coding': 'कोडिंग – मूल बातें',
+    'topics.coding.desc': 'मजेदार कोडिंग गेम्स और चुनौतियां।',
+    'topics.geography': 'भूगोल – पृथ्वी',
+    'topics.geography.desc': 'मानचित्र, जलवायु और संसाधन।',
+    'topics.biology': 'जीवविज्ञान – आनुवंशिकी',
+    'topics.biology.desc': 'DNA, लक्षण और वंशानुक्रम।',
+    'topics.astronomy': 'खगोल विज्ञान – अंतरिक्ष',
+    'topics.astronomy.desc': 'ग्रह, तारे और आकाशगंगाएं।',
+    'topics.chemistry': 'रसायन विज्ञान – अभिक्रियाएं',
+    'topics.chemistry.desc': 'अम्ल और क्षार के साथ प्रयोग।',
+    'topics.geometry': 'गणित – ज्यामिति',
+    'topics.geometry.desc': 'आकार, कोण और प्रमेय।',
+    login: 'लॉगिन'
+  },
+  or: {
+    flag: '🏛️',
+    code: 'OD',
+    greeting: '👋 ନମସ୍କାର! LearnRural କୁ ସ୍ୱାଗତ',
+    'brand.name': 'LearnRural',
+    'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
+    welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
+    streak: '7 ଦିନର ଧାରା',
+    description: 'ଗୁଣବତ୍ତା ଶିକ୍ଷା ମାଧ୍ୟମରେ ଗ୍ରାମାଞ୍ଚଳ ସମୁଦାୟକୁ ସଶକ୍ତ କରିବା। ଆପଣଙ୍କର ସ୍ତର ବାଛନ୍ତୁ ଏବଂ ଗ୍ରାମାଞ୍ଚଳ ଶିକ୍ଷାର୍ଥୀମାନଙ୍କ ପାଇଁ ଡିଜାଇନ୍ ହୋଇଥିବା ଇଣ୍ଟରାକ୍ଟିଭ୍ ବିଷୟବସ୍ତୁ ସହିତ ଶିକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ।',
+    'primary.title': 'ପ୍ରାଥମିକ',
+    'primary.description': 'ଯୁବ ମନ ପାଇଁ ମୂଳଦୁଆ ଶିକ୍ଷା',
+    'secondary.title': 'ମାଧ୍ୟମିକ',
+    'secondary.description': 'ଜ୍ଞାନ ଏବଂ ଦକ୍ଷତା ନିର୍ମାଣ',
+    'senior.title': 'ଉଚ୍ଚ ମାଧ୍ୟମିକ',
+    'senior.description': 'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା',
+    'carousel.title': '🔥 ଲୋକପ୍ରିୟ STEM ବିଷୟଗୁଡ଼ିକ',
+    'topics.physics': 'ଭୌତିକ ବିଜ୍ଞାନ – ବିଦ୍ୟୁତ',
+    'topics.physics.desc': 'ସର୍କିଟ, ଧାରା ଏବଂ ଶକ୍ତି ପ୍ରବାହ।',
+    'topics.algebra': 'ଗଣିତ – ବୀଜଗଣିତ',
+    'topics.algebra.desc': 'ସମୀକରଣ ଏବଂ ସମସ୍ୟା-ସମାଧାନ କୌଶଳ।',
+    'topics.coding': 'କୋଡିଂ – ମୌଳିକ',
+    'topics.coding.desc': 'ମଜାଦାର କୋଡିଂ ଖେଳ ଏବଂ ଚ୍ୟାଲେଞ୍ଜ।',
+    'topics.geography': 'ଭୂଗୋଳ – ପୃଥିବୀ',
+    'topics.geography.desc': 'ମାନଚିତ୍ର, ଜଳବାୟୁ ଏବଂ ସମ୍ପଦ।',
+    'topics.biology': 'ଜୀବବିଜ୍ଞାନ – ଜେନେଟିକ୍ସ',
+    'topics.biology.desc': 'DNA, ଗୁଣ ଏବଂ ବଂଶାନୁକ୍ରମ।',
+    'topics.astronomy': 'ଜ୍ୟୋତିର୍ବିଜ୍ଞାନ – ମହାକାଶ',
+    'topics.astronomy.desc': 'ଗ୍ରହ, ତାରା ଏବଂ ଗାଲାକ୍ସି।',
+    'topics.chemistry': 'ରସାୟନ ବିଜ୍ଞାନ – ପ୍ରତିକ୍ରିୟା',
+    'topics.chemistry.desc': 'ଅମ୍ଳ ଏବଂ କ୍ଷାର ସହିତ ପରୀକ୍ଷଣ।',
+    'topics.geometry': 'ଗଣିତ – ଜ୍ୟାମିତି',
+    'topics.geometry.desc': 'ଆକୃତି, କୋଣ ଏବଂ ତତ୍ତ୍ୱ।',
+    login: 'ଲଗଇନ୍'
+  }
+};
 
-    // Get nested property from object using dot notation
-    function getNestedProperty(obj, path) {
-      return path.split('.').reduce((current, key) => current && current[key], obj);
+// Language switcher functionality
+const languageSwitcher = document.getElementById('languageSwitcher');
+const languageBtn = document.getElementById('languageBtn');
+const languageDropdown = document.getElementById('languageDropdown');
+const currentFlag = document.getElementById('currentFlag');
+const currentLang = document.getElementById('currentLang');
+const greetingText = document.getElementById('greetingText');
+
+let currentLanguage = 'en';
+let isOpen = false;
+
+// Get nested property from object using dot notation
+function getNestedProperty(obj, path) {
+  return path.split('.').reduce((current, key) => current && current[key], obj);
+}
+
+// Update all translatable elements
+function updateTranslations(langCode) {
+  const langData = translations[langCode];
+  if (!langData) return;
+
+  // Update all elements with data-translate attribute
+  document.querySelectorAll('[data-translate]').forEach(element => {
+    const key = element.getAttribute('data-translate');
+    const translation = getNestedProperty(langData, key) || langData[key];
+    if (translation) {
+      element.textContent = translation;
     }
+  });
 
-    // Update all translatable elements
-    function updateTranslations(langCode) {
-      const langData = translations[langCode];
-      if (!langData) return;
+  // Update greeting separately
+  greetingText.textContent = langData.greeting;
+}
 
-      // Update all elements with data-translate attribute
-      document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        const translation = getNestedProperty(langData, key) || langData[key];
-        if (translation) {
-          element.textContent = translation;
-        }
-      });
+// Toggle dropdown
+function toggleDropdown() {
+  isOpen = !isOpen;
+  languageSwitcher.classList.toggle('open', isOpen);
+  
+  if (isOpen) {
+    updateActiveLanguage();
+  }
+}
 
-      // Update greeting separately
-      greetingText.textContent = langData.greeting;
-    }
+// Update active language in dropdown
+function updateActiveLanguage() {
+  const buttons = languageDropdown.querySelectorAll('button');
+  buttons.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === currentLanguage);
+  });
+}
 
-    // Toggle dropdown
-    function toggleDropdown() {
-      isOpen = !isOpen;
-      languageSwitcher.classList.toggle('open', isOpen);
-      
-      if (isOpen) {
-        updateActiveLanguage();
-      }
-    }
+// Close dropdown
+function closeDropdown() {
+  isOpen = false;
+  languageSwitcher.classList.remove('open');
+}
 
-    // Update active language in dropdown
-    function updateActiveLanguage() {
-      const buttons = languageDropdown.querySelectorAll('button');
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === currentLanguage);
-      });
-    }
-
+// Change language
+function changeLanguage(langCode) {
+  if (translations[langCode]) {
+    currentLanguage = langCode;
+    const lang = translations[langCode];
+    
+    // Update button display
+    currentFlag.textContent = lang.flag;
+    currentLang.textContent = lang.code;
+    
+    // Update all translations
+    updateTranslations(langCode);
+    
     // Close dropdown
-    function closeDropdown() {
-      isOpen = false;
-      languageSwitcher.classList.remove('open');
+    closeDropdown();
+
+    // Save preference to localStorage
+    localStorage.setItem('learnRuralLanguage', langCode);
+
+    // Trigger custom event for other components
+    window.dispatchEvent(new CustomEvent('languageChanged', {
+      detail: { language: langCode }
+    }));
+
+    // Announce language change for screen readers
+    const announcement = document.createElement('div');
+    announcement.setAttribute('aria-live', 'polite');
+    announcement.setAttribute('aria-atomic', 'true');
+    announcement.className = 'sr-only';
+    announcement.textContent = `Language changed to ${lang.name || lang.code}`;
+    document.body.appendChild(announcement);
+    setTimeout(() => {
+      if (announcement.parentNode) {
+        document.body.removeChild(announcement);
+      }
+    }, 1000);
+  }
+}
+
+// Enhanced carousel functionality
+function initializeCarousel() {
+  const carousel = document.getElementById('carouselWrapper');
+  if (!carousel) return;
+
+  let isPaused = false;
+  
+  // Pause on hover
+  carousel.addEventListener('mouseenter', () => {
+    isPaused = true;
+    carousel.style.animationPlayState = 'paused';
+  });
+
+  // Resume on leave
+  carousel.addEventListener('mouseleave', () => {
+    if (!isPaused) return;
+    isPaused = false;
+    carousel.style.animationPlayState = 'running';
+  });
+
+  // Reset animation when it completes to prevent jump
+  carousel.addEventListener('animationiteration', () => {
+    // Smooth reset without visible jump
+    carousel.style.animation = 'none';
+    setTimeout(() => {
+      carousel.style.animation = 'smoothScroll 30s linear infinite';
+      if (isPaused) {
+        carousel.style.animationPlayState = 'paused';
+      }
+    }, 10);
+  });
+}
+
+// Dynamic greeting based on time of day
+function updateGreetingBasedOnTime() {
+  const hour = new Date().getHours();
+  let greeting = '';
+  
+  if (hour >= 5 && hour < 12) {
+    greeting = '🌅 Good Morning';
+  } else if (hour >= 12 && hour < 17) {
+    greeting = '☀️ Good Afternoon';
+  } else if (hour >= 17 && hour < 21) {
+    greeting = '🌇 Good Evening';
+  } else {
+    greeting = '🌙 Good Night';
+  }
+  
+  // Update greeting text while preserving language
+  const currentLangData = translations[currentLanguage];
+  if (currentLangData) {
+    const baseGreeting = currentLangData.greeting.replace(/👋[^!]*!?/, '').trim();
+    greetingText.textContent = `👋 ${greeting}! ${baseGreeting}`;
+  }
+}
+
+// Streak counter functionality
+function initializeStreakCounter() {
+  const streakElement = document.querySelector('.streak-badge');
+  if (!streakElement) return;
+
+  // Get streak from localStorage or set default
+  let streakData = JSON.parse(localStorage.getItem('learnRuralStreak')) || {
+    count: 7,
+    lastVisit: null
+  };
+
+  const today = new Date().toDateString();
+  
+  if (streakData.lastVisit !== today) {
+    // Check if consecutive day
+    const lastVisit = streakData.lastVisit ? new Date(streakData.lastVisit) : null;
+    const todayObj = new Date();
+    
+    if (lastVisit) {
+      const diffTime = todayObj - lastVisit;
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        // Consecutive day - increase streak
+        streakData.count++;
+      } else if (diffDays > 1) {
+        // Broken streak - reset to 1
+        streakData.count = 1;
+      }
+    } else {
+      // First visit
+      streakData.count = 1;
     }
+    
+    streakData.lastVisit = today;
+    localStorage.setItem('learnRuralStreak', JSON.stringify(streakData));
+  }
 
-    // Change language
-    function changeLanguage(langCode) {
-      if (translations[langCode]) {
-        currentLanguage = langCode;
-        const lang = translations[langCode];
-        
-        // Update button display
-        currentFlag.textContent = lang.flag;
-        currentLang.textContent = lang.code;
-        
-        // Update all translations
-        updateTranslations(langCode);
-        
-        // Store preference
-        localStorage.setItem('preferred-language', langCode);
-        
-        // Close dropdown
-        closeDropdown();
+  // Update streak display
+  const streakText = streakElement.querySelector('span[data-translate="streak"]');
+  if (streakText) {
+    streakText.textContent = `Streak ${streakData.count} days`;
+  }
+}
 
-        // Trigger custom event for other components
-        window.dispatchEvent(new CustomEvent('languageChanged', {
-          detail: { language: langCode }
-        }));
-      }
-    }
-
-    // Event listeners
-    languageBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleDropdown();
+// Card hover effects enhancement
+function enhanceCardInteractions() {
+  const cards = document.querySelectorAll('.level-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // Add click feedback
+      card.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        card.style.transform = '';
+      }, 150);
     });
 
-    languageDropdown.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const button = e.target.closest('button[data-lang]');
-      if (button) {
-        changeLanguage(button.dataset.lang);
-      }
+    // Enhanced touch feedback for mobile
+    card.addEventListener('touchstart', () => {
+      card.style.transform = 'scale(0.98)';
     });
 
-    // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      if (isOpen && !languageSwitcher.contains(e.target)) {
-        closeDropdown();
+    card.addEventListener('touchend', () => {
+      card.style.transform = '';
+    });
+  });
+}
+
+// Performance optimization: Lazy load images
+function lazyLoadImages() {
+  const images = document.querySelectorAll('img[loading="lazy"]');
+  
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        img.src = img.dataset.src || img.src;
+        img.classList.remove('lazy');
+        imageObserver.unobserve(img);
       }
     });
+  });
 
-    // Close when pressing Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && isOpen) {
+  images.forEach(img => imageObserver.observe(img));
+}
+
+// Accessibility enhancements
+function enhanceAccessibility() {
+  // Add skip to content link
+  const skipLink = document.createElement('a');
+  skipLink.href = '#main-content';
+  skipLink.className = 'skip-link';
+  skipLink.textContent = 'Skip to main content';
+  skipLink.style.cssText = `
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    z-index: 10000;
+    text-decoration: none;
+  `;
+  skipLink.addEventListener('focus', () => {
+    skipLink.style.top = '6px';
+  });
+  skipLink.addEventListener('blur', () => {
+    skipLink.style.top = '-40px';
+  });
+  
+  document.body.insertBefore(skipLink, document.body.firstChild);
+
+  // Add main content id for skip link
+  const mainContent = document.querySelector('.main-content');
+  if (mainContent) {
+    mainContent.id = 'main-content';
+  }
+
+  // Enhanced keyboard navigation for language switcher
+  languageDropdown.querySelectorAll('button').forEach((button, index, buttons) => {
+    button.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = (index + 1) % buttons.length;
+        buttons[nextIndex].focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = (index - 1 + buttons.length) % buttons.length;
+        buttons[prevIndex].focus();
+      } else if (e.key === 'Escape') {
         closeDropdown();
         languageBtn.focus();
       }
     });
+  });
+}
 
-    // Load saved language preference
-    function loadLanguagePreference() {
-      const saved = localStorage.getItem('preferred-language');
-      if (saved && translations[saved]) {
-        changeLanguage(saved);
-      } else {
-        updateTranslations(currentLanguage);
-      }
+// Error boundary and fallback
+function setupErrorHandling() {
+  window.addEventListener('error', (e) => {
+    console.error('Application error:', e.error);
+    // You could send this to an error reporting service
+  });
+
+  window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled promise rejection:', e.reason);
+    e.preventDefault();
+  });
+}
+
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Load saved language preference
+  const savedLanguage = localStorage.getItem('learnRuralLanguage');
+  if (savedLanguage && translations[savedLanguage]) {
+    changeLanguage(savedLanguage);
+  } else {
+    // Set default language
+    updateTranslations(currentLanguage);
+  }
+
+  // Initialize components
+  initializeCarousel();
+  initializeStreakCounter();
+  enhanceCardInteractions();
+  lazyLoadImages();
+  enhanceAccessibility();
+  setupErrorHandling();
+  
+  // Update greeting based on time
+  updateGreetingBasedOnTime();
+  
+  // Update greeting every hour
+  setInterval(updateGreetingBasedOnTime, 3600000);
+
+  // Event listeners for language switcher
+  languageBtn.addEventListener('click', toggleDropdown);
+  
+  // Language selection
+  languageDropdown.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', () => {
+      changeLanguage(button.dataset.lang);
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!languageSwitcher.contains(e.target)) {
+      closeDropdown();
     }
+  });
 
-    // Handle window resize
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      if (isOpen) {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          closeDropdown();
-        }, 150);
+  // Keyboard navigation for language button
+  languageBtn.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleDropdown();
+      const firstButton = languageDropdown.querySelector('button');
+      if (firstButton) firstButton.focus();
+    }
+  });
+
+  // Handle reduced motion preference
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.documentElement.style.setProperty('--animation-duration', '0.01s');
+    const carousel = document.getElementById('carouselWrapper');
+    if (carousel) {
+      carousel.style.animation = 'none';
+    }
+  }
+
+  // Handle online/offline status
+  window.addEventListener('online', () => {
+    showNotification('Connection restored', 'success');
+  });
+
+  window.addEventListener('offline', () => {
+    showNotification('You are currently offline', 'warning');
+  });
+
+  // Service Worker registration for PWA capabilities (optional)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(registration => {
+        console.log('SW registered: ', registration);
+      })
+      .catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+  }
+});
+
+// Utility function for notifications
+function showNotification(message, type = 'info') {
+  const notification = document.createElement('div');
+  notification.className = `notification ${type}`;
+  notification.textContent = message;
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 12px 20px;
+    background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : '#2196F3'};
+    color: white;
+    border-radius: 4px;
+    z-index: 10000;
+    animation: slideIn 0.3s ease;
+  `;
+  
+  document.body.appendChild(notification);
+  
+  setTimeout(() => {
+    notification.style.animation = 'slideOut 0.3s ease';
+    setTimeout(() => {
+      if (notification.parentNode) {
+        document.body.removeChild(notification);
       }
-    });
+    }, 300);
+  }, 3000);
+}
 
-    // Initialize
-    document.addEventListener('DOMContentLoaded', () => {
-      loadLanguagePreference();
-      updateActiveLanguage();
-    });
-  </script>
+// Add CSS for notifications
+const notificationStyles = document.createElement('style');
+notificationStyles.textContent = `
+  @keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+  }
+  
+  @keyframes slideOut {
+    from { transform: translateX(0); opacity: 1; }
+    to { transform: translateX(100%); opacity: 0; }
+  }
+  
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+`;
+document.head.appendChild(notificationStyles);
+
+// Export for potential module usage
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = {
+    translations,
+    changeLanguage,
+    initializeCarousel
+  };
+}
+</script>
+
 </body>
+
+
 </html>
