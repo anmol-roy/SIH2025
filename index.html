@@ -1006,14 +1006,14 @@
         </a>
       </div>
       <div class="brand-text">
-        <div class="app-name" data-translate="brand.name">STEMify</div>
+        <div class="app-name" data-translate="brand.name">STEMifyX</div>
         <div class="app-sub" data-translate="brand.subtitle">नवीन शिक्षा • New Learning</div>
       </div>
     </div>
      
     <!-- Center: Greeting -->
     <div class="greeting-wrap">
-      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to STEMify</div>
+      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to STEMifyX</div>
       <div class="decor-row" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none">
           <path d="M3 6h13v12H3z" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" />
@@ -1245,8 +1245,8 @@ const translations = {
   en: {
     flag: '🇬🇧',
     code: 'EN',
-    greeting: '👋 Welcome to STEMify',
-    'brand.name': 'STEMify',
+    greeting: '👋 Welcome to STEMifyX',
+    'brand.name': 'STEMifyX',
     'brand.subtitle': 'नवीन शिक्षा • New Learning',
     welcome: 'Start your learning journey today!',
     streak: 'Streak 7 days',
@@ -1279,8 +1279,8 @@ const translations = {
   hi: {
     flag: '🇮🇳',
     code: 'HI',
-    greeting: '👋 नमस्ते! STEMify में आपका स्वागत है',
-    'brand.name': 'STEMify',
+    greeting: '👋 नमस्ते! STEMifyX में आपका स्वागत है',
+    'brand.name': 'STEMifyX',
     'brand.subtitle': 'नवीन शिक्षा • New Learning',
     welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
     streak: '7 दिन की लकीर',
@@ -1313,8 +1313,8 @@ const translations = {
   or: {
     flag: '🏛️',
     code: 'OD',
-    greeting: '👋 ନମସ୍କାର! STEMify କୁ ସ୍ୱାଗତ',
-    'brand.name': 'STEMify',
+    greeting: '👋 ନମସ୍କାର! STEMifyX କୁ ସ୍ୱାଗତ',
+    'brand.name': 'STEMifyX',
     'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
     welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
     streak: '7 ଦିନର ଧାରା',
@@ -1421,7 +1421,7 @@ function changeLanguage(langCode) {
     closeDropdown();
 
     // Save preference to localStorage
-    localStorage.setItem('STEMifyLanguage', langCode);
+    localStorage.setItem('STEMifyXLanguage', langCode);
 
     // Trigger custom event for other components
     window.dispatchEvent(new CustomEvent('languageChanged', {
@@ -1505,7 +1505,7 @@ function initializeStreakCounter() {
   if (!streakElement) return;
 
   // Get streak from localStorage or set default
-  let streakData = JSON.parse(localStorage.getItem('STEMifyStreak')) || {
+  let streakData = JSON.parse(localStorage.getItem('STEMifyXStreak')) || {
     count: 7,
     lastVisit: null
   };
@@ -1534,7 +1534,7 @@ function initializeStreakCounter() {
     }
     
     streakData.lastVisit = today;
-    localStorage.setItem('STEMifyStreak', JSON.stringify(streakData));
+    localStorage.setItem('STEMifyXStreak', JSON.stringify(streakData));
   }
 
   // Update streak display
@@ -1653,7 +1653,7 @@ function setupErrorHandling() {
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
   // Load saved language preference
-  const savedLanguage = localStorage.getItem('STEMifyLanguage');
+  const savedLanguage = localStorage.getItem('STEMifyXLanguage');
   if (savedLanguage && translations[savedLanguage]) {
     changeLanguage(savedLanguage);
   } else {
