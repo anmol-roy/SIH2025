@@ -719,7 +719,7 @@
                 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
                 // 👇 REPLACE THIS PATH WITH YOUR PDF FILE
-                const pdfUrl = 'ncert-books-class-7-maths-chapter-2.pdf';
+                const pdfUrl = 'ncert-books-class-7-maths-chapter-2';
 
                 pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
                     pdf.getPage(1).then(page => {
