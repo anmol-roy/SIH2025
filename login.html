@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LearnRural - Login</title>
+  <title>LearnRural - Authentication</title>
   
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
@@ -18,6 +18,7 @@
       --radius:12px;
       --error: #f44336;
       --success: #4caf50;
+      --admin: #9c27b0;
     }
 
     *{box-sizing:border-box}
@@ -33,13 +34,13 @@
       padding: 20px;
     }
 
-    .login-container{
+    .auth-container{
       background: var(--white);
       border-radius: var(--radius);
       box-shadow: 0 10px 30px rgba(16,24,32,0.1);
       padding: clamp(20px, 5vw, 40px);
       width: 100%;
-      max-width: 450px;
+      max-width: 480px;
       position: relative;
     }
 
@@ -107,20 +108,48 @@
       background: #fff5f5;
     }
 
-    .forgot-password{
-      text-align: right;
+    .role-group{
+      display: flex;
+      gap: 12px;
       margin-top: 8px;
     }
 
-    .forgot-password a{
-      color: var(--blue);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
+    .role-option{
+      flex: 1;
+      position: relative;
     }
 
-    .forgot-password a:hover{
-      text-decoration: underline;
+    .role-input{
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .role-label{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #fafafa;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+
+    .role-input:checked + .role-label{
+      border-color: var(--green);
+      background: rgba(46, 125, 50, 0.1);
+      color: var(--green);
+    }
+
+    .role-input[value="admin"]:checked + .role-label{
+      border-color: var(--admin);
+      background: rgba(156, 39, 176, 0.1);
+      color: var(--admin);
     }
 
     .btn{
@@ -260,24 +289,62 @@
       display: none;
     }
 
+    .auth-toggle{
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #eee;
+    }
+
+    .auth-toggle a{
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .auth-toggle a:hover{
+      text-decoration: underline;
+    }
+
+    .forgot-password{
+      text-align: right;
+      margin-top: 8px;
+    }
+
+    .forgot-password a{
+      color: var(--blue);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .forgot-password a:hover{
+      text-decoration: underline;
+    }
+
     /* Mobile optimization */
     @media (max-width: 480px) {
       body{
         padding: 12px;
       }
       
-      .login-container{
+      .auth-container{
         padding: 24px 20px;
       }
       
       .title{
         font-size: 1.5rem;
       }
+      
+      .role-group{
+        flex-direction: column;
+        gap: 12px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="login-container">
+  <div class="auth-container">
     <div class="header">
       <div class="logo">
         <svg viewBox="0 0 64 64" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -286,24 +353,78 @@
           <path d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z" fill="#fff"/>
         </svg>
       </div>
-      <h1 class="title">Welcome Back</h1>
-      <p class="subtitle">Sign in to continue your learning journey</p>
+      <h1 class="title" id="formTitle">Join LearnRural</h1>
+      <p class="subtitle" id="formSubtitle">Start your learning journey today</p>
     </div>
 
     <div class="error-message" id="errorMessage"></div>
     <div class="success-message" id="successMessage"></div>
 
-    <form id="loginForm">
+    <!-- Signup Form -->
+    <form id="signupForm" style="display: block;">
       <div class="form-group">
-        <label class="form-label" for="email">Email Address</label>
-        <input id="email" type="email" class="form-input" placeholder="Enter your email" required>
+        <label class="form-label" for="signupEmail">Email Address</label>
+        <input id="signupEmail" type="email" class="form-input" placeholder="Enter your email" required>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="password">Password</label>
-        <input id="password" type="password" class="form-input" placeholder="Enter your password" required>
+        <label class="form-label" for="signupPassword">Password</label>
+        <input id="signupPassword" type="password" class="form-input" placeholder="Create a password" required minlength="6">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">I am a:</label>
+        <div class="role-group">
+          <div class="role-option">
+            <input type="radio" id="student" name="role" value="student" class="role-input" required>
+            <label for="student" class="role-label">🎓 Student</label>
+          </div>
+          <div class="role-option">
+            <input type="radio" id="teacher" name="role" value="teacher" class="role-input" required>
+            <label for="teacher" class="role-label">👨‍🏫 Teacher</label>
+          </div>
+          <div class="role-option">
+            <input type="radio" id="admin" name="role" value="admin" class="role-input">
+            <label for="admin" class="role-label">🛡️ Admin</label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary" id="signupBtn">
+        Create Account
+      </button>
+    </form>
+
+    <!-- Login Form -->
+    <form id="loginForm" style="display: none;">
+      <div class="form-group">
+        <label class="form-label" for="loginEmail">Email Address</label>
+        <input id="loginEmail" type="email" class="form-input" placeholder="Enter your email" required>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="loginPassword">Password</label>
+        <input id="loginPassword" type="password" class="form-input" placeholder="Enter your password" required>
         <div class="forgot-password">
           <a href="#" id="forgotPasswordLink">Forgot password?</a>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">I am a:</label>
+        <div class="role-group">
+          <div class="role-option">
+            <input type="radio" id="loginStudent" name="loginRole" value="student" class="role-input" required>
+            <label for="loginStudent" class="role-label">🎓 Student</label>
+          </div>
+          <div class="role-option">
+            <input type="radio" id="loginTeacher" name="loginRole" value="teacher" class="role-input" required>
+            <label for="loginTeacher" class="role-label">👨‍🏫 Teacher</label>
+          </div>
+          <div class="role-option">
+            <input type="radio" id="loginAdmin" name="loginRole" value="admin" class="role-input">
+            <label for="loginAdmin" class="role-label">🛡️ Admin</label>
+          </div>
         </div>
       </div>
 
@@ -316,7 +437,7 @@
       <span>or</span>
     </div>
 
-    <button type="button" class="btn btn-google" id="googleLoginBtn">
+    <button type="button" class="btn btn-google" id="googleBtn">
       <svg class="google-icon" viewBox="0 0 24 24">
         <path fill="#4285f4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
         <path fill="#34a853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -326,9 +447,9 @@
       Continue with Google
     </button>
 
-    <p class="footer-link">
-      Don't have an account? <a href="signup.html">Create one here</a>
-    </p>
+    <div class="auth-toggle">
+      <span id="toggleText">Already have an account? <a href="#" id="toggleAuth">Sign in here</a></span>
+    </div>
   </div>
 
   <script type="module">
@@ -336,20 +457,23 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import { 
       getAuth, 
-      signInWithEmailAndPassword, 
+      createUserWithEmailAndPassword, 
+      signInWithEmailAndPassword,
       GoogleAuthProvider, 
       signInWithPopup,
+      updateProfile,
       sendPasswordResetEmail 
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
     import { 
       getFirestore, 
       doc, 
+      setDoc,
       getDoc,
       updateDoc,
       serverTimestamp 
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-    // 🔹 Firebase Config - Replace with your actual config
+    // 🔹 Firebase Config
     const firebaseConfig = {
       apiKey: "AIzaSyC2EYOrnFwjUT9Y2EtAo3W9KQ9eTW60hFs",
       authDomain: "gamified-learning-platfo-c18a4.firebaseapp.com",
@@ -367,14 +491,24 @@
     const googleProvider = new GoogleAuthProvider();
 
     // DOM Elements
+    const signupForm = document.getElementById('signupForm');
     const loginForm = document.getElementById('loginForm');
+    const signupBtn = document.getElementById('signupBtn');
     const loginBtn = document.getElementById('loginBtn');
-    const googleLoginBtn = document.getElementById('googleLoginBtn');
+    const googleBtn = document.getElementById('googleBtn');
     const errorMessage = document.getElementById('errorMessage');
     const successMessage = document.getElementById('successMessage');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
+    const toggleAuth = document.getElementById('toggleAuth');
+    const toggleText = document.getElementById('toggleText');
+    const formTitle = document.getElementById('formTitle');
+    const formSubtitle = document.getElementById('formSubtitle');
     const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    
+    // Email and password inputs
+    const signupEmail = document.getElementById('signupEmail');
+    const signupPassword = document.getElementById('signupPassword');
+    const loginEmail = document.getElementById('loginEmail');
+    const loginPassword = document.getElementById('loginPassword');
 
     // Utility functions
     function showError(message) {
@@ -407,29 +541,74 @@
       }
     }
 
-    function validateForm() {
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
+    function validateSignupForm() {
+      const email = signupEmail.value.trim();
+      const password = signupPassword.value;
+      const role = document.querySelector('input[name="role"]:checked');
 
       // Reset styles
-      emailInput.classList.remove('error');
-      passwordInput.classList.remove('error');
+      signupEmail.classList.remove('error');
+      signupPassword.classList.remove('error');
 
       let isValid = true;
 
       if (!email) {
         showError('Please enter your email address');
-        emailInput.classList.add('error');
+        signupEmail.classList.add('error');
         isValid = false;
       } else if (!isValidEmail(email)) {
         showError('Please enter a valid email address');
-        emailInput.classList.add('error');
+        signupEmail.classList.add('error');
+        isValid = false;
+      }
+
+      if (!password) {
+        showError('Please enter a password');
+        signupPassword.classList.add('error');
+        isValid = false;
+      } else if (password.length < 6) {
+        showError('Password must be at least 6 characters long');
+        signupPassword.classList.add('error');
+        isValid = false;
+      }
+
+      if (!role) {
+        showError('Please select your role');
+        isValid = false;
+      }
+
+      return isValid;
+    }
+
+    function validateLoginForm() {
+      const email = loginEmail.value.trim();
+      const password = loginPassword.value;
+      const role = document.querySelector('input[name="loginRole"]:checked');
+
+      // Reset styles
+      loginEmail.classList.remove('error');
+      loginPassword.classList.remove('error');
+
+      let isValid = true;
+
+      if (!email) {
+        showError('Please enter your email address');
+        loginEmail.classList.add('error');
+        isValid = false;
+      } else if (!isValidEmail(email)) {
+        showError('Please enter a valid email address');
+        loginEmail.classList.add('error');
         isValid = false;
       }
 
       if (!password) {
         showError('Please enter your password');
-        passwordInput.classList.add('error');
+        loginPassword.classList.add('error');
+        isValid = false;
+      }
+
+      if (!role) {
+        showError('Please select your role');
         isValid = false;
       }
 
@@ -441,41 +620,73 @@
       return emailRegex.test(email);
     }
 
-    // 🔹 Redirect by role function
-    async function redirectByRole(uid) {
+    // 🔹 Email/Password Signup
+    async function signupUser(e) {
+      e.preventDefault();
+      
+      if (!validateSignupForm()) {
+        return;
+      }
+
+      const email = signupEmail.value.trim();
+      const password = signupPassword.value;
+      const role = document.querySelector('input[name="role"]:checked').value;
+
+      setLoading(signupBtn, true);
+
       try {
-        const userDocRef = doc(db, "users", uid);
-        const userDoc = await getDoc(userDocRef);
+        // Create user account
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        // Update user profile
+        await updateProfile(user, {
+          displayName: email.split('@')[0] // Use email prefix as display name
+        });
+
+        // Save user data to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          email: user.email,
+          displayName: user.displayName,
+          role: role,
+          createdAt: serverTimestamp(),
+          lastLoginAt: serverTimestamp(),
+          isActive: true
+        });
+
+        showSuccess("🎉 Account created successfully! Redirecting to dashboard...");
         
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          const role = userData.role;
-          
-          // Update last login time
-          await updateDoc(userDocRef, {
-            lastLoginAt: serverTimestamp()
-          });
+        // Redirect after 2 seconds
+        setTimeout(() => {
+          redirectToDashboard(role);
+        }, 2000);
 
-          showSuccess(`Welcome back! Redirecting to your ${role} dashboard...`);
-          
-          // Redirect based on role
-          setTimeout(() => {
-  if (role === "teacher") {
-    window.location.href = "dashboard/teacherDashboard/teacherdashboard.html";
-  } else if (role === "student") {
-    window.location.href = "dashboard/studentDashboard/studentdashboard.html";
-  } else {
-    // Default fallback
-    window.location.href = "dashboard/studentDashboard/studentdashboard.html";
-  }
-}, 1500);
-
-        } else {
-          showError("User profile not found. Please contact support.");
-        }
       } catch (error) {
-        console.error("Error fetching user role:", error);
-        showError("Error loading user profile. Please try again.");
+        console.error('Signup error:', error);
+        
+        // Handle specific Firebase errors
+        let errorMsg = "An error occurred during signup. Please try again.";
+        
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            errorMsg = "This email is already registered. Please use a different email or try logging in.";
+            break;
+          case 'auth/weak-password':
+            errorMsg = "Password is too weak. Please choose a stronger password.";
+            break;
+          case 'auth/invalid-email':
+            errorMsg = "Please enter a valid email address.";
+            break;
+          case 'auth/network-request-failed':
+            errorMsg = "Network error. Please check your internet connection.";
+            break;
+          default:
+            errorMsg = error.message;
+        }
+        
+        showError(errorMsg);
+      } finally {
+        setLoading(signupBtn, false);
       }
     }
 
@@ -483,12 +694,13 @@
     async function loginUser(e) {
       e.preventDefault();
       
-      if (!validateForm()) {
+      if (!validateLoginForm()) {
         return;
       }
 
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
+      const email = loginEmail.value.trim();
+      const password = loginPassword.value;
+      const role = document.querySelector('input[name="loginRole"]:checked').value;
 
       setLoading(loginBtn, true);
 
@@ -496,8 +708,30 @@
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         
-        // Redirect based on user role
-        await redirectByRole(user.uid);
+        // Verify role matches
+        const userDocRef = doc(db, "users", user.uid);
+        const userDoc = await getDoc(userDocRef);
+        
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          if (userData.role !== role) {
+            showError(`This account is registered as a ${userData.role}. Please select the correct role.`);
+            setLoading(loginBtn, false);
+            return;
+          }
+          
+          // Update last login time
+          await updateDoc(userDocRef, {
+            lastLoginAt: serverTimestamp()
+          });
+          
+          showSuccess(`Welcome back! Redirecting to your ${role} dashboard...`);
+          setTimeout(() => {
+            redirectToDashboard(role);
+          }, 1500);
+        } else {
+          showError("User profile not found. Please contact support.");
+        }
 
       } catch (error) {
         console.error('Login error:', error);
@@ -537,9 +771,20 @@
       }
     }
 
-    // 🔹 Google Login
-    async function googleLogin() {
-      setLoading(googleLoginBtn, true);
+    // 🔹 Google Signup/Login
+    async function googleAuth() {
+      const isSignup = signupForm.style.display === 'block';
+      const roleInput = isSignup ? 
+        document.querySelector('input[name="role"]:checked') : 
+        document.querySelector('input[name="loginRole"]:checked');
+      
+      if (!roleInput) {
+        showError('Please select your role before continuing with Google');
+        return;
+      }
+
+      const role = roleInput.value;
+      setLoading(googleBtn, true);
 
       try {
         const result = await signInWithPopup(auth, googleProvider);
@@ -550,24 +795,50 @@
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
-          // Existing user - redirect based on role
-          await redirectByRole(user.uid);
-        } else {
-          // New user - redirect to signup to select role
-          showError("Please complete your registration by selecting your role.");
+          // Existing user - verify role
+          const userData = userDoc.data();
+          if (userData.role !== role) {
+            showError(`This account is registered as a ${userData.role}. Please select the correct role.`);
+            setLoading(googleBtn, false);
+            return;
+          }
+          
+          // Update last login time
+          await updateDoc(userDocRef, {
+            lastLoginAt: serverTimestamp()
+          });
+          
+          showSuccess(`Welcome back! Redirecting to your ${role} dashboard...`);
           setTimeout(() => {
-            window.location.href = "signup.html?google_login=true&email=" + encodeURIComponent(user.email);
-          }, 2000);
+            redirectToDashboard(role);
+          }, 1500);
+        } else {
+          // New user - save to Firestore
+          await setDoc(doc(db, "users", user.uid), {
+            email: user.email,
+            displayName: user.displayName,
+            photoURL: user.photoURL,
+            role: role,
+            provider: 'google',
+            createdAt: serverTimestamp(),
+            lastLoginAt: serverTimestamp(),
+            isActive: true
+          });
+          
+          showSuccess("🎉 Account created successfully with Google! Redirecting...");
+          setTimeout(() => {
+            redirectToDashboard(role);
+          }, 1500);
         }
 
       } catch (error) {
-        console.error('Google login error:', error);
+        console.error('Google auth error:', error);
         
-        let errorMsg = "Google login failed. Please try again.";
+        let errorMsg = "Google authentication failed. Please try again.";
         
         switch (error.code) {
           case 'auth/popup-closed-by-user':
-            errorMsg = "Google login was cancelled. Please try again.";
+            errorMsg = "Authentication was cancelled. Please try again.";
             break;
           case 'auth/popup-blocked':
             errorMsg = "Popup was blocked. Please allow popups and try again.";
@@ -581,7 +852,7 @@
         
         showError(errorMsg);
       } finally {
-        setLoading(googleLoginBtn, false);
+        setLoading(googleBtn, false);
       }
     }
 
@@ -589,17 +860,17 @@
     async function handleForgotPassword(e) {
       e.preventDefault();
       
-      const email = emailInput.value.trim();
+      const email = loginEmail.value.trim();
       
       if (!email) {
         showError('Please enter your email address first');
-        emailInput.focus();
+        loginEmail.focus();
         return;
       }
 
       if (!isValidEmail(email)) {
         showError('Please enter a valid email address');
-        emailInput.focus();
+        loginEmail.focus();
         return;
       }
 
@@ -629,32 +900,65 @@
       }
     }
 
+    // 🔹 Redirect by role
+    function redirectToDashboard(role) {
+      if (role === "teacher") {
+        window.location.href = "dashboard/teacherDashboard/teacherdashboard.html";
+      } else if (role === "student") {
+        window.location.href = "dashboard/studentDashboard/studentdashboard.html";
+      } else if (role === "admin") {
+        window.location.href = "dashboard/adminDashboard/admindashboard.html";
+      } else {
+        // Default fallback
+        window.location.href = "dashboard/studentDashboard/studentdashboard.html";
+      }
+    }
+
+    // 🔹 Toggle between signup and login
+    function toggleAuthForms() {
+      const isSignupVisible = signupForm.style.display === 'block';
+      
+      if (isSignupVisible) {
+        // Switch to login
+        signupForm.style.display = 'none';
+        loginForm.style.display = 'block';
+        formTitle.textContent = 'Welcome Back';
+        formSubtitle.textContent = 'Sign in to continue your learning journey';
+        toggleText.innerHTML = 'Don\'t have an account? <a href="#" id="toggleAuth">Create one here</a>';
+      } else {
+        // Switch to signup
+        loginForm.style.display = 'none';
+        signupForm.style.display = 'block';
+        formTitle.textContent = 'Join LearnRural';
+        formSubtitle.textContent = 'Start your learning journey today';
+        toggleText.innerHTML = 'Already have an account? <a href="#" id="toggleAuth">Sign in here</a>';
+      }
+      
+      // Reattach event listener to new toggle link
+      document.getElementById('toggleAuth').addEventListener('click', toggleAuthForms);
+    }
+
     // Event Listeners
+    signupForm.addEventListener('submit', signupUser);
     loginForm.addEventListener('submit', loginUser);
-    googleLoginBtn.addEventListener('click', googleLogin);
+    googleBtn.addEventListener('click', googleAuth);
     forgotPasswordLink.addEventListener('click', handleForgotPassword);
+    toggleAuth.addEventListener('click', toggleAuthForms);
 
     // Clear error messages when user starts typing
-    emailInput.addEventListener('input', () => {
-      emailInput.classList.remove('error');
-      if (errorMessage.style.display === 'block') {
-        errorMessage.style.display = 'none';
-      }
-    });
-
-    passwordInput.addEventListener('input', () => {
-      passwordInput.classList.remove('error');
-      if (errorMessage.style.display === 'block') {
-        errorMessage.style.display = 'none';
-      }
+    [signupEmail, signupPassword, loginEmail, loginPassword].forEach(input => {
+      input.addEventListener('input', () => {
+        input.classList.remove('error');
+        if (errorMessage.style.display === 'block') {
+          errorMessage.style.display = 'none';
+        }
+      });
     });
 
     // Show appropriate message on page load if needed
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('message') === 'signup_success') {
-      showSuccess('Account created successfully! Please sign in.');
-    } else if (urlParams.get('message') === 'session_expired') {
-      showError('Your session has expired. Please sign in again.');
+    if (urlParams.get('message') === 'login_required') {
+      showError('Please create an account or log in to continue.');
     }
   </script>
 </body>
