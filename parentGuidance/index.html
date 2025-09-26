@@ -581,6 +581,19 @@
 
     <!-- Language JS -->
     <script>
+        function toggleFAQ(element) {
+    const content = element.nextElementSibling;
+    const icon = element.querySelector('i');
+    if (content.classList.contains('hidden')) {
+      content.classList.remove('hidden');
+      icon.classList.remove('fa-chevron-down');
+      icon.classList.add('fa-chevron-up');
+    } else {
+      content.classList.add('hidden');
+      icon.classList.remove('fa-chevron-up');
+      icon.classList.add('fa-chevron-down');
+    }
+  }
         const langButton = document.getElementById('lang-button');
         const langDropdown = document.getElementById('lang-dropdown');
         const currentLangSpan = document.getElementById('current-lang');
