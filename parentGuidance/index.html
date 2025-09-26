@@ -5,661 +5,608 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Parent Guidance - STEMifyX</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        primary: '#3B82F6',
-                        secondary: '#10B981',
-                        accent: '#8B5CF6',
-                        dark: '#0F172A',
-                        glass: 'rgba(255, 255, 255, 0.1)',
-                        glassBorder: 'rgba(255, 255, 255, 0.2)'
+                        primary: '#6366f1',
+                        secondary: '#0f0f23',
+                        accent: '#f59e0b',
+                        success: '#10b981',
+                        warning: '#f59e0b',
+                        danger: '#ef4444',
                     },
-                    backdropBlur: {
-                        xs: '2px',
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                        'bounce-slow': 'bounce 3s infinite',
+                    },
+                    fontFamily: {
+                        'display': ['Poppins', 'sans-serif'],
+                        'body': ['Inter', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background-color: #111927;
+        body { 
+            font-family: 'Inter', sans-serif;
+            background-color: black;
             background-image: 
-                radial-gradient(at 5% 5%, hsl(215, 43%, 79%) 0, transparent 50%),
-                radial-gradient(at 15% 25%, hsl(0, 0%, 100%) 0, transparent 50%),
-                radial-gradient(at 85% 15%, hsl(199, 16%, 65%) 0, transparent 45%),
-                radial-gradient(at 70% 75%, hsl(233, 47%, 59%) 0, transparent 55%),
-                radial-gradient(at 25% 80%, hsl(168, 29%, 35%) 0, transparent 48%),
-                radial-gradient(at 50% 50%, hsl(161, 15%, 43%) 0, transparent 65%),
-                radial-gradient(at 90% 60%, hsl(188, 24%, 42%) 0, transparent 40%);
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+            background-attachment: fixed;
             min-height: 100vh;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            color: #e2e8f0;
             overflow-x: hidden;
+            color: white;
         }
-        
+
         .glass {
-            backdrop-filter: blur(25px) saturate(200%);
-            -webkit-backdrop-filter: blur(25px) saturate(200%);
-            background-color: rgba(25, 25, 35, 0.39);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.125);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
-        
         .glass-dark {
-            backdrop-filter: blur(25px) saturate(200%);
-            -webkit-backdrop-filter: blur(25px) saturate(200%);
-            background-color: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            background: rgba(15, 15, 35, 0.7);
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
         }
-        
-        .gradient-text {
-            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .feature-card {
+        .glass-card {
+            backdrop-filter: blur(15px) saturate(180%);
+            -webkit-backdrop-filter: blur(15px) saturate(180%);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             transition: all 0.3s ease;
+            border-radius: 16px;
         }
-        
-        .feature-card:hover {
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            background-color: rgba(25, 25, 35, 0.49);
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            border-radius: 12px;
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
         }
-        
-        .feature-card:hover::before {
-            opacity: 1;
+        @keyframes glow {
+            from { box-shadow: 0 0 5px rgba(99, 102, 241, 0.5), 0 0 10px rgba(99, 102, 241, 0.3), 0 0 15px rgba(99, 102, 241, 0.2); }
+            to { box-shadow: 0 0 10px rgba(99, 102, 241, 0.8), 0 0 20px rgba(99, 102, 241, 0.5), 0 0 30px rgba(99, 102, 241, 0.3); }
         }
-        
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
+
+        .gradient-text {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        
-        .language-selector {
+
+        .lang-selector {
             position: relative;
         }
-        
-        .language-dropdown {
+        .lang-dropdown {
             display: none;
             position: absolute;
             top: 100%;
             right: 0;
-            backdrop-filter: blur(25px) saturate(200%);
-            -webkit-backdrop-filter: blur(25px) saturate(200%);
-            background-color: rgba(25, 25, 35, 0.9);
-            min-width: 140px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            z-index: 100;
-            border-radius: 12px;
+            background: rgba(15, 15, 35, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
             overflow: hidden;
-            margin-top: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.125);
+            z-index: 1000;
+            min-width: 120px;
         }
-        
-        .language-dropdown.show {
+        .lang-dropdown.show {
             display: block;
-            animation: fadeIn 0.2s ease-out;
+            animation: fadeIn 0.3s ease;
         }
-        
-        .language-dropdown a {
-            color: #e2e8f0;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            transition: all 0.2s;
-        }
-        
-        .language-dropdown a:hover {
-            background: rgba(59, 130, 246, 0.2);
-            color: #3B82F6;
-        }
-        
-        .language-dropdown a i {
-            margin-right: 8px;
-            width: 20px;
-            text-align: center;
-        }
-        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
-        .btn-primary {
-            background: linear-gradient(90deg, #3B82F6, #8B5CF6);
-            transition: all 0.3s;
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
-        }
-        
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.2);
-            transition: all 0.3s;
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        /* Feature icon styling */
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-card:nth-child(2) .feature-icon {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-        }
-        
-        .feature-card:nth-child(3) .feature-icon {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .feature-card:nth-child(4) .feature-icon {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-        
-        /* Text colors for glass morphism */
-        .glass-text {
-            color: #e2e8f0;
-        }
-        
-        .glass-text-light {
-            color: #a0aec0;
-        }
-        
-        /* Header styles */
-        .header {
-            transition: all 0.3s ease;
-            backdrop-filter: blur(25px) saturate(200%);
-            -webkit-backdrop-filter: blur(25px) saturate(200%);
-            background-color: rgba(25, 25, 35, 0.39);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.125);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-        }
-        
+
         @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
+            .hero-title { font-size: 2.5rem !important; line-height: 1.2; }
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            border-radius: 3px;
         }
     </style>
 </head>
-<body class="py-4 px-2 md:py-6 md:px-4">
-    <!-- Header/Navbar -->
-    <header class="header sticky top-4 z-50 max-w-7xl mx-auto mb-8">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+<body class="text-white">
+    <!-- Header -->
+    <header class="glass-dark fixed top-4 left-4 right-4 z-50 rounded-2xl">
+        <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
             <div class="flex items-center">
-                <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mr-3">
-                    <i class="fas fa-atom text-xl"></i>
-                </div>
-                <span class="text-xl font-bold gradient-text">STEMifyX</span>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <!-- Language Selector -->
-                <div class="language-selector">
-                    <button id="languageBtn" class="btn-secondary flex items-center px-4 py-2 rounded-lg">
-                        <i class="fas fa-globe mr-2"></i>
-                        <span>EN</span>
-                        <i class="fas fa-chevron-down ml-2 text-xs"></i>
-                    </button>
-                    <div id="languageDropdown" class="language-dropdown">
-                        <a href="#" data-lang="en">
-                            <i class="fas fa-language"></i> English
-                        </a>
-                        <a href="#" data-lang="hi">
-                            <i class="fas fa-language"></i> Hindi
-                        </a>
-                        <a href="#" data-lang="or">
-                            <i class="fas fa-language"></i> Odia
-                        </a>
+                <a href="#" class="flex items-center space-x-3 text-white font-bold text-xl">
+                    <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center animate-glow">
+                        <i class="fas fa-atom text-white text-lg"></i>
                     </div>
-                </div>
-                
-                <!-- Back to Home Button -->
-                <a href="index.html" class="btn-primary flex items-center px-4 py-2 rounded-lg">
-                    <i class="fas fa-home mr-2"></i>Back to Home
+                    <span class="font-display gradient-text text-2xl">STEMifyX</span>
                 </a>
+            </div>
+
+            <div class="lang-selector">
+                <button id="lang-button" class="glass-card px-3 py-2 rounded-lg text-white flex items-center space-x-2 hover:bg-opacity-20 transition-all">
+                    <i class="fas fa-globe text-primary"></i>
+                    <span id="current-lang">English</span>
+                    <i class="fas fa-chevron-down text-xs"></i>
+                </button>
+                <div id="lang-dropdown" class="lang-dropdown">
+                    <button class="lang-option w-full text-left px-4 py-2 text-white hover:bg-primary hover:bg-opacity-20 transition-all" data-lang="en">English</button>
+                    <button class="lang-option w-full text-left px-4 py-2 text-white hover:bg-primary hover:bg-opacity-20 transition-all" data-lang="hi">हिंदी</button>
+                    <button class="lang-option w-full text-left px-4 py-2 text-white hover:bg-primary hover:bg-opacity-20 transition-all" data-lang="or">ଓଡିଆ</button>
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section class="py-8 md:py-16 max-w-7xl mx-auto mb-12">
-        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <div class="glass rounded-2xl p-8 md:p-10 shadow-2xl">
-                    <h1 class="text-3xl md:text-4xl font-bold mb-4 glass-text">Empowering Parents to Support STEM Learning</h1>
-                    <p class="text-lg md:text-xl mb-6 glass-text-light">Your partnership is key to your child's success in science, technology, engineering, and mathematics education.</p>
-                    <a href="#resources" class="btn-primary inline-flex items-center px-6 py-3 rounded-lg font-semibold">
-                        Explore Resources <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="glass rounded-2xl p-4 shadow-2xl max-w-md transform rotate-3">
-                    <div class="bg-white/10 rounded-xl p-2">
-                        <div class="bg-gradient-to-br from-blue-400 to-purple-500 h-64 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-users text-6xl text-white/80"></i>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-center">
-                        <p class="font-semibold glass-text">Family Learning Together</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <main class="pt-32 pb-12 px-4">
+        <div class="max-w-7xl mx-auto">
+            <!-- Hero -->
+            <section class="text-center mb-16">
+                <h1 class="font-display text-4xl md:text-6xl font-bold mb-6">
+                    Empowering Parents to Support <span class="gradient-text">STEM Learning</span>
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto opacity-90 font-light">
+                    Your partnership is key to your child's success in science, technology, engineering, and mathematics.
+                </p>
+                <a href="#resources" class="glass-card px-8 py-4 rounded-2xl font-semibold text-lg hover:scale-105 transition-all duration-300 group">
+                    <i class="fas fa-book-open mr-3"></i> Explore Resources
+                </a>
+            </section>
 
-    <!-- Guidance Feature Cards -->
-    <section class="py-8 md:py-16 max-w-7xl mx-auto mb-12">
-        <div class="container mx-auto px-4">
-            <div class="glass rounded-2xl p-8 md:p-10 shadow-2xl mb-12 text-center">
-                <h2 class="text-2xl md:text-3xl font-bold mb-4 glass-text">How We Support You</h2>
-                <p class="text-lg md:text-xl glass-text-light max-w-3xl mx-auto">Discover tools and resources designed specifically to help you guide your child's STEM education journey.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Card 1 -->
-                <div class="glass feature-card rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="feature-icon mb-4">
-                        <i class="fas fa-lightbulb"></i>
+            <!-- Features -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="glass-card p-6 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-2xl mb-4 animate-float">
+                        💡
                     </div>
-                    <h3 class="text-xl font-bold mb-2 glass-text">STEM Learning Tips</h3>
-                    <p class="glass-text-light mb-4">Practical guidance on how to help with math, science, and coding concepts.</p>
-                    <a href="#" class="font-semibold flex items-center text-blue-300">
-                        Learn More <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <h3 class="text-xl font-semibold mb-2">STEM Learning Tips</h3>
+                    <p class="text-gray-300 mb-4">Practical guidance on math, science, and coding concepts.</p>
+                    <a href="#" class="text-primary font-medium group-hover:translate-x-2 transition-transform">Learn More →</a>
                 </div>
-                
-                <!-- Card 2 -->
-                <div class="glass feature-card rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="feature-icon mb-4">
-                        <i class="fas fa-chart-line"></i>
+                <div class="glass-card p-6 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-2xl mb-4 animate-float" style="animation-delay:0.5s;">
+                        📊
                     </div>
-                    <h3 class="text-xl font-bold mb-2 glass-text">Track Student Progress</h3>
-                    <p class="glass-text-light mb-4">Learn how to interpret the analytics dashboard to monitor your child's growth.</p>
-                    <a href="#" class="font-semibold flex items-center text-blue-300">
-                        Learn More <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <h3 class="text-xl font-semibold mb-2">Track Progress</h3>
+                    <p class="text-gray-300 mb-4">Interpret dashboards to monitor your child's growth.</p>
+                    <a href="#" class="text-primary font-medium group-hover:translate-x-2 transition-transform">Learn More →</a>
                 </div>
-                
-                <!-- Card 3 -->
-                <div class="glass feature-card rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="feature-icon mb-4">
-                        <i class="fas fa-chalkboard-teacher"></i>
+                <div class="glass-card p-6 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center text-2xl mb-4 animate-float" style="animation-delay:1s;">
+                        🎓
                     </div>
-                    <h3 class="text-xl font-bold mb-2 glass-text">Workshops & Webinars</h3>
-                    <p class="glass-text-light mb-4">Parent sessions to learn effective engagement techniques and strategies.</p>
-                    <a href="#" class="font-semibold flex items-center text-blue-300">
-                        Learn More <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <h3 class="text-xl font-semibold mb-2">Workshops & Webinars</h3>
+                    <p class="text-gray-300 mb-4">Parent sessions on effective engagement strategies.</p>
+                    <a href="#" class="text-primary font-medium group-hover:translate-x-2 transition-transform">Learn More →</a>
                 </div>
-                
-                <!-- Card 4 -->
-                <div class="glass feature-card rounded-2xl p-6 shadow-lg relative overflow-hidden">
-                    <div class="feature-icon mb-4">
-                        <i class="fas fa-flask"></i>
+                <div class="glass-card p-6 group">
+                    <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-2xl mb-4 animate-float" style="animation-delay:1.5s;">
+                        🧪
                     </div>
-                    <h3 class="text-xl font-bold mb-2 glass-text">At-Home Activities</h3>
-                    <p class="glass-text-light mb-4">Fun experiments and projects using everyday household items.</p>
-                    <a href="#" class="font-semibold flex items-center text-blue-300">
-                        Learn More <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
+                    <h3 class="text-xl font-semibold mb-2">At-Home Activities</h3>
+                    <p class="text-gray-300 mb-4">Fun experiments using everyday household items.</p>
+                    <a href="#" class="text-primary font-medium group-hover:translate-x-2 transition-transform">Learn More →</a>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Parent Resources Section -->
-    <section id="resources" class="py-8 md:py-16 max-w-7xl mx-auto mb-12">
-        <div class="container mx-auto px-4">
-            <div class="glass rounded-2xl p-8 md:p-10 shadow-2xl mb-12">
-                <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 glass-text">Parent Resources</h2>
-                <p class="text-lg md:text-xl text-center glass-text-light max-w-3xl mx-auto">Access a wealth of materials designed to support your child's STEM learning journey.</p>
-            </div>
-            
-            <div class="mb-12">
-                <h3 class="text-xl md:text-2xl font-semibold mb-6 pl-4 border-l-4 border-white/30 glass-text">Downloadable Guides</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glass rounded-2xl p-6 shadow-lg">
-                        <div class="bg-red-400/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-file-pdf text-red-300"></i>
+            <!-- Resources -->
+            <section id="resources" class="glass rounded-3xl p-8 mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Parent Resources</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <div class="glass-card p-6 text-center">
+                        <div class="w-16 h-16 bg-red-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-file-pdf text-red-400 text-2xl"></i>
                         </div>
-                        <h4 class="text-lg font-bold mb-2 glass-text">STEM Worksheets</h4>
-                        <p class="glass-text-light mb-4">Printable activities for different age groups and skill levels.</p>
-                        <button class="btn-primary w-full py-2 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-download mr-2"></i> Download PDF
-                        </button>
+                        <h4 class="font-semibold mb-2">STEM Worksheets</h4>
+                        <button class="mt-2 bg-primary px-4 py-2 rounded-lg text-sm">Download PDF</button>
                     </div>
-                    
-                    <div class="glass rounded-2xl p-6 shadow-lg">
-                        <div class="bg-blue-400/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-book text-blue-300"></i>
+                    <div class="glass-card p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-book text-blue-400 text-2xl"></i>
                         </div>
-                        <h4 class="text-lg font-bold mb-2 glass-text">Activity Guides</h4>
-                        <p class="glass-text-light mb-4">Step-by-step instructions for fun STEM projects at home.</p>
-                        <button class="btn-primary w-full py-2 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-download mr-2"></i> Download PDF
-                        </button>
+                        <h4 class="font-semibold mb-2">Activity Guides</h4>
+                        <button class="mt-2 bg-primary px-4 py-2 rounded-lg text-sm">Download PDF</button>
                     </div>
-                    
-                    <div class="glass rounded-2xl p-6 shadow-lg">
-                        <div class="bg-green-400/20 w-12 h-12 rounded-xl flex items-center justify-center mb-4">
-                            <i class="fas fa-user-friends text-green-300"></i>
+                    <div class="glass-card p-6 text-center">
+                        <div class="w-16 h-16 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-user-friends text-green-400 text-2xl"></i>
                         </div>
-                        <h4 class="text-lg font-bold mb-2 glass-text">Parenting Tips</h4>
-                        <p class="glass-text-light mb-4">Strategies to support your child's learning journey.</p>
-                        <button class="btn-primary w-full py-2 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-download mr-2"></i> Download PDF
-                        </button>
+                        <h4 class="font-semibold mb-2">Parenting Tips</h4>
+                        <button class="mt-2 bg-primary px-4 py-2 rounded-lg text-sm">Download PDF</button>
                     </div>
                 </div>
-            </div>
-            
-            <div>
-                <h3 class="text-xl md:text-2xl font-semibold mb-6 pl-4 border-l-4 border-white/30 glass-text">Educational Videos</h3>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <div class="glass rounded-2xl shadow-lg overflow-hidden">
-                        <div class="bg-gradient-to-br from-blue-500 to-purple-600 h-48 flex items-center justify-center">
-                            <i class="fas fa-play-circle text-6xl text-white/80"></i>
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-xl font-bold mb-2 glass-text">Digital Literacy & Safe Internet Use</h4>
-                            <p class="glass-text-light mb-4">Learn how to guide your child in using technology safely and responsibly.</p>
-                            <button class="btn-secondary flex items-center px-4 py-2 rounded-lg">
-                                <i class="fas fa-play mr-2"></i> Watch Video
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="glass rounded-2xl shadow-lg overflow-hidden">
-                        <div class="bg-gradient-to-br from-green-500 to-blue-600 h-48 flex items-center justify-center">
-                            <i class="fas fa-play-circle text-6xl text-white/80"></i>
-                        </div>
-                        <div class="p-6">
-                            <h4 class="text-xl font-bold mb-2 glass-text">Helping with Math Homework</h4>
-                            <p class="glass-text-light mb-4">Strategies to support your child without doing the work for them.</p>
-                            <button class="btn-secondary flex items-center px-4 py-2 rounded-lg">
-                                <i class="fas fa-play mr-2"></i> Watch Video
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Community & Support Section -->
-    <section class="py-8 md:py-16 max-w-7xl mx-auto mb-12">
-        <div class="container mx-auto px-4">
-            <div class="glass rounded-2xl p-8 md:p-10 shadow-2xl mb-12">
-                <h2 class="text-2xl md:text-3xl font-bold text-center mb-4 glass-text">Community & Support</h2>
-                <p class="text-lg md:text-xl text-center glass-text-light max-w-3xl mx-auto">Connect with other parents and access support resources to enhance your child's learning experience.</p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- Community Section -->
-                <div class="glass rounded-2xl p-6 shadow-lg">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4 glass-text">Join Our Parent Community</h3>
-                    <p class="glass-text-light mb-6">Connect with other parents, share experiences, and get advice from educators and experts.</p>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div class="bg-green-500/20 rounded-xl p-4 border border-green-400/30">
-                            <div class="flex items-center mb-3">
-                                <i class="fab fa-whatsapp text-2xl text-green-300 mr-3"></i>
-                                <h4 class="font-bold glass-text">WhatsApp Group</h4>
+            <!-- Community & Support -->
+            <section class="glass rounded-3xl p-8 mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Community & Support</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="glass-card p-6">
+                        <h3 class="font-semibold text-lg mb-4">Join Parent Community</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 glass-card">
+                                <i class="fab fa-whatsapp text-green-400 mr-3 text-xl"></i>
+                                <span>WhatsApp Group</span>
                             </div>
-                            <p class="glass-text-light mb-4 text-sm">Join our active community for daily tips and quick Q&A.</p>
-                            <button class="bg-green-500/30 hover:bg-green-500/40 text-white px-3 py-2 rounded-lg w-full transition">
-                                Join Group
-                            </button>
-                        </div>
-                        
-                        <div class="bg-blue-500/20 rounded-xl p-4 border border-blue-400/30">
-                            <div class="flex items-center mb-3">
-                                <i class="fas fa-comments text-2xl text-blue-300 mr-3"></i>
-                                <h4 class="font-bold glass-text">In-App Forum</h4>
-                            </div>
-                            <p class="glass-text-light mb-4 text-sm">Participate in detailed discussions with teachers and mentors.</p>
-                            <button class="bg-blue-500/30 hover:bg-blue-500/40 text-white px-3 py-2 rounded-lg w-full transition">
-                                Access Forum
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-white/10 rounded-xl p-4 border border-white/20">
-                        <h4 class="font-bold mb-3 glass-text">Q&A with Educators</h4>
-                        <p class="glass-text-light mb-4 text-sm">Submit your questions directly to our team of STEM educators.</p>
-                        <div class="flex space-x-2">
-                            <input type="text" placeholder="Ask a question..." class="flex-grow bg-white/10 border border-white/20 rounded-lg px-4 py-2 placeholder-white/60 glass-text">
-                            <button class="btn-primary px-4 py-2 rounded-lg">
-                                Ask
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- NGO Section -->
-                <div class="glass rounded-2xl p-6 shadow-lg">
-                    <h3 class="text-xl md:text-2xl font-semibold mb-4 glass-text">NGO & Volunteer Connections</h3>
-                    <p class="glass-text-light mb-6">Discover organizations that support STEM education and how you can get involved.</p>
-                    
-                    <div class="bg-purple-500/20 rounded-xl p-4 border border-purple-400/30 mb-4">
-                        <h4 class="font-bold mb-3 glass-text">Partner NGOs</h4>
-                        <div class="space-y-3">
-                            <div class="flex items-center justify-between bg-white/10 p-3 rounded-lg">
-                                <div class="flex items-center">
-                                    <div class="bg-purple-500/30 w-10 h-10 rounded-full flex items-center justify-center mr-3">
-                                        <i class="fas fa-hands-helping text-purple-300"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold glass-text">STEM for All Foundation</h5>
-                                        <p class="text-xs glass-text-light">Provides resources to underserved communities</p>
-                                    </div>
-                                </div>
-                                <button class="text-purple-300 hover:text-white">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
-                            </div>
-                            
-                            <div class="flex items-center justify-between bg-white/10 p-3 rounded-lg">
-                                <div class="flex items-center">
-                                    <div class="bg-purple-500/30 w-10 h-10 rounded-full flex items-center justify-center mr-3">
-                                        <i class="fas fa-hands-helping text-purple-300"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="font-semibold glass-text">Code for Kids Initiative</h5>
-                                        <p class="text-xs glass-text-light">Introduces programming to young learners</p>
-                                    </div>
-                                </div>
-                                <button class="text-purple-300 hover:text-white">
-                                    <i class="fas fa-external-link-alt"></i>
-                                </button>
+                            <div class="flex items-center p-3 glass-card">
+                                <i class="fas fa-comments text-blue-400 mr-3 text-xl"></i>
+                                <span>In-App Forum</span>
                             </div>
                         </div>
                     </div>
-                    
-                    <div class="bg-yellow-500/20 rounded-xl p-4 border border-yellow-400/30">
-                        <h4 class="font-bold mb-3 glass-text">Volunteer Opportunities</h4>
-                        <p class="glass-text-light mb-4 text-sm">Help bring STEM education to more children in your community.</p>
-                        <button class="bg-yellow-500/30 hover:bg-yellow-500/40 text-white px-3 py-2 rounded-lg w-full transition">
-                            Explore Volunteer Roles
-                        </button>
+                    <div class="glass-card p-6">
+                        <h3 class="font-semibold text-lg mb-4">NGO & Volunteer Connections</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center p-3 glass-card">
+                                <i class="fas fa-hands-helping text-purple-400 mr-3 text-xl"></i>
+                                <span>STEM for All Foundation</span>
+                            </div>
+                            <div class="flex items-center p-3 glass-card">
+                                <i class="fas fa-laptop-code text-yellow-400 mr-3 text-xl"></i>
+                                <span>Code for Kids Initiative</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
+            </section>
 
-    <!-- Call-to-Action Strip -->
-    <section class="py-8 md:py-12 max-w-7xl mx-auto mb-12">
-        <div class="container mx-auto px-4">
-            <div class="glass rounded-2xl p-8 text-center shadow-2xl">
-                <h2 class="text-2xl md:text-3xl font-bold mb-4 glass-text">Ready to Support Your Child's STEM Journey?</h2>
-                <p class="text-lg md:text-xl glass-text-light mb-6 max-w-2xl mx-auto">Join thousands of parents who are already making a difference in their children's education.</p>
-                <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6">
-                    <a href="#" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-flex items-center justify-center">
-                        <i class="fas fa-download mr-2"></i>Download Resources
-                    </a>
-                    <a href="#" class="btn-secondary px-6 py-3 rounded-lg font-semibold inline-flex items-center justify-center">
-                        <i class="fas fa-users mr-2"></i>Join Parent Community
-                    </a>
-                    <a href="#" class="btn-primary px-6 py-3 rounded-lg font-semibold inline-flex items-center justify-center">
-                        <i class="fas fa-graduation-cap mr-2"></i>Future Guidance
-                    </a>
+            <!-- CTA -->
+            <section class="text-center glass rounded-3xl p-10 mb-16">
+                <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Ready to Support Your Child’s STEM Journey?</h2>
+                <p class="opacity-80 mb-6">Join thousands of parents making a difference.</p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button class="glass-card px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">Download Resources</button>
+                    <button class="glass-card px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">Join Community</button>
+                    <button class="glass-card bg-gradient-to-r from-accent to-orange-500 px-6 py-3 rounded-xl font-semibold hover:scale-105 transition">Future Guidance</button>
                 </div>
-            </div>
+            </section>
         </div>
-    </section>
+    </main>
+    <!-- Hero Section (unchanged) -->
+<section class="relative pt-32 pb-20 px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <h1 class="font-display text-4xl md:text-6xl font-bold mb-6">
+      Empowering Parents to Support <span class="gradient-text">STEM Learning</span>
+    </h1>
+    <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90">
+      Your partnership is key to your child's success in science, technology, engineering, and mathematics.
+    </p>
+    <a href="#resources" class="glass-card px-8 py-4 rounded-2xl font-semibold text-lg hover:scale-105 transition-all duration-300 group">
+      Explore Resources <i class="fas fa-arrow-right ml-2"></i>
+    </a>
+  </div>
+</section>
+
+<!-- Parent Dashboard Preview -->
+<section id="dashboard" class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Your Parent Dashboard</h2>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="glass-card p-6 rounded-2xl">
+        <h3 class="font-semibold mb-3">Child's Weekly Progress</h3>
+        <div class="w-full bg-gray-700 rounded-full h-3 mb-2">
+          <div class="bg-gradient-to-r from-primary to-accent h-3 rounded-full" style="width: 78%"></div>
+        </div>
+        <p class="text-sm opacity-80">78% tasks completed • 3 badges earned</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <h3 class="font-semibold mb-3">Upcoming Deadlines</h3>
+        <ul class="space-y-2 text-sm">
+          <li class="flex items-center"><i class="fas fa-circle text-yellow-400 mr-2 text-xs"></i> Math Quiz – Tomorrow</li>
+          <li class="flex items-center"><i class="fas fa-circle text-blue-400 mr-2 text-xs"></i> Science Project – May 25</li>
+        </ul>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <h3 class="font-semibold mb-3">Skill Focus This Week</h3>
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-300 rounded-full text-sm">Python Basics</span>
+          <span class="px-3 py-1 bg-green-500/20 text-green-300 rounded-full text-sm">Critical Thinking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI Parent Assistant -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <div class="flex flex-col md:flex-row items-center gap-8">
+      <div class="md:w-1/3">
+        <div class="w-48 h-48 mx-auto bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center animate-float">
+          <i class="fas fa-robot text-white text-6xl"></i>
+        </div>
+      </div>
+      <div class="md:w-2/3 text-center md:text-left">
+        <h2 class="font-display text-3xl font-bold mb-4 gradient-text">AI Parent Assistant</h2>
+        <p class="opacity-90 mb-6">Ask questions like: “How do I help with algebra?” or “What coding games are best for age 12?”</p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center md:justify-start">
+          <input type="text" placeholder="Ask anything about STEM learning..." class="glass-card px-4 py-3 rounded-xl w-full sm:w-80">
+          <button class="bg-accent px-6 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition-all">
+            <i class="fas fa-paper-plane mr-2"></i> Ask
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Webinar & Workshop Calendar -->
+<section id="webinars" class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Upcoming Parent Webinars</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="glass-card p-5 rounded-2xl border-l-4 border-primary">
+        <h4 class="font-semibold mb-2">How to Support Math Anxiety</h4>
+        <p class="text-sm opacity-80 mb-3">May 20, 2024 • 6:00 PM IST</p>
+        <button class="text-primary text-sm font-medium">Register Now →</button>
+      </div>
+      <div class="glass-card p-5 rounded-2xl border-l-4 border-success">
+        <h4 class="font-semibold mb-2">Coding at Home: No Experience Needed</h4>
+        <p class="text-sm opacity-80 mb-3">May 27, 2024 • 5:30 PM IST</p>
+        <button class="text-primary text-sm font-medium">Register Now →</button>
+      </div>
+      <div class="glass-card p-5 rounded-2xl border-l-4 border-accent">
+        <h4 class="font-semibold mb-2">Future-Proof Careers in AI</h4>
+        <p class="text-sm opacity-80 mb-3">June 3, 2024 • 7:00 PM IST</p>
+        <button class="text-primary text-sm font-medium">Register Now →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Personalized Roadmap -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Your Child’s Learning Roadmap</h2>
+    <div class="relative pl-8 border-l-2 border-primary/30">
+      <div class="mb-8 relative">
+        <div class="absolute -left-10 w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white">1</div>
+        <h3 class="font-semibold">Grade 10: Foundation Building</h3>
+        <p class="opacity-80 mt-2">Focus on core STEM subjects + 1 coding project</p>
+      </div>
+      <div class="mb-8 relative">
+        <div class="absolute -left-10 w-8 h-8 bg-accent rounded-full flex items-center justify-center text-white">2</div>
+        <h3 class="font-semibold">Grade 11–12: Skill Specialization</h3>
+        <p class="opacity-80 mt-2">Choose stream + internships + Olympiads</p>
+      </div>
+      <div class="relative">
+        <div class="absolute -left-10 w-8 h-8 bg-success rounded-full flex items-center justify-center text-white">3</div>
+        <h3 class="font-semibold">College & Beyond</h3>
+        <p class="opacity-80 mt-2">Entrance prep, portfolio building, mentorship</p>
+      </div>
+    </div>
+    <div class="mt-8 text-center">
+      <button class="glass-card px-6 py-3 rounded-xl font-semibold hover:bg-primary hover:bg-opacity-20 transition">
+        <i class="fas fa-map mr-2"></i> Generate Custom Roadmap
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Parent-Teacher Collaboration -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Connect with Teachers</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="glass-card p-6 rounded-2xl">
+        <h3 class="font-semibold mb-3 flex items-center"><i class="fas fa-comments mr-2 text-primary"></i> Direct Messaging</h3>
+        <p class="opacity-80 mb-4">Chat securely with your child’s STEM mentors.</p>
+        <button class="w-full glass-card py-2 rounded-lg">Open Messages</button>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <h3 class="font-semibold mb-3 flex items-center"><i class="fas fa-file-alt mr-2 text-success"></i> Progress Reports</h3>
+        <p class="opacity-80 mb-4">Monthly PDF reports with skill insights.</p>
+        <button class="w-full glass-card py-2 rounded-lg">View Latest Report</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Motivation & Rewards -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8 text-center">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Celebrate Every Win!</h2>
+    <p class="opacity-90 mb-8">Use our printable reward charts and digital badges to keep your child motivated.</p>
+    <div class="flex flex-wrap justify-center gap-6">
+      <div class="glass-card p-4 rounded-xl w-32">
+        <i class="fas fa-medal text-yellow-400 text-3xl mb-2"></i>
+        <p class="text-sm">Weekly Star</p>
+      </div>
+      <div class="glass-card p-4 rounded-xl w-32">
+        <i class="fas fa-graduation-cap text-blue-400 text-3xl mb-2"></i>
+        <p class="text-sm">Math Master</p>
+      </div>
+      <div class="glass-card p-4 rounded-xl w-32">
+        <i class="fas fa-code text-green-400 text-3xl mb-2"></i>
+        <p class="text-sm">Coder Pro</p>
+      </div>
+    </div>
+    <button class="mt-6 glass-card px-6 py-3 rounded-xl font-semibold">
+      <i class="fas fa-download mr-2"></i> Download Reward Kit
+    </button>
+  </div>
+</section>
+
+<!-- Offline Activity Kits -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Offline STEM Kits</h2>
+    <p class="opacity-90 mb-6">No internet? No problem! Try these screen-free activities.</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="glass-card p-5 rounded-2xl">
+        <h4 class="font-semibold mb-2">Kitchen Chemistry</h4>
+        <p class="text-sm opacity-80 mb-3">Make slime, volcanoes, and more with household items.</p>
+        <button class="text-sm text-primary">View Guide →</button>
+      </div>
+      <div class="glass-card p-5 rounded-2xl">
+        <h4 class="font-semibold mb-2">Math Board Games</h4>
+        <p class="text-sm opacity-80 mb-3">Printable games for arithmetic & logic.</p>
+        <button class="text-sm text-primary">Download PDF →</button>
+      </div>
+      <div class="glass-card p-5 rounded-2xl">
+        <h4 class="font-semibold mb-2">Engineering Challenges</h4>
+        <p class="text-sm opacity-80 mb-3">Build bridges, towers, and cars with paper & straws.</p>
+        <button class="text-sm text-primary">Get Instructions →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Digital Safety Guide -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Digital Safety for Young Learners</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h3 class="font-semibold mb-3">Screen Time Tips</h3>
+        <ul class="space-y-2 text-sm opacity-90">
+          <li>• 20-20-20 rule: Every 20 mins, look 20 feet away for 20 sec</li>
+          <li>• Use built-in parental controls on devices</li>
+          <li>• Schedule “tech-free” family hours</li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-3">Online Safety Checklist</h3>
+        <ul class="space-y-2 text-sm opacity-90">
+          <li>• Never share personal info online</li>
+          <li>• Use strong, unique passwords</li>
+          <li>• Report suspicious messages</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Parent Success Stories -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Stories from Parents Like You</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="glass-card p-6 rounded-2xl">
+        <p class="italic opacity-90 mb-4">“My daughter was struggling with coding. After using STEMifyX’s parent guides, she built her first app—and won a school competition!”</p>
+        <p class="font-semibold">— Meena R., Parent of Grade 10</p>
+      </div>
+      <div class="glass-card p-6 rounded-2xl">
+        <p class="italic opacity-90 mb-4">“I didn’t know how to help with math. The weekly webinars gave me simple strategies. Now we solve problems together!”</p>
+        <p class="font-semibold">— Rajesh K., Parent of Grade 8</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ Accordion -->
+<section class="max-w-7xl mx-auto px-4 mb-16">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-6 gradient-text">Frequently Asked Questions</h2>
+    <div class="space-y-4">
+      <div class="glass-card p-4 rounded-xl">
+        <div class="flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+          <span class="font-medium">How much time should my child spend on STEMifyX?</span>
+          <i class="fas fa-chevron-down text-primary"></i>
+        </div>
+        <div class="mt-3 hidden text-sm opacity-80">
+          We recommend 30–45 minutes per day, 4–5 days a week for consistent progress.
+        </div>
+      </div>
+      <div class="glass-card p-4 rounded-xl">
+        <div class="flex justify-between items-center cursor-pointer" onclick="toggleFAQ(this)">
+          <span class="font-medium">Can I track my child’s activity?</span>
+          <i class="fas fa-chevron-down text-primary"></i>
+        </div>
+        <div class="mt-3 hidden text-sm opacity-80">
+          Yes! Visit your Parent Dashboard to see completed lessons, quiz scores, and skill growth.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Monthly Planner Download -->
+<section class="max-w-7xl mx-auto px-4 mb-16 text-center">
+  <div class="glass rounded-3xl p-8">
+    <h2 class="font-display text-3xl font-bold mb-4 gradient-text">Plan Ahead</h2>
+    <p class="opacity-90 mb-6">Download our printable monthly STEM planner for families.</p>
+    <button class="bg-primary px-6 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition-all">
+      <i class="fas fa-calendar-alt mr-2"></i> Download May 2024 Planner
+    </button>
+  </div>
+</section>
+
+<!-- Footer (keep your existing one) -->
 
     <!-- Footer -->
-    <footer class="glass-dark py-8 md:py-12 max-w-7xl mx-auto rounded-2xl">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-bold mb-4 gradient-text">STEMifyX</h3>
-                    <p class="glass-text-light">Empowering the next generation of innovators through quality STEM education.</p>
+    <footer class="glass rounded-3xl py-12 px-8 mt-12">
+        <div class="max-w-7xl mx-auto text-center">
+            <div class="flex items-center justify-center mb-6">
+                <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center mr-3">
+                    <i class="fas fa-atom text-white"></i>
                 </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4 glass-text">Quick Links</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="glass-text-light hover:text-white transition">Home</a></li>
-                        <li><a href="#" class="glass-text-light hover:text-white transition">Student Login</a></li>
-                        <li><a href="#" class="glass-text-light hover:text-white transition">Teacher Login</a></li>
-                        <li><a href="#" class="glass-text-light hover:text-white transition">NGO Partners</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4 glass-text">Contact</h4>
-                    <ul class="space-y-2">
-                        <li class="flex items-center glass-text-light">
-                            <i class="fab fa-whatsapp mr-2"></i> WhatsApp Helpline
-                        </li>
-                        <li class="flex items-center glass-text-light">
-                            <i class="fas fa-envelope mr-2"></i> support@stemifyx.com
-                        </li>
-                        <li class="flex items-center glass-text-light">
-                            <i class="fas fa-phone mr-2"></i> +91-XXXXX-XXXXX
-                        </li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-bold mb-4 glass-text">Newsletter</h4>
-                    <p class="glass-text-light mb-2">Stay updated with our latest resources and events.</p>
-                    <div class="flex">
-                        <input type="email" placeholder="Your email" class="bg-dark/50 text-white px-4 py-2 rounded-l-lg w-full border border-gray-600">
-                        <button class="btn-primary px-4 py-2 rounded-r-lg">
-                            <i class="fas fa-paper-plane"></i>
-                        </button>
-                    </div>
-                </div>
+                <span class="font-display gradient-text text-2xl font-bold">STEMifyX</span>
             </div>
-            
-            <div class="border-t border-gray-700 mt-8 pt-8 text-center glass-text-light">
-                <p>&copy; 2023 STEMifyX. All rights reserved.</p>
-            </div>
+            <p class="text-gray-400 mb-6">Empowering the next generation with future-ready skills.</p>
+            <p class="text-gray-500 text-sm">© 2024 STEMifyX. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Language JS -->
     <script>
-        // Language Selector Functionality
-        document.getElementById('languageBtn').addEventListener('click', function() {
-            document.getElementById('languageDropdown').classList.toggle('show');
+        const langButton = document.getElementById('lang-button');
+        const langDropdown = document.getElementById('lang-dropdown');
+        const currentLangSpan = document.getElementById('current-lang');
+        const langOptions = document.querySelectorAll('.lang-option');
+
+        langButton.addEventListener('click', e => {
+            e.stopPropagation();
+            langDropdown.classList.toggle('show');
         });
-        
-        // Close dropdown when clicking outside
-        document.addEventListener('click', function(event) {
-            const languageBtn = document.getElementById('languageBtn');
-            const languageDropdown = document.getElementById('languageDropdown');
-            
-            if (!languageBtn.contains(event.target) && !languageDropdown.contains(event.target)) {
-                languageDropdown.classList.remove('show');
-            }
-        });
-        
-        // Change language
-        document.querySelectorAll('#languageDropdown a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const lang = this.getAttribute('data-lang');
-                const langText = this.textContent.trim();
-                
-                // Update button text
-                document.querySelector('#languageBtn span').textContent = 
-                    lang === 'en' ? 'EN' : lang === 'hi' ? 'HI' : 'OR';
-                
-                // Close dropdown
-                document.getElementById('languageDropdown').classList.remove('show');
-                
-                // In a real app, you would change the language of the page content here
-                console.log('Language changed to: ' + langText);
+
+        document.addEventListener('click', () => langDropdown.classList.remove('show'));
+
+        langOptions.forEach(opt => {
+            opt.addEventListener('click', e => {
+                e.stopPropagation();
+                const lang = opt.dataset.lang;
+                const labels = { en: 'English', hi: 'हिंदी', or: 'ଓଡିଆ' };
+                currentLangSpan.textContent = labels[lang];
+                langDropdown.classList.remove('show');
+                localStorage.setItem('lang', lang);
             });
         });
-        
-        // Accordion Functionality for FAQ Section
-        document.querySelectorAll('.accordion-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const content = button.nextElementSibling;
-                const icon = button.querySelector('i');
-                
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                    icon.classList.remove('fa-chevron-down');
-                    icon.classList.add('fa-chevron-up');
-                }
-            });
-        });
+
+        // Load saved
+        const saved = localStorage.getItem('lang');
+        if (saved) currentLangSpan.textContent = { en: 'English', hi: 'हिंदी', or: 'ଓଡିଆ' }[saved] || 'English';
     </script>
 </body>
 </html>
