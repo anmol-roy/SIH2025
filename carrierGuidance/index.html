@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shape Your Tomorrow, Today | STEMifyX Career Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#0f0f23',
+            accent: '#f59e0b',
+            success: '#10b981',
+            warning: '#f59e0b',
+            danger: '#ef4444',
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow': 'glow 2s ease-in-out infinite alternate',
+            'bounce-slow': 'bounce 3s infinite',
+          },
+          fontFamily: {
+            'display': ['Poppins', 'sans-serif'],
+            'body': ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Inter', sans-serif;
+      background-color: black;
+      /* background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 25%, #2d1b69 50%, #1a1a3e 75%, #0f0f23 100%); */
+      background-attachment: fixed;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    .bg-pattern {
+      background-image: 
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.1) 0%, transparent 50%);
+    }
+    
+    /* Glass morphism enhanced */
+    .glass {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .glass-dark {
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(15, 15, 35, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+    
+    .glass-card {
+      backdrop-filter: blur(15px) saturate(180%);
+      -webkit-backdrop-filter: blur(15px) saturate(180%);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: all 0.3s ease;
+    }
+    
+    .glass-card:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* Enhanced animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-10px) rotate(1deg); }
+      66% { transform: translateY(5px) rotate(-1deg); }
+    }
+    
+    @keyframes glow {
+      from { box-shadow: 0 0 5px rgba(99, 102, 241, 0.5), 0 0 10px rgba(99, 102, 241, 0.3), 0 0 15px rgba(99, 102, 241, 0.2); }
+      to { box-shadow: 0 0 10px rgba(99, 102, 241, 0.8), 0 0 20px rgba(99, 102, 241, 0.5), 0 0 30px rgba(99, 102, 241, 0.3); }
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6, #ec4899);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+    }
+    
+    /* Language selector */
+    .lang-selector {
+      position: relative;
+    }
+    
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: rgba(15, 15, 35, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 1000;
+      min-width: 120px;
+    }
+    
+    .lang-dropdown.show {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem !important;
+        line-height: 1.2;
+      }
+      
+      .glass-card {
+        margin: 0.5rem;
+      }
+    }
+    
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+      border-radius: 3px;
+    }
+    
+    /* Pulse effect for buttons */
+    .pulse-button {
+      animation: pulse 2s infinite;
+    }
+    
+    .pulse-button:hover {
+      animation: none;
+    }
+  </style>
+</head>
+<body class="text-white bg-pattern">
+
+  <!-- Header with Navigation -->
+  <header class="glass-dark fixed top-4 left-4 right-4 z-50 rounded-2xl">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+      <!-- Logo -->
+      <div class="flex items-center">
+        <a href="#" class="flex items-center space-x-3 text-white font-bold text-xl">
+          <div class="w-10 h-10 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center animate-glow">
+            <i class="fas fa-rocket text-white text-lg"></i>
+          </div>
+          <span class="font-display gradient-text text-2xl">STEMifyX</span>
+        </a>
+      </div>
+      
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-8">
+        <a href="#" class="text-white hover:text-primary transition-all duration-300 font-medium">Home</a>
+        <a href="#career-pathways" class="text-white hover:text-primary transition-all duration-300 font-medium">Careers</a>
+        <a href="#education" class="text-white hover:text-primary transition-all duration-300 font-medium">Education</a>
+        <a href="#skills" class="text-white hover:text-primary transition-all duration-300 font-medium">Skills</a>
+        <a href="#mentorship" class="text-white hover:text-primary transition-all duration-300 font-medium">Mentorship</a>
+        <a href="#innovations" class="text-white hover:text-primary transition-all duration-300 font-medium">Innovations</a>
+        
+        <!-- Language Selector -->
+        <div class="lang-selector ml-4">
+          <button id="lang-button" class="glass-card px-3 py-2 rounded-lg text-white flex items-center space-x-2 hover:bg-opacity-20 transition-all">
+            <i class="fas fa-globe text-primary"></i>
+            <span id="current-lang">English</span>
+            <i class="fas fa-chevron-down text-xs"></i>
+          </button>
+          <div id="lang-dropdown" class="lang-dropdown">
+            <button class="lang-option w-full text-left px-4 py-2 text-white hover:bg-primary hover:bg-opacity-20 transition-all" data-lang="en">English</button>
+            <button class="lang-option w-full text-left px-4 py-2 text-white hover:bg-primary hover:bg-opacity-20 transition-all" data-lang="hi">हिंदी</button>
+            <button class="lang-option w-full text-left px-4 py-2 text-white hover:bg-primary hover:bg-opacity-20 transition-all" data-lang="or">ଓଡିଆ</button>
+          </div>
+        </div>
+      </nav>
+      
+      <!-- Mobile Menu Button -->
+      <button id="mobile-menu-button" class="lg:hidden text-white text-xl glass-card p-2 rounded-lg">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu lg:hidden overflow-hidden transition-all duration-500 max-h-0">
+      <div class="px-6 py-4 space-y-4 border-t border-white border-opacity-10">
+        <a href="#" class="block text-white hover:text-primary transition-colors font-medium">Home</a>
+        <a href="#career-pathways" class="block text-white hover:text-primary transition-colors font-medium">Careers</a>
+        <a href="#education" class="block text-white hover:text-primary transition-colors font-medium">Education</a>
+        <a href="#skills" class="block text-white hover:text-primary transition-colors font-medium">Skills</a>
+        <a href="#mentorship" class="block text-white hover:text-primary transition-colors font-medium">Mentorship</a>
+        <a href="#innovations" class="block text-white hover:text-primary transition-colors font-medium">Innovations</a>
+        
+        <!-- Mobile Language Selector -->
+        <div class="pt-4 border-t border-white border-opacity-10">
+          <div class="flex items-center space-x-4">
+            <i class="fas fa-globe text-primary"></i>
+            <select class="glass-card bg-transparent border-0 text-white rounded-lg px-2 py-1">
+              <option value="en">English</option>
+              <option value="hi">हिंदी</option>
+              <option value="or">ଓଡିଆ</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative pt-32 pb-20 px-4 mt-8">
+    <div class="max-w-7xl mx-auto text-center relative z-10">
+      <div class="mb-6">
+        <span class="inline-block px-4 py-2 glass-card rounded-full text-sm font-medium text-primary mb-4">
+          <i class="fas fa-star mr-2"></i>Trusted by 10,000+ Students
+        </span>
+      </div>
+      
+      <h1 class="hero-title font-display text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+        Shape Your <span class="gradient-text">Tomorrow</span>, Today
+      </h1>
+      
+      <p class="text-xl md:text-2xl mb-10 max-w-4xl mx-auto opacity-90 font-light leading-relaxed">
+        Discover your passion, build future-ready skills, and unlock infinite possibilities in the digital age.
+      </p>
+      
+      <div class="flex flex-wrap justify-center gap-4 mb-12">
+        <button class="glass-card px-8 py-4 rounded-2xl font-semibold text-lg hover:scale-105 transition-all duration-300 pulse-button group">
+          <i class="fas fa-search mr-3 group-hover:rotate-12 transition-transform"></i> Explore Careers
+        </button>
+        <button class="glass-card px-8 py-4 rounded-2xl font-semibold text-lg border-2 border-primary hover:bg-primary hover:scale-105 transition-all duration-300 group">
+          <i class="fas fa-graduation-cap mr-3 group-hover:bounce transition-transform"></i> Education Paths
+        </button>
+        <button class="glass-card bg-gradient-to-r from-accent to-orange-500 px-8 py-4 rounded-2xl font-semibold text-lg hover:scale-105 transition-all duration-300 group">
+          <i class="fas fa-lightbulb mr-3 group-hover:animate-pulse"></i> Skill Development
+        </button>
+      </div>
+      
+      <!-- Hero Stats -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-3xl font-bold gradient-text">50K+</div>
+          <div class="text-sm opacity-80">Active Learners</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-3xl font-bold gradient-text">500+</div>
+          <div class="text-sm opacity-80">Career Paths</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-3xl font-bold gradient-text">95%</div>
+          <div class="text-sm opacity-80">Success Rate</div>
+        </div>
+        <div class="glass-card p-4 rounded-xl">
+          <div class="text-3xl font-bold gradient-text">12</div>
+          <div class="text-sm opacity-80">Support</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="max-w-7xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-4 gap-8">
+    
+    <!-- Main Content (3/4) -->
+    <div class="lg:col-span-3 space-y-20">
+
+      <!-- Career Pathways Explorer -->
+      <section id="career-pathways" class="glass rounded-3xl p-8">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="font-display text-3xl md:text-4xl font-bold gradient-text">Career Pathways Explorer</h2>
+          <div class="glass-card px-4 py-2 rounded-full">
+            <span class="text-sm opacity-80">500+ Paths Available</span>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div class="glass-card p-6 rounded-2xl group cursor-pointer">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center text-2xl animate-float">
+                🔬
+              </div>
+              <div class="ml-4 flex-1">
+                <h3 class="text-xl font-semibold mb-1">Science & Technology</h3>
+                <div class="flex items-center text-sm opacity-70">
+                  <i class="fas fa-trending-up mr-2 text-success"></i>
+                  <span>High Demand</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">AI Engineer, Data Scientist, Robotics, Cybersecurity Analyst</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm bg-blue-500 bg-opacity-20 text-blue-300 px-3 py-1 rounded-full">150+ Jobs</span>
+              <button class="text-primary font-medium text-sm hover:text-white transition-colors group-hover:translate-x-2 transition-transform">
+                Explore → 
+              </button>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl group cursor-pointer">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-rose-600 rounded-2xl flex items-center justify-center text-2xl animate-float" style="animation-delay: 0.5s;">
+                🎨
+              </div>
+              <div class="ml-4 flex-1">
+                <h3 class="text-xl font-semibold mb-1">Creative Arts</h3>
+                <div class="flex items-center text-sm opacity-70">
+                  <i class="fas fa-palette mr-2 text-pink-400"></i>
+                  <span>Creative Field</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">UX Designer, Digital Artist, Content Creator, Film Maker</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm bg-pink-500 bg-opacity-20 text-pink-300 px-3 py-1 rounded-full">80+ Jobs</span>
+              <button class="text-primary font-medium text-sm hover:text-white transition-colors group-hover:translate-x-2 transition-transform">
+                Explore →
+              </button>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl group cursor-pointer">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-2xl flex items-center justify-center text-2xl animate-float" style="animation-delay: 1s;">
+                💼
+              </div>
+              <div class="ml-4 flex-1">
+                <h3 class="text-xl font-semibold mb-1">Business & Finance</h3>
+                <div class="flex items-center text-sm opacity-70">
+                  <i class="fas fa-chart-line mr-2 text-success"></i>
+                  <span>Growth Sector</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">Investment Banker, CA, Entrepreneur, Digital Marketer</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm bg-green-500 bg-opacity-20 text-green-300 px-3 py-1 rounded-full">120+ Jobs</span>
+              <button class="text-primary font-medium text-sm hover:text-white transition-colors group-hover:translate-x-2 transition-transform">
+                Explore →
+              </button>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl group cursor-pointer">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-600 rounded-2xl flex items-center justify-center text-2xl animate-float" style="animation-delay: 1.5s;">
+                🛠️
+              </div>
+              <div class="ml-4 flex-1">
+                <h3 class="text-xl font-semibold mb-1">Skilled Trades</h3>
+                <div class="flex items-center text-sm opacity-70">
+                  <i class="fas fa-tools mr-2 text-orange-400"></i>
+                  <span>Hands-on Work</span>
+                </div>
+              </div>
+            </div>
+            <p class="text-gray-300 mb-4">Electrician, Chef, Graphic Designer, Drone Pilot</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm bg-orange-500 bg-opacity-20 text-orange-300 px-3 py-1 rounded-full">90+ Jobs</span>
+              <button class="text-primary font-medium text-sm hover:text-white transition-colors group-hover:translate-x-2 transition-transform">
+                Explore →
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Career Match Quiz CTA -->
+        <div class="glass-card p-6 rounded-2xl gradient-bg text-center">
+          <h3 class="text-xl font-semibold mb-2">Not sure which path is right for you?</h3>
+          <p class="opacity-80 mb-4">Take our AI-powered career assessment to find your perfect match!</p>
+          <button class="bg-primary px-6 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition-all hover:scale-105">
+            <i class="fas fa-brain mr-2"></i>Start Career Quiz
+          </button>
+        </div>
+      </section>
+
+      <!-- Higher Education Guidance -->
+      <section id="education" class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Higher Education Guidance</h2>
+        
+        <!-- Quick Links -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+          <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-gift text-2xl text-yellow-400 mb-2"></i>
+            <h4 class="font-semibold text-sm">Scholarships</h4>
+            <p class="text-xs opacity-70">₹50L+ Available</p>
+          </div>
+          <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-file-alt text-2xl text-blue-400 mb-2"></i>
+            <h4 class="font-semibold text-sm">Entrance Exams</h4>
+            <p class="text-xs opacity-70">JEE, NEET, etc.</p>
+          </div>
+          <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-university text-2xl text-purple-400 mb-2"></i>
+            <h4 class="font-semibold text-sm">Colleges</h4>
+            <p class="text-xs opacity-70">1000+ Options</p>
+          </div>
+          <div class="glass-card p-4 rounded-xl text-center hover:scale-105 transition-transform cursor-pointer">
+            <i class="fas fa-globe text-2xl text-green-400 mb-2"></i>
+            <h4 class="font-semibold text-sm">Study Abroad</h4>
+            <p class="text-xs opacity-70">Global Options</p>
+          </div>
+        </div>
+
+        <!-- Education Roadmap -->
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="font-bold text-xl mb-6 flex items-center">
+            <i class="fas fa-route text-primary mr-3"></i>
+            Your Education Journey
+          </h3>
+          <div class="space-y-6">
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-gradient-to-r from-primary to-purple-600 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">1</div>
+              <div class="flex-1">
+                <h4 class="font-semibold text-lg mb-2">Grade 10 Completion</h4>
+                <p class="text-gray-300 text-sm mb-2">Foundation building and stream selection guidance</p>
+                <div class="flex flex-wrap gap-2">
+                  <span class="text-xs bg-blue-500 bg-opacity-20 text-blue-300 px-2 py-1 rounded">Science</span>
+                  <span class="text-xs bg-green-500 bg-opacity-20 text-green-300 px-2 py-1 rounded">Commerce</span>
+                  <span class="text-xs bg-purple-500 bg-opacity-20 text-purple-300 px-2 py-1 rounded">Arts</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">2</div>
+              <div class="flex-1">
+                <h4 class="font-semibold text-lg mb-2">Grade 12 & Skill Building</h4>
+                <p class="text-gray-300 text-sm mb-2">Focus on core subjects while developing practical skills</p>
+                <div class="w-full bg-gray-700 rounded-full h-2 mb-2">
+                  <div class="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full" style="width: 75%"></div>
+                </div>
+                <span class="text-xs opacity-70">75% Average Progress</span>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-gradient-to-r from-pink-600 to-red-600 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">3</div>
+              <div class="flex-1">
+                <h4 class="font-semibold text-lg mb-2">Entrance Exam Preparation</h4>
+                <p class="text-gray-300 text-sm">Strategic preparation with mock tests and expert guidance</p>
+              </div>
+            </div>
+            
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-gradient-to-r from-red-600 to-orange-600 rounded-full flex items-center justify-center text-white font-bold mr-4 flex-shrink-0">4</div>
+              <div class="flex-1">
+                <h4 class="font-semibold text-lg mb-2">Higher Education & Beyond</h4>
+                <p class="text-gray-300 text-sm">Begin your professional journey with confidence</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Additional Interactive Features -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass-card p-6 rounded-2xl">
+            <h3 class="font-semibold text-lg mb-4 flex items-center">
+              <i class="fas fa-calculator text-accent mr-3"></i>
+              Salary Predictor
+            </h3>
+            <p class="text-sm opacity-70 mb-4">Estimate your future earnings based on career choice and location</p>
+            <div class="space-y-3">
+              <select class="w-full glass-card p-3 rounded-lg bg-transparent border-0 text-white">
+                <option value="">Select Career Field</option>
+                <option value="software">Software Development</option>
+                <option value="data">Data Science</option>
+                <option value="design">UI/UX Design</option>
+                <option value="marketing">Digital Marketing</option>
+              </select>
+              <select class="w-full glass-card p-3 rounded-lg bg-transparent border-0 text-white">
+                <option value="">Select Experience Level</option>
+                <option value="entry">Entry Level (0-2 years)</option>
+                <option value="mid">Mid Level (3-6 years)</option>
+                <option value="senior">Senior Level (7+ years)</option>
+              </select>
+              <button class="w-full bg-accent px-4 py-3 rounded-lg font-semibold hover:bg-opacity-80 transition-all">
+                Predict Salary
+              </button>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl">
+            <h3 class="font-semibold text-lg mb-4 flex items-center">
+              <i class="fas fa-chart-pie text-primary mr-3"></i>
+              Skill Gap Analysis
+            </h3>
+            <p class="text-sm opacity-70 mb-4">Identify skills needed for your dream job and create learning plan</p>
+            <div class="space-y-3">
+              <input type="text" placeholder="Enter your dream job title" 
+                     class="w-full glass-card p-3 rounded-lg bg-transparent border-0 text-white placeholder-gray-400">
+              <div class="flex space-x-2">
+                <input type="text" placeholder="Your current skills (comma separated)" 
+                       class="flex-1 glass-card p-3 rounded-lg bg-transparent border-0 text-white placeholder-gray-400">
+              </div>
+              <button class="w-full bg-primary px-4 py-3 rounded-lg font-semibold hover:bg-opacity-80 transition-all">
+                Analyze Skills
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Future Trends & Market Insights -->
+      <section class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Future Trends & Market Insights</h2>
+        
+        <!-- Top Trending Fields -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-success">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-success text-lg">AI & Machine Learning</h3>
+              <div class="flex items-center text-success">
+                <i class="fas fa-arrow-up mr-1"></i>
+                <span class="text-sm">+42%</span>
+              </div>
+            </div>
+            <div class="text-3xl font-bold mb-2">₹25L+</div>
+            <p class="text-sm opacity-70 mb-4">Average package by 2030</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>Job Openings</span>
+                <span class="text-success">2.3M+ by 2030</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Skills in Demand</span>
+                <span>Python, TensorFlow, ML</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-blue-500">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-blue-400 text-lg">Renewable Energy</h3>
+              <div class="flex items-center text-blue-400">
+                <i class="fas fa-arrow-up mr-1"></i>
+                <span class="text-sm">+35%</span>
+              </div>
+            </div>
+            <div class="text-3xl font-bold mb-2">₹18L+</div>
+            <p class="text-sm opacity-70 mb-4">Average package by 2030</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>Job Openings</span>
+                <span class="text-blue-400">1.8M+ by 2030</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Skills in Demand</span>
+                <span>Solar, Wind, Grid Tech</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl border-l-4 border-purple-500">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="font-bold text-purple-400 text-lg">Biotechnology</h3>
+              <div class="flex items-center text-purple-400">
+                <i class="fas fa-arrow-up mr-1"></i>
+                <span class="text-sm">+38%</span>
+              </div>
+            </div>
+            <div class="text-3xl font-bold mb-2">₹22L+</div>
+            <p class="text-sm opacity-70 mb-4">Average package by 2030</p>
+            <div class="space-y-2 text-sm">
+              <div class="flex justify-between">
+                <span>Job Openings</span>
+                <span class="text-purple-400">1.5M+ by 2030</span>
+              </div>
+              <div class="flex justify-between">
+                <span>Skills in Demand</span>
+                <span>Genetics, Research</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Emerging Job Roles -->
+        <div class="glass-card p-6 rounded-2xl mb-6">
+          <h3 class="font-semibold text-xl mb-6 flex items-center">
+            <i class="fas fa-rocket text-accent mr-3"></i>
+            Jobs of Tomorrow
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="glass-card p-4 rounded-xl">
+              <h4 class="font-semibold mb-2">Ethical AI Auditor</h4>
+              <p class="text-sm opacity-70 mb-2">Ensure AI systems are fair and unbiased</p>
+              <span class="text-xs bg-primary bg-opacity-20 text-primary px-2 py-1 rounded">₹30L+ potential</span>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <h4 class="font-semibold mb-2">Climate Data Analyst</h4>
+              <p class="text-sm opacity-70 mb-2">Analyze environmental data for insights</p>
+              <span class="text-xs bg-green-500 bg-opacity-20 text-green-300 px-2 py-1 rounded">₹25L+ potential</span>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <h4 class="font-semibold mb-2">Metaverse Architect</h4>
+              <p class="text-sm opacity-70 mb-2">Design virtual worlds and experiences</p>
+              <span class="text-xs bg-purple-500 bg-opacity-20 text-purple-300 px-2 py-1 rounded">₹35L+ potential</span>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <h4 class="font-semibold mb-2">Quantum Computing Engineer</h4>
+              <p class="text-sm opacity-70 mb-2">Develop quantum computing solutions</p>
+              <span class="text-xs bg-cyan-500 bg-opacity-20 text-cyan-300 px-2 py-1 rounded">₹40L+ potential</span>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <h4 class="font-semibold mb-2">Digital Health Specialist</h4>
+              <p class="text-sm opacity-70 mb-2">Bridge healthcare and technology</p>
+              <span class="text-xs bg-pink-500 bg-opacity-20 text-pink-300 px-2 py-1 rounded">₹28L+ potential</span>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <h4 class="font-semibold mb-2">Space Tourism Guide</h4>
+              <p class="text-sm opacity-70 mb-2">Lead space exploration experiences</p>
+              <span class="text-xs bg-yellow-500 bg-opacity-20 text-yellow-300 px-2 py-1 rounded">₹50L+ potential</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Market Insights */
+        <div class="glass-card p-6 rounded-2xl gradient-bg">
+          <div class="text-center mb-6">
+            <h3 class="font-semibold text-xl mb-2">Market Insight of the Week</h3>
+            <p class="opacity-80">Stay ahead with the latest industry trends</p>
+          </div>
+          <div class="glass-card p-4 rounded-xl">
+            <div class="flex items-start">
+              <div class="w-12 h-12 bg-gradient-to-r from-accent to-orange-500 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                <i class="fas fa-lightbulb text-white"></i>
+              </div>
+              <div>
+                <h4 class="font-semibold mb-2">Remote Work is Here to Stay</h4>
+                <p class="text-sm opacity-80 mb-3">85% of companies plan to offer remote/hybrid options by 2025. Skills like digital collaboration and self-management are becoming essential.</p>
+                <button class="text-accent text-sm font-medium hover:text-orange-300 transition-colors">
+                  Read Full Report →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NGOs & Social Impact -->
+      <section class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Social Impact & Opportunities</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- NGO Opportunities -->
+          <div class="glass-card p-6 rounded-2xl">
+            <h3 class="font-semibold text-xl mb-4 flex items-center">
+              <i class="fas fa-heart text-red-400 mr-3"></i>
+              NGO Volunteer Programs
+            </h3>
+            <div class="space-y-4">
+              <div class="glass-card p-4 rounded-xl">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 class="font-semibold">Teach For India</h4>
+                    <p class="text-sm opacity-70">Teach underprivileged children, develop leadership</p>
+                  </div>
+                  <span class="text-xs bg-blue-500 bg-opacity-20 text-blue-300 px-2 py-1 rounded">2 years</span>
+                </div>
+                <div class="flex items-center justify-between mt-3">
+                  <span class="text-xs opacity-60">₹25,000/month stipend</span>
+                  <button class="text-primary text-sm font-medium hover:text-white transition-colors">Apply</button>
+                </div>
+              </div>
+              
+              <div class="glass-card p-4 rounded-xl">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 class="font-semibold">Pratham Education</h4>
+                    <p class="text-sm opacity-70">Rural education initiatives, skill development</p>
+                  </div>
+                  <span class="text-xs bg-green-500 bg-opacity-20 text-green-300 px-2 py-1 rounded">Flexible</span>
+                </div>
+                <div class="flex items-center justify-between mt-3">
+                  <span class="text-xs opacity-60">Certificate + Experience</span>
+                  <button class="text-primary text-sm font-medium hover:text-white transition-colors">Learn More</button>
+                </div>
+              </div>
+              
+              <div class="glass-card p-4 rounded-xl">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h4 class="font-semibold">India Fellow Program</h4>
+                    <p class="text-sm opacity-70">Social leadership, grassroots development</p>
+                  </div>
+                  <span class="text-xs bg-purple-500 bg-opacity-20 text-purple-300 px-2 py-1 rounded">18 months</span>
+                </div>
+                <div class="flex items-center justify-between mt-3">
+                  <span class="text-xs opacity-60">₹20,000/month + training</span>
+                  <button class="text-primary text-sm font-medium hover:text-white transition-colors">Apply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Social Entrepreneurship -->
+          <div class="glass-card p-6 rounded-2xl">
+            <h3 class="font-semibold text-xl mb-4 flex items-center">
+              <i class="fas fa-seedling text-green-400 mr-3"></i>
+              Social Entrepreneurship
+            </h3>
+            <div class="space-y-4">
+              <div class="glass-card p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Startup for Social Good</h4>
+                <p class="text-sm opacity-70 mb-3">Build businesses that solve social problems</p>
+                <div class="flex items-center space-x-4 text-xs">
+                  <span class="bg-success bg-opacity-20 text-success px-2 py-1 rounded">Funding Available</span>
+                  <span class="bg-blue-500 bg-opacity-20 text-blue-300 px-2 py-1 rounded">Mentorship</span>
+                </div>
+              </div>
+              
+              <div class="glass-card p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Environmental Solutions</h4>
+                <p class="text-sm opacity-70 mb-3">Climate change, waste management, clean energy</p>
+                <div class="flex items-center space-x-4 text-xs">
+                  <span class="bg-green-500 bg-opacity-20 text-green-300 px-2 py-1 rounded">High Impact</span>
+                  <span class="bg-yellow-500 bg-opacity-20 text-yellow-300 px-2 py-1 rounded">Gov Support</span>
+                </div>
+              </div>
+              
+              <div class="glass-card p-4 rounded-xl">
+                <h4 class="font-semibold mb-2">Rural Development Tech</h4>
+                <p class="text-sm opacity-70 mb-3">Technology solutions for rural communities</p>
+                <div class="flex items-center space-x-4 text-xs">
+                  <span class="bg-purple-500 bg-opacity-20 text-purple-300 px-2 py-1 rounded">Tech-Focus</span>
+                  <span class="bg-orange-500 bg-opacity-20 text-orange-300 px-2 py-1 rounded">Scale Potential</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Impact Stories -->
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="font-semibold text-xl mb-4 flex items-center">
+            <i class="fas fa-star text-accent mr-3"></i>
+            Impact Stories
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="border-l-4 border-success pl-4">
+              <h4 class="font-semibold mb-1">Ravi Kumar, 22</h4>
+              <p class="text-sm opacity-70 mb-2">Started AgriTech startup after college</p>
+              <p class="text-sm italic opacity-80">"Helping 10,000+ farmers increase crop yield by 40% through AI-powered farming solutions."</p>
+            </div>
+            
+            <div class="border-l-4 border-blue-500 pl-4">
+              <h4 class="font-semibold mb-1">Sneha Patel, 24</h4>
+              <p class="text-sm opacity-70 mb-2">Founded educational non-profit</p>
+              <p class="text-sm italic opacity-80">"Teaching coding to 5,000+ underprivileged children across 50+ villages in Gujarat."</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Enhanced Sidebar (1/4) -->
+    <div class="lg:col-span-1 space-y-6">
+      
+      <!-- Quick Actions -->
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-bold mb-4 gradient-text">Quick Actions</h3>
+        <div class="space-y-3">
+          <button class="w-full glass-card p-3 rounded-lg text-left hover:bg-opacity-20 transition-all group">
+            <div class="flex items-center">
+              <i class="fas fa-brain text-primary mr-3 group-hover:scale-110 transition-transform"></i>
+              <span class="text-sm font-medium">Take Career Quiz</span>
+            </div>
+          </button>
+          
+          <button class="w-full glass-card p-3 rounded-lg text-left hover:bg-opacity-20 transition-all group">
+            <div class="flex items-center">
+              <i class="fas fa-search-dollar text-success mr-3 group-hover:scale-110 transition-transform"></i>
+              <span class="text-sm font-medium">Find Scholarships</span>
+            </div>
+          </button>
+          
+          <button class="w-full glass-card p-3 rounded-lg text-left hover:bg-opacity-20 transition-all group">
+            <div class="flex items-center">
+              <i class="fas fa-users text-accent mr-3 group-hover:scale-110 transition-transform"></i>
+              <span class="text-sm font-medium">Join Study Group</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      
+      <!-- For Parents -->
+      <div class="glass-card p-5 rounded-2xl border border-blue-500 border-opacity-30">
+        <h3 class="font-bold text-blue-300 mb-3 flex items-center">
+          <i class="fas fa-users mr-2"></i>
+          For Parents
+        </h3>
+        <p class="text-sm text-blue-200 mb-4">Guide your child's career journey with expert advice</p>
+        <div class="space-y-2 text-xs opacity-80 mb-4">
+          <div class="flex items-center">
+            <i class="fas fa-check text-success mr-2"></i>
+            <span>Career Counseling Sessions</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-check text-success mr-2"></i>
+            <span>Progress Tracking</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-check text-success mr-2"></i>
+            <span>Expert Guidance</span>
+          </div>
+        </div>
+        <button class="w-full glass-card bg-blue-500 bg-opacity-20 text-blue-300 py-2 rounded-lg text-sm font-medium hover:bg-opacity-30 transition-all">
+          Parent Dashboard →
+        </button>
+      </div>
+
+      <!-- Learning Stats -->
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-semibold mb-4 gradient-text">Your Learning Stats</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Courses Completed</span>
+            <span class="font-semibold text-success">8/12</span>
+          </div>
+          <div class="w-full bg-gray-700 rounded-full h-2">
+            <div class="bg-gradient-to-r from-success to-cyan-400 h-2 rounded-full" style="width: 67%"></div>
+          </div>
+          
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Certificates Earned</span>
+            <span class="font-semibold text-accent">5</span>
+          </div>
+          
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Study Streak</span>
+            <span class="font-semibold text-primary">15 days</span>
+          </div>
+          
+          <div class="flex justify-between items-center">
+            <span class="text-sm">Skill Level</span>
+            <span class="font-semibold gradient-text">Intermediate</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trending Topics -->
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-semibold mb-4 gradient-text">Trending This Week</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-center justify-between">
+            <span class="flex items-center">
+              <span class="w-2 h-2 bg-red-400 rounded-full mr-2"></span>
+              ChatGPT for Students
+            </span>
+            <span class="text-xs opacity-60">HOT</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="flex items-center">
+              <span class="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+              Web3 Development
+            </span>
+            <span class="text-xs opacity-60">NEW</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="flex items-center">
+              <span class="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
+              Data Analytics
+            </span>
+            <span class="text-xs opacity-60">RISING</span>
+          </div>
+          <div class="flex items-center justify-between">
+            <span class="flex items-center">
+              <span class="w-2 h-2 bg-purple-400 rounded-full mr-2"></span>
+              UI/UX Design
+            </span>
+            <span class="text-xs opacity-60">POPULAR</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-semibold mb-4 gradient-text">Platform Stats</h3>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between">
+            <span class="opacity-80">Active Learners</span>
+            <span class="font-semibold text-success">50,000+</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-80">Success Stories</span>
+            <span class="font-semibold text-primary">10,000+</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-80">Expert Mentors</span>
+            <span class="font-semibold text-accent">500+</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="opacity-80">Course Completion</span>
+            <span class="font-semibold text-purple-400">85%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <div class="glass-card p-5 rounded-2xl">
+        <h3 class="font-semibold mb-4 gradient-text">Upcoming Events</h3>
+        <div class="space-y-3">
+          <div class="glass-card p-3 rounded-lg">
+            <div class="flex items-center mb-2">
+              <i class="far fa-calendar text-primary mr-2"></i>
+              <span class="text-sm font-medium">Career Fair 2024</span>
+            </div>
+            <p class="text-xs opacity-70 mb-1">Dec 15, 2024 • 10:00 AM</p>
+            <p class="text-xs opacity-60">500+ companies participating</p>
+          </div>
+          
+          <div class="glass-card p-3 rounded-lg">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-code text-success mr-2"></i>
+              <span class="text-sm font-medium">Coding Bootcamp</span>
+            </div>
+            <p class="text-xs opacity-70 mb-1">Dec 20, 2024 • 2:00 PM</p>
+            <p class="text-xs opacity-60">Free for students</p>
+          </div>
+          
+          <div class="glass-card p-3 rounded-lg">
+            <div class="flex items-center mb-2">
+              <i class="fas fa-microphone text-accent mr-2"></i>
+              <span class="text-sm font-medium">AI in Healthcare</span>
+            </div>
+            <p class="text-xs opacity-70 mb-1">Dec 25, 2024 • 4:00 PM</p>
+            <p class="text-xs opacity-60">Expert panel discussion</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Back to Top Button -->
+      <button id="back-to-top" class="w-full glass-card py-3 rounded-xl font-medium hover:bg-primary hover:bg-opacity-20 hover:text-primary transition-all hidden pulse-button">
+        <i class="fas fa-arrow-up mr-2"></i> Back to Top
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Enhanced Footer -->
+  <footer class="glass rounded-3xl py-12 px-8 mt-20">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        <!-- Company Info -->
+        <div class="md:col-span-2">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gradient-to-r from-primary to-accent rounded-xl flex items-center justify-center mr-3">
+              <i class="fas fa-rocket text-white text-lg"></i>
+            </div>
+            <span class="font-display gradient-text text-2xl font-bold">STEMifyX</span>
+          </div>
+          <p class="text-gray-300 mb-6 max-w-md leading-relaxed">
+            Empowering the next generation with future-ready skills, personalized guidance, and endless opportunities to shape tomorrow.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="w-10 h-10 glass-card rounded-lg flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-all">
+              <i class="fab fa-twitter text-primary"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass-card rounded-lg flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-all">
+              <i class="fab fa-instagram text-primary"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass-card rounded-lg flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-all">
+              <i class="fab fa-linkedin text-primary"></i>
+            </a>
+            <a href="#" class="w-10 h-10 glass-card rounded-lg flex items-center justify-center hover:bg-primary hover:bg-opacity-20 transition-all">
+              <i class="fab fa-youtube text-primary"></i>
+            </a>
+          </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div>
+          <h4 class="font-semibold mb-4 text-white">Quick Links</h4>
+          <div class="space-y-2">
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Career Exploration</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Skill Development</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Mentorship</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Success Stories</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Blog</a>
+          </div>
+        </div>
+        
+        <!-- Support -->
+        <div>
+          <h4 class="font-semibold mb-4 text-white">Support</h4>
+          <div class="space-y-2">
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Help Center</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Contact Us</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Privacy Policy</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Terms of Service</a>
+            <a href="#" class="block text-gray-400 hover:text-white transition-colors text-sm">Community Guidelines</a>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Newsletter Signup -->
+      <div class="glass-card p-6 rounded-2xl mb-8">
+        <div class="text-center mb-4">
+          <h3 class="font-semibold text-lg mb-2">Stay Updated</h3>
+          <p class="text-gray-400 text-sm">Get the latest career insights, tips, and opportunities delivered to your inbox.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input type="email" placeholder="Enter your email" 
+                 class="flex-1 glass-card px-4 py-3 rounded-lg bg-transparent border-0 text-white placeholder-gray-400">
+          <button class="bg-primary px-6 py-3 rounded-lg font-semibold hover:bg-opacity-80 transition-all whitespace-nowrap">
+            Subscribe
+          </button>
+        </div>
+      </div>
+      
+      <!-- Footer Bottom -->
+      <div class="border-t border-gray-600 pt-6 flex flex-col sm:flex-row justify-between items-center">
+        <p class="text-gray-400 text-sm mb-4 sm:mb-0">
+          &copy; 2024 STEMifyX. All rights reserved. Empowering futures, one student at a time.
+        </p>
+        <div class="flex items-center space-x-6 text-sm">
+          <div class="flex items-center text-success">
+            <i class="fas fa-shield-alt mr-2"></i>
+            <span>Secure Platform</span>
+          </div>
+          <div class="flex items-center text-primary">
+            <i class="fas fa-award mr-2"></i>
+            <span>Certified Courses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Enhanced JavaScript -->
+  <script>
+    // Language content translations
+    const translations = {
+      en: {
+        title: "Shape Your Tomorrow, Today",
+        subtitle: "Discover your passion, build future-ready skills, and unlock infinite possibilities in the digital age.",
+        currentLang: "English"
+      },
+      hi: {
+        title: "आज अपना कल बनाएं",
+        subtitle: "अपना जुनून खोजें, भविष्य के लिए तैयार कौशल बनाएं, और डिजिटल युग में असीमित संभावनाओं को खोलें।",
+        currentLang: "हिंदी"
+      },
+      or: {
+        title: "ଆଜି ନିଜର କାଲି ତିଆରି କର",
+        subtitle: "ତୁମର ଉତ୍ସାହ ଆବିଷ୍କାର କର, ଭବିଷ୍ୟତ ପାଇଁ ପ୍ରସ୍ତୁତ କୌଶଳ ଗଢ଼, ଏବଂ ଡିଜିଟାଲ ଯୁଗରେ ଅସୀମ ସମ୍ଭାବନା ଖୋଲ।",
+        currentLang: "ଓଡିଆ"
+      }
+    };
+
+    // Mobile menu functionality
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    mobileMenuButton.addEventListener('click', () => {
+      const isOpen = mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px';
+      
+      if (isOpen) {
+        mobileMenu.style.maxHeight = '0px';
+        mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+      } else {
+        mobileMenu.style.maxHeight = '400px';
+        mobileMenuButton.innerHTML = '<i class="fas fa-times"></i>';
+      }
+    });
+
+    // Language selector functionality
+    const langButton = document.getElementById('lang-button');
+    const langDropdown = document.getElementById('lang-dropdown');
+    const currentLangSpan = document.getElementById('current-lang');
+    const langOptions = document.querySelectorAll('.lang-option');
+    
+    langButton.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langDropdown.classList.toggle('show');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      langDropdown.classList.remove('show');
+    });
+    
+    // Handle language selection
+    langOptions.forEach(option => {
+      option.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const selectedLang = option.dataset.lang;
+        const translation = translations[selectedLang];
+        
+        // Update UI text
+        currentLangSpan.textContent = translation.currentLang;
+        document.querySelector('.hero-title').innerHTML = `${translation.title.split(' ').slice(0, -2).join(' ')} <span class="gradient-text">${translation.title.split(' ').slice(-2, -1)}</span>, ${translation.title.split(' ').slice(-1)}`;
+        document.querySelector('.hero-title + p').textContent = translation.subtitle;
+        
+        langDropdown.classList.remove('show');
+        
+        // Store language preference
+        localStorage.setItem('preferredLanguage', selectedLang);
+        
+        // Add a subtle animation
+        document.body.style.opacity = '0.9';
+        setTimeout(() => {
+          document.body.style.opacity = '1';
+        }, 200);
+      });
+    });
+    
+    // Load saved language preference
+    const savedLang = localStorage.getItem('preferredLanguage');
+    if (savedLang && translations[savedLang]) {
+      const translation = translations[savedLang];
+      currentLangSpan.textContent = translation.currentLang;
+      document.querySelector('.hero-title').innerHTML = `${translation.title.split(' ').slice(0, -2).join(' ')} <span class="gradient-text">${translation.title.split(' ').slice(-2, -1)}</span>, ${translation.title.split(' ').slice(-1)}`;
+      document.querySelector('.hero-title + p').textContent = translation.subtitle;
+    }
+
+    // Enhanced header scroll effect
+    const header = document.querySelector('header');
+    let lastScrollY = window.scrollY;
+    
+    window.addEventListener('scroll', () => {
+      const currentScrollY = window.scrollY;
+      
+      if (currentScrollY > 100) {
+        header.style.transform = currentScrollY > lastScrollY ? 'translateY(-100%)' : 'translateY(0)';
+        header.style.background = 'rgba(15, 15, 35, 0.95)';
+        header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.3)';
+      } else {
+        header.style.transform = 'translateY(0)';
+        header.style.background = 'rgba(15, 15, 35, 0.7)';
+        header.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.4)';
+      }
+      
+      lastScrollY = currentScrollY;
+    });
+
+    // Back to top functionality
+    const backToTopButton = document.getElementById('back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopButton.classList.remove('hidden');
+      } else {
+        backToTopButton.classList.add('hidden');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({ 
+        top: 0, 
+        behavior: 'smooth' 
+      });
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          const headerHeight = 120;
+          const targetPosition = targetElement.offsetTop - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+          
+          // Close mobile menu if open
+          if (mobileMenu.style.maxHeight && mobileMenu.style.maxHeight !== '0px') {
+            mobileMenu.style.maxHeight = '0px';
+            mobileMenuButton.innerHTML = '<i class="fas fa-bars"></i>';
+          }
+        }
+      });
+    });
+
+    // Enhanced card interactions
+    document.querySelectorAll('.career-card, .glass-card').forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        card.style.transform = 'translateY(-8px) scale(1.02)';
+      });
+      
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+
+    // Interactive tool clicks
+    document.querySelectorAll('.career-card, .glass-card[role="button"]').forEach(card => {
+      card.addEventListener('click', function() {
+        // Add click animation
+        this.style.transform = 'scale(0.95)';
+        setTimeout(() => {
+          this.style.transform = '';
+        }, 150);
+        
+        // Simulate functionality (in real app, this would navigate or open modals)
+        const cardTitle = this.querySelector('h3, h4')?.textContent || 'Feature';
+        
+        // Show toast notification
+        showToast(`${cardTitle} clicked! Feature coming soon...`);
+      });
+    });
+
+    // Toast notification function
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-24 right-4 glass-card px-6 py-3 rounded-lg z-50 transform translate-x-full opacity-0 transition-all duration-300';
+      toast.innerHTML = `
+        <div class="flex items-center">
+          <i class="fas fa-info-circle text-primary mr-3"></i>
+          <span>${message}</span>
+        </div>
+      `;
+      
+      document.body.appendChild(toast);
+      
+      // Animate in
+      setTimeout(() => {
+        toast.style.transform = 'translateX(0)';
+        toast.style.opacity = '1';
+      }, 100);
+      
+      // Animate out after 3 seconds
+      setTimeout(() => {
+        toast.style.transform = 'translateX(full)';
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          document.body.removeChild(toast);
+        }, 300);
+      }, 3000);
+    }
+
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections for scroll animations
+    document.querySelectorAll('section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(section);
+    });
+
+    // Add some interactive features
+    document.addEventListener('DOMContentLoaded', () => {
+      // Animate stats on scroll
+      const stats = document.querySelectorAll('.text-3xl.font-bold');
+      stats.forEach(stat => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              animateNumber(entry.target);
+            }
+          });
+        });
+        observer.observe(stat);
+      });
+    });
+
+    function animateNumber(element) {
+      const text = element.textContent;
+      const number = parseInt(text.replace(/[^\d]/g, ''));
+      const suffix = text.replace(/[\d]/g, '');
+      
+      if (number) {
+        let current = 0;
+        const increment = number / 50;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= number) {
+            element.textContent = number + suffix;
+            clearInterval(timer);
+          } else {
+            element.textContent = Math.floor(current) + suffix;
+          }
+        }, 30);
+      }
+    }
+
+    // Initialize everything
+    console.log('STEMifyX Enhanced UI loaded successfully! 🚀');
+    
+    // Add some easter eggs
+    let clickCount = 0;
+    document.querySelector('.gradient-text').addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 7) {
+        showToast('🎉 You found the easter egg! You\'re curious - that\'s perfect for a future innovator!');
+        clickCount = 0;
+      }
+    });
+  </script>
+
+</body>
+</html>
+
+      <!-- Skills Development Hub -->
+      <section id="skills" class="glass rounded-3xl p-8">
+        <div class="flex items-center justify-between mb-8">
+          <h2 class="font-display text-3xl md:text-4xl font-bold gradient-text">Skills Development Hub</h2>
+          <div class="glass-card px-4 py-2 rounded-full">
+            <span class="text-sm opacity-80">AI-Powered Learning</span>
+          </div>
+        </div>
+        
+        <!-- Skill Categories -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
+                <i class="fas fa-code text-white"></i>
+              </div>
+              <h3 class="font-semibold text-lg ml-3">Programming</h3>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="text-sm">Python Basics</span>
+                <span class="text-xs bg-blue-500 bg-opacity-20 text-blue-300 px-2 py-1 rounded">Beginner</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-1.5">
+                <div class="bg-blue-500 h-1.5 rounded-full" style="width: 65%"></div>
+              </div>
+              <span class="text-xs opacity-70">4 weeks • 65% Complete</span>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+                <i class="fas fa-chart-line text-white"></i>
+              </div>
+              <h3 class="font-semibold text-lg ml-3">Data Science</h3>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="text-sm">Machine Learning</span>
+                <span class="text-xs bg-green-500 bg-opacity-20 text-green-300 px-2 py-1 rounded">Advanced</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-1.5">
+                <div class="bg-green-500 h-1.5 rounded-full" style="width: 40%"></div>
+              </div>
+              <span class="text-xs opacity-70">8 weeks • 40% Complete</span>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                <i class="fas fa-palette text-white"></i>
+              </div>
+              <h3 class="font-semibold text-lg ml-3">Design</h3>
+            </div>
+            <div class="space-y-2">
+              <div class="flex justify-between items-center">
+                <span class="text-sm">UI/UX Design</span>
+                <span class="text-xs bg-purple-500 bg-opacity-20 text-purple-300 px-2 py-1 rounded">Intermediate</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-1.5">
+                <div class="bg-purple-500 h-1.5 rounded-full" style="width: 80%"></div>
+              </div>
+              <span class="text-xs opacity-70">6 weeks • 80% Complete</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recommended Courses -->
+        <div class="glass-card p-6 rounded-2xl mb-6">
+          <h3 class="font-semibold text-xl mb-4 flex items-center">
+            <i class="fas fa-star text-accent mr-3"></i>
+            Trending Courses
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border-l-4 border-primary pl-4 py-2">
+              <h4 class="font-medium mb-1">Artificial Intelligence Fundamentals</h4>
+              <p class="text-sm opacity-70 mb-2">Learn AI concepts with hands-on projects</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs bg-primary bg-opacity-20 text-primary px-2 py-1 rounded">Free • 6 weeks</span>
+                <div class="flex items-center">
+                  <div class="flex text-yellow-400 text-xs mr-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <span class="text-xs opacity-70">(4.8)</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="border-l-4 border-success pl-4 py-2">
+              <h4 class="font-medium mb-1">Blockchain Development</h4>
+              <p class="text-sm opacity-70 mb-2">Build decentralized applications</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs bg-success bg-opacity-20 text-success px-2 py-1 rounded">Premium • 8 weeks</span>
+                <div class="flex items-center">
+                  <div class="flex text-yellow-400 text-xs mr-2">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                  <span class="text-xs opacity-70">(4.6)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Skill Assessment -->
+        <div class="glass-card p-6 rounded-2xl gradient-bg">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="font-semibold text-lg mb-2">Weekly Skill Challenge</h3>
+              <p class="opacity-80 text-sm">Complete coding challenges and win certificates!</p>
+            </div>
+            <button class="bg-accent px-6 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition-all hover:scale-105">
+              <i class="fas fa-trophy mr-2"></i>Join Challenge
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Mentorship & Community -->
+      <section id="mentorship" class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Mentorship & Community</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- Expert Mentorship -->
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center">
+                <i class="fas fa-user-tie text-white text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <h3 class="font-semibold text-lg">1:1 Expert Mentorship</h3>
+                <p class="text-sm opacity-70">Connect with industry professionals</p>
+              </div>
+            </div>
+            <div class="space-y-3 mb-4">
+              <div class="flex items-center justify-between text-sm">
+                <span>Available Mentors</span>
+                <span class="text-success">500+ Online</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span>Average Response Time</span>
+                <span class="text-accent">< 2 hours</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span>Success Rate</span>
+                <span class="text-primary">94%</span>
+              </div>
+            </div>
+            <button class="w-full glass-card bg-primary bg-opacity-20 text-primary py-3 rounded-xl font-semibold hover:bg-opacity-30 transition-all">
+              <i class="fas fa-video mr-2"></i>Book Session
+            </button>
+          </div>
+          
+          <!-- Peer Learning -->
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-cyan-500 rounded-2xl flex items-center justify-center">
+                <i class="fas fa-users text-white text-xl"></i>
+              </div>
+              <div class="ml-4">
+                <h3 class="font-semibold text-lg">Peer Learning Groups</h3>
+                <p class="text-sm opacity-70">Study and grow together</p>
+              </div>
+            </div>
+            <div class="space-y-3 mb-4">
+              <div class="flex items-center justify-between text-sm">
+                <span>Active Study Groups</span>
+                <span class="text-success">150+</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span>Weekly Sessions</span>
+                <span class="text-accent">300+</span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span>Peer Rating</span>
+                <span class="text-primary">4.9/5</span>
+              </div>
+            </div>
+            <button class="w-full glass-card bg-success bg-opacity-20 text-success py-3 rounded-xl font-semibold hover:bg-opacity-30 transition-all">
+              <i class="fas fa-plus mr-2"></i>Join Group
+            </button>
+          </div>
+        </div>
+        
+        <!-- Community Features -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div class="glass-card p-4 rounded-xl text-center">
+            <i class="fas fa-comments text-2xl text-blue-400 mb-3"></i>
+            <h4 class="font-semibold mb-2">Discussion Forum</h4>
+            <p class="text-sm opacity-70">Ask questions, share knowledge</p>
+            <div class="mt-3 text-xs opacity-60">2.5K+ Daily Posts</div>
+          </div>
+          
+          <div class="glass-card p-4 rounded-xl text-center">
+            <i class="fas fa-gamepad text-2xl text-purple-400 mb-3"></i>
+            <h4 class="font-semibold mb-2">Coding Battles</h4>
+            <p class="text-sm opacity-70">Compete and improve skills</p>
+            <div class="mt-3 text-xs opacity-60">Daily Challenges</div>
+          </div>
+          
+          <div class="glass-card p-4 rounded-xl text-center">
+            <i class="fas fa-medal text-2xl text-accent mb-3"></i>
+            <h4 class="font-semibold mb-2">Achievements</h4>
+            <p class="text-sm opacity-70">Earn badges and certificates</p>
+            <div class="mt-3 text-xs opacity-60">50+ Badges Available</div>
+          </div>
+        </div>
+        
+        <!-- Ask Community -->
+        <div class="glass-card p-6 rounded-2xl">
+          <h3 class="font-semibold text-lg mb-4 flex items-center">
+            <i class="fas fa-question-circle text-primary mr-3"></i>
+            Ask the Community
+          </h3>
+          <div class="space-y-4">
+            <textarea placeholder="What would you like to know? Ask anything related to careers, education, or skills..." 
+                      class="w-full p-4 rounded-xl glass-card border-0 bg-transparent text-white placeholder-gray-400 resize-none h-24"></textarea>
+            <div class="flex items-center justify-between">
+              <div class="flex space-x-2">
+                <button class="glass-card px-3 py-1 rounded-lg text-sm hover:bg-opacity-20 transition-all">
+                  <i class="fas fa-tag mr-1"></i>Add Tags
+                </button>
+                <button class="glass-card px-3 py-1 rounded-lg text-sm hover:bg-opacity-20 transition-all">
+                  <i class="fas fa-image mr-1"></i>Image
+                </button>
+              </div>
+              <button class="bg-primary px-6 py-2 rounded-lg font-semibold hover:bg-opacity-80 transition-all">
+                <i class="fas fa-paper-plane mr-2"></i>Post Question
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Innovation Lab -->
+      <section id="innovations" class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Innovation Lab</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- AI-Powered Tools -->
+          <div class="glass-card p-6 rounded-2xl">
+            <h3 class="font-semibold text-xl mb-4 flex items-center">
+              <i class="fas fa-robot text-primary mr-3"></i>
+              AI-Powered Tools
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between p-3 glass-card rounded-lg hover:bg-opacity-20 transition-all cursor-pointer">
+                <div>
+                  <h4 class="font-medium">Career Predictor</h4>
+                  <p class="text-sm opacity-70">AI analyzes your profile for best career match</p>
+                </div>
+                <i class="fas fa-arrow-right text-primary"></i>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 glass-card rounded-lg hover:bg-opacity-20 transition-all cursor-pointer">
+                <div>
+                  <h4 class="font-medium">Resume Builder</h4>
+                  <p class="text-sm opacity-70">Create ATS-friendly resumes instantly</p>
+                </div>
+                <i class="fas fa-arrow-right text-primary"></i>
+              </div>
+              
+              <div class="flex items-center justify-between p-3 glass-card rounded-lg hover:bg-opacity-20 transition-all cursor-pointer">
+                <div>
+                  <h4 class="font-medium">Interview Simulator</h4>
+                  <p class="text-sm opacity-70">Practice with AI interviewer</p>
+                </div>
+                <i class="fas fa-arrow-right text-primary"></i>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Virtual Reality Experiences -->
+          <div class="glass-card p-6 rounded-2xl">
+            <h3 class="font-semibold text-xl mb-4 flex items-center">
+              <i class="fas fa-vr-cardboard text-accent mr-3"></i>
+              VR Career Exploration
+            </h3>
+            <div class="space-y-4">
+              <div class="glass-card p-4 rounded-lg">
+                <h4 class="font-medium mb-2">Virtual Hospital Tour</h4>
+                <p class="text-sm opacity-70 mb-3">Experience a day in medical profession</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs bg-red-500 bg-opacity-20 text-red-300 px-2 py-1 rounded">Medical</span>
+                  <button class="text-accent text-sm font-medium">Launch VR</button>
+                </div>
+              </div>
+              
+              <div class="glass-card p-4 rounded-lg">
+                <h4 class="font-medium mb-2">Tech Startup Office</h4>
+                <p class="text-sm opacity-70 mb-3">See how software development works</p>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs bg-blue-500 bg-opacity-20 text-blue-300 px-2 py-1 rounded">Technology</span>
+                  <button class="text-accent text-sm font-medium">Launch VR</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project Showcase -->
+        <div class="glass-card p-6 rounded-2xl mb-6">
+          <h3 class="font-semibold text-xl mb-4 flex items-center">
+            <i class="fas fa-rocket text-success mr-3"></i>
+            Student Project Showcase
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-card p-4 rounded-xl">
+              <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='120'><rect width='100%' height='100%' fill='%23374151'/><text x='50%' y='50%' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' font-family='Arial, sans-serif' font-size='14'>Smart Home App</text></svg>" 
+                   class="w-full h-24 object-cover rounded-lg mb-3" alt="Project">
+              <h4 class="font-medium mb-2">Smart Home IoT Controller</h4>
+              <p class="text-sm opacity-70 mb-2">By Arjun, Grade 12</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs bg-blue-500 bg-opacity-20 text-blue-300 px-2 py-1 rounded">IoT</span>
+                <div class="flex items-center text-yellow-400 text-xs">
+                  <i class="fas fa-star mr-1"></i>4.8
+                </div>
+              </div>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='120'><rect width='100%' height='100%' fill='%23374151'/><text x='50%' y='50%' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' font-family='Arial, sans-serif' font-size='14'>ML Model</text></svg>" 
+                   class="w-full h-24 object-cover rounded-lg mb-3" alt="Project">
+              <h4 class="font-medium mb-2">Disease Prediction ML</h4>
+              <p class="text-sm opacity-70 mb-2">By Priya, College 1st Year</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs bg-green-500 bg-opacity-20 text-green-300 px-2 py-1 rounded">ML</span>
+                <div class="flex items-center text-yellow-400 text-xs">
+                  <i class="fas fa-star mr-1"></i>4.9
+                </div>
+              </div>
+            </div>
+            
+            <div class="glass-card p-4 rounded-xl">
+              <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='100%' height='120'><rect width='100%' height='100%' fill='%23374151'/><text x='50%' y='50%' fill='%23ffffff' text-anchor='middle' dominant-baseline='middle' font-family='Arial, sans-serif' font-size='14'>Blockchain</text></svg>" 
+                   class="w-full h-24 object-cover rounded-lg mb-3" alt="Project">
+              <h4 class="font-medium mb-2">Blockchain Voting System</h4>
+              <p class="text-sm opacity-70 mb-2">By Team Alpha</p>
+              <div class="flex items-center justify-between">
+                <span class="text-xs bg-purple-500 bg-opacity-20 text-purple-300 px-2 py-1 rounded">Blockchain</span>
+                <div class="flex items-center text-yellow-400 text-xs">
+                  <i class="fas fa-star mr-1"></i>4.7
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Innovation Challenge -->
+        <div class="glass-card p-6 rounded-2xl gradient-bg">
+          <div class="text-center">
+            <h3 class="font-semibold text-xl mb-2">Monthly Innovation Challenge</h3>
+            <p class="opacity-80 mb-4">Build solutions for real-world problems and win ₹50,000 in prizes!</p>
+            <div class="flex items-center justify-center space-x-6 mb-6">
+              <div class="text-center">
+                <div class="text-2xl font-bold">15</div>
+                <div class="text-xs opacity-70">Days Left</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold">250+</div>
+                <div class="text-xs opacity-70">Participants</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold">₹50K</div>
+                <div class="text-xs opacity-70">Prize Pool</div>
+              </div>
+            </div>
+            <button class="bg-accent px-8 py-3 rounded-xl font-semibold hover:bg-opacity-80 transition-all hover:scale-105">
+              <i class="fas fa-trophy mr-2"></i>Join Challenge
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Success Stories -->
+      <section class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Success Stories</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><circle cx='24' cy='24' r='24' fill='%236366f1'/><text x='50%' y='50%' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='Arial, sans-serif' font-size='18' font-weight='bold'>AS</text></svg>" 
+                   class="w-12 h-12 rounded-full mr-4" alt="Success Story">
+              <div>
+                <h3 class="font-semibold">Aarav Sharma</h3>
+                <p class="text-sm opacity-70">Now at Google as Software Engineer</p>
+              </div>
+            </div>
+            <p class="text-sm opacity-80 mb-4 italic">
+              "STEMifyX helped me discover my passion for AI when I was confused about my career. The mentorship and hands-on projects gave me the confidence to pursue computer science."
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center text-yellow-400 text-sm">
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+              </div>
+              <span class="text-xs bg-success bg-opacity-20 text-success px-2 py-1 rounded">Verified</span>
+            </div>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl">
+            <div class="flex items-center mb-4">
+              <img src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='48' height='48'><circle cx='24' cy='24' r='24' fill='%23ec4899'/><text x='50%' y='50%' fill='white' text-anchor='middle' dominant-baseline='middle' font-family='Arial, sans-serif' font-size='18' font-weight='bold'>PK</text></svg>" 
+                   class="w-12 h-12 rounded-full mr-4" alt="Success Story">
+              <div>
+                <h3 class="font-semibold">Priya Kumari</h3>
+                <p class="text-sm opacity-70">Medical Student at AIIMS</p>
+              </div>
+            </div>
+            <p class="text-sm opacity-80 mb-4 italic">
+              "The NEET preparation guidance and study materials were incredible. I secured AIR 45 and got into my dream college. The peer study groups made learning so much fun!"
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex items-center text-yellow-400 text-sm">
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+                <i class="fas fa-star mr-1"></i>
+              </div>
+              <span class="text-xs bg-success bg-opacity-20 text-success px-2 py-1 rounded">Verified</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- More Success Stats -->
+        <div class="mt-8 glass-card p-6 rounded-2xl text-center">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div>
+              <div class="text-2xl font-bold gradient-text">95%</div>
+              <div class="text-sm opacity-70">College Admission Rate</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold gradient-text">15L+</div>
+              <div class="text-sm opacity-70">Avg. Package Achieved</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold gradient-text">500+</div>
+              <div class="text-sm opacity-70">Dream Companies Joined</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold gradient-text">50K+</div>
+              <div class="text-sm opacity-70">Lives Transformed</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Interactive Tools -->
+      <section class="glass rounded-3xl p-8">
+        <h2 class="font-display text-3xl md:text-4xl font-bold mb-8 gradient-text">Interactive Tools</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-all cursor-pointer group">
+            <div class="w-20 h-20 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce">
+              <i class="fas fa-question-circle text-white text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Smart Career Quiz</h3>
+            <p class="text-sm opacity-70 mb-4">AI-powered assessment to find your perfect career match</p>
+            <div class="flex items-center justify-center space-x-4 text-xs opacity-60 mb-4">
+              <span><i class="fas fa-clock mr-1"></i>5 minutes</span>
+              <span><i class="fas fa-brain mr-1"></i>AI-Powered</span>
+            </div>
+            <button class="w-full glass-card py-3 rounded-xl font-semibold hover:bg-primary hover:bg-opacity-20 hover:text-primary transition-all">
+              Start Quiz
+            </button>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-all cursor-pointer group">
+            <div class="w-20 h-20 bg-gradient-to-r from-green-500 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce">
+              <i class="fas fa-search-dollar text-white text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Scholarship Finder</h3>
+            <p class="text-sm opacity-70 mb-4">Discover 500+ scholarships worth ₹50L+ instantly</p>
+            <div class="flex items-center justify-center space-x-4 text-xs opacity-60 mb-4">
+              <span><i class="fas fa-gift mr-1"></i>₹50L+ Available</span>
+              <span><i class="fas fa-graduation-cap mr-1"></i>500+ Options</span>
+            </div>
+            <button class="w-full glass-card py-3 rounded-xl font-semibold hover:bg-success hover:bg-opacity-20 hover:text-success transition-all">
+              Find Scholarships
+            </button>
+          </div>
+          
+          <div class="glass-card p-6 rounded-2xl text-center hover:scale-105 transition-all cursor-pointer group">
+            <div class="w-20 h-20 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:animate-bounce">
+              <i class="fas fa-route text-white text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Roadmap Generator</h3>
+            <p class="text-sm opacity-70 mb-4">Get personalized step-by-step career roadmaps</p>
+            <div class="flex items-center justify-center space-x-4 text-xs opacity-60 mb-4">
+              <span><i class="fas fa-map mr-1"></i>Custom Path</span>
+              <span><i class="fas fa-target mr-1"></i>Goal-Oriented</span>
+            </div>
+            <button class="w-full glass-card py-3 rounded-xl font-semibold hover:bg-purple-500 hover:bg-opacity-20 hover:text-purple-300 transition-all">
+              Generate Plan
+            </button>
+          </div>
+        </div>

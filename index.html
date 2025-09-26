@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,45 +8,48 @@
   <!-- Fonts -->
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
-    rel="stylesheet"
-  />
+    rel="stylesheet" />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     /* Enhanced Carousel Animation */
     @keyframes smoothScroll {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-50%);
+      }
     }
-    
+
+
     .carousel-container {
       overflow: hidden;
       position: relative;
       width: 100%;
-      mask: linear-gradient(
-        to right,
-        transparent 0%,
-        black 10%,
-        black 90%,
-        transparent 100%
-      );
+      mask: linear-gradient(to right,
+          transparent 0%,
+          black 10%,
+          black 90%,
+          transparent 100%);
     }
-    
+
     .scrolling-wrapper {
       display: flex;
       width: 200%;
       animation: smoothScroll 30s linear infinite;
       will-change: transform;
     }
-    
+
     .scrolling-wrapper:hover {
       animation-play-state: paused;
     }
-    
+
     .carousel-item {
       background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
       border-radius: 16px;
-      box-shadow: 
+      box-shadow:
         0 4px 20px rgba(0, 0, 0, 0.08),
         0 1px 3px rgba(0, 0, 0, 0.1);
       padding: 1.5rem;
@@ -57,7 +61,7 @@
       border: 1px solid rgba(255, 255, 255, 0.2);
       backdrop-filter: blur(10px);
     }
-    
+
     .carousel-item::before {
       content: '';
       position: absolute;
@@ -69,18 +73,18 @@
       transform: scaleX(0);
       transition: transform 0.3s ease;
     }
-    
+
     .carousel-item:hover {
       transform: translateY(-8px) scale(1.02);
-      box-shadow: 
+      box-shadow:
         0 20px 40px rgba(0, 0, 0, 0.15),
         0 8px 16px rgba(0, 0, 0, 0.1);
     }
-    
+
     .carousel-item:hover::before {
       transform: scaleX(1);
     }
-    
+
     .topic-icon {
       font-size: 3rem;
       margin-bottom: 1rem;
@@ -89,11 +93,11 @@
       filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
       transition: transform 0.3s ease;
     }
-    
+
     .carousel-item:hover .topic-icon {
       transform: scale(1.1) rotate(5deg);
     }
-    
+
     .topic-title {
       font-size: 1.125rem;
       font-weight: 600;
@@ -101,7 +105,7 @@
       margin-bottom: 0.5rem;
       line-height: 1.4;
     }
-    
+
     .topic-description {
       font-size: 0.875rem;
       color: #6b7280;
@@ -109,137 +113,140 @@
       margin: 0;
     }
 
-    :root{
-      --green:#2E7D32;
-      --blue:#1565C0;
-      --accent:#FBC02D;
-      --white:#ffffff;
-      --muted: rgba(255,255,255,0.85);
-      --radius:12px;
+    :root {
+      --green: #2E7D32;
+      --blue: #1565C0;
+      --accent: #FBC02D;
+      --white: #ffffff;
+      --muted: rgba(255, 255, 255, 0.85);
+      --radius: 12px;
     }
 
-    *{box-sizing:border-box}
-    body{
-      margin:0;
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
       font-family: "Poppins", "Noto Sans Devanagari", system-ui, Arial;
-      background:#f3f7f6;
-      color:#0b2a1f;
+      background: #f3f7f6;
+      color: #0b2a1f;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       overflow-x: hidden;
     }
 
     /* Enhanced Header Styles */
-    .site-header{
+    .site-header {
       position: sticky;
       top: 0;
-      width:100%;
-      background: linear-gradient(135deg, rgba(255,224,178,0.95), rgba(255,204,188,0.95));    
-      color:var(--white);
-      padding:clamp(8px, 2vw, 16px) clamp(12px, 3vw, 20px);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:clamp(8px, 2vw, 16px);
-      box-shadow: 0 6px 18px rgba(16,24,32,0.12);
-      flex-wrap:wrap;
+      width: 100%;
+      /* background: linear-gradient(135deg, rgba(255, 224, 178, 0.95), rgba(255, 204, 188, 0.95)); */
+      color: var(--white);
+      padding: clamp(8px, 2vw, 16px) clamp(12px, 3vw, 20px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: clamp(8px, 2vw, 16px);
+      box-shadow: 0 6px 18px rgba(16, 24, 32, 0.12);
+      flex-wrap: wrap;
       min-height: 60px;
       z-index: 1000;
       backdrop-filter: blur(20px);
     }
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:clamp(6px, 1.5vw, 10px);
-      min-width:0;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1.5vw, 10px);
+      min-width: 0;
       flex-shrink: 0;
     }
-    
-    .logo-fig{
-      width:clamp(36px, 6vw, 48px);
-      height:clamp(36px, 6vw, 48px);
-      background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
-      border-radius:clamp(6px, 1.5vw, 10px);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-shrink:0;
+
+    .logo-fig {
+      width: clamp(36px, 6vw, 48px);
+      height: clamp(36px, 6vw, 48px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
+      border-radius: clamp(6px, 1.5vw, 10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
       cursor: pointer;
       transition: transform 0.2s ease;
     }
-    
+
     .logo-fig:hover {
       transform: scale(1.05);
     }
-    
-    .brand-text{
-      display:flex;
-      flex-direction:column;
-      min-width:0;
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
     }
-    
-    .app-name{
-      font-weight:700;
-      line-height:1.2;
-      font-size:clamp(0.8rem, 2.2vw, 1rem);
-      letter-spacing:0.2px;
+
+    .app-name {
+      font-weight: 700;
+      line-height: 1.2;
+      font-size: clamp(0.8rem, 2.2vw, 1rem);
+      letter-spacing: 0.2px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    
-    .app-sub{
-      font-size:clamp(0.6rem, 1.5vw, 0.75rem);
-      opacity:0.95;
-      margin-top:2px;
+
+    .app-sub {
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
+      opacity: 0.95;
+      margin-top: 2px;
       font-family: "Noto Sans Devanagari", "Poppins";
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .greeting-wrap{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:clamp(4px, 1vw, 8px);
-      text-align:center;
-      flex:1;
-      min-width:0;
+    .greeting-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(4px, 1vw, 8px);
+      text-align: center;
+      flex: 1;
+      min-width: 0;
       max-width: 100%;
     }
-    
+
     .greeting {
-      font-size:clamp(0.8rem, 2vw, 1.1rem);
-      font-weight:600;
+      font-size: clamp(0.8rem, 2vw, 1.1rem);
+      font-weight: 600;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
       max-width: 100%;
     }
 
-    .decor-row{
-      display:flex;
-      gap:clamp(4px, 1vw, 8px);
-      margin-top:clamp(2px, 0.5vw, 4px);
-      align-items:center;
-      justify-content:center;
-      opacity:0.95;
-      flex-wrap:wrap;
-    }
-    
-    .decor-row svg{ 
-      width:clamp(16px, 3vw, 22px); 
-      height:clamp(16px, 3vw, 22px); 
+    .decor-row {
+      display: flex;
+      gap: clamp(4px, 1vw, 8px);
+      margin-top: clamp(2px, 0.5vw, 4px);
+      align-items: center;
+      justify-content: center;
+      opacity: 0.95;
+      flex-wrap: wrap;
     }
 
-    .actions{
-      display:flex;
-      align-items:center;
-      gap:clamp(6px, 1.5vw, 10px);
-      flex-shrink:0;
+    .decor-row svg {
+      width: clamp(16px, 3vw, 22px);
+      height: clamp(16px, 3vw, 22px);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: clamp(6px, 1.5vw, 10px);
+      flex-shrink: 0;
     }
 
     /* Enhanced Language Switcher */
@@ -249,9 +256,9 @@
     }
 
     .language-btn {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       color: var(--white);
-      border: 1px solid rgba(255,255,255,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 10px);
       border-radius: clamp(6px, 1.5vw, 8px);
       font-size: clamp(0.7rem, 1.6vw, 0.8rem);
@@ -267,8 +274,8 @@
     }
 
     .language-btn:hover {
-      background: rgba(255,255,255,0.25);
-      border-color: rgba(255,255,255,0.3);
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-1px);
     }
 
@@ -289,10 +296,10 @@
       background: #ffffff;
       border-radius: 8px;
       min-width: clamp(160px, 22vw, 200px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
       overflow: hidden;
       z-index: 9999;
-      border: 1px solid rgba(0,0,0,0.1);
+      border: 1px solid rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(20px);
     }
 
@@ -304,7 +311,7 @@
       border-width: 0 6px 6px 6px;
       border-style: solid;
       border-color: transparent transparent #fff transparent;
-      filter: drop-shadow(0 -2px 2px rgba(0,0,0,0.1));
+      filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
     }
 
     .dropdown-content button {
@@ -367,22 +374,23 @@
         opacity: 0;
         transform: translateY(-10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    .login-btn{
-      background:var(--accent);
-      color:#111;
-      border:none;
-      padding:clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 14px);
-      border-radius:clamp(6px, 1.5vw, 8px);
-      font-weight:700;
-      font-size:clamp(0.7rem, 1.8vw, 0.85rem);
-      cursor:pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.14);
+    .login-btn {
+      background: var(--accent);
+      color: #111;
+      border: none;
+      padding: clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 14px);
+      border-radius: clamp(6px, 1.5vw, 8px);
+      font-weight: 700;
+      font-size: clamp(0.7rem, 1.8vw, 0.85rem);
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
       transition: all 0.2s ease;
       white-space: nowrap;
       min-width: clamp(50px, 10vw, 70px);
@@ -392,15 +400,15 @@
       min-height: 36px;
       line-height: 1.4;
     }
-    
-    .login-btn:hover{
-      box-shadow: 0 6px 16px rgba(0,0,0,0.18);
+
+    .login-btn:hover {
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
       transform: translateY(-1px);
     }
 
     /* Main Content Styles */
     .maindiv {
-      background: linear-gradient(135deg, rgba(74, 119, 77, 0.95), rgba(59, 129, 185, 0.95));
+      background: linear-gradient(135deg, rgba(230, 255, 231, 0.95)rgba(115, 166, 208, 0.95)5);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -517,9 +525,17 @@
       min-height: clamp(200px, 25vw, 260px);
     }
 
-    .level-card:nth-child(1) { animation-delay: 0.2s; }
-    .level-card:nth-child(2) { animation-delay: 0.4s; }
-    .level-card:nth-child(3) { animation-delay: 0.6s; }
+    .level-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .level-card:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .level-card:nth-child(3) {
+      animation-delay: 0.6s;
+    }
 
     .level-card::before {
       content: '';
@@ -618,6 +634,7 @@
         opacity: 0;
         transform: translateY(-30px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -632,9 +649,17 @@
     }
 
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.05);
+      }
+
+      100% {
+        transform: scale(1);
+      }
     }
 
     /* Enhanced Mobile Responsiveness */
@@ -647,20 +672,20 @@
         padding: 8px 12px;
         min-height: 56px;
       }
-      
-      .brand { 
+
+      .brand {
         justify-content: flex-start;
         order: 1;
         gap: 6px;
       }
-      
-      .actions { 
-        order: 2; 
+
+      .actions {
+        order: 2;
         justify-content: flex-end;
         gap: 6px;
       }
-      
-      .greeting-wrap { 
+
+      .greeting-wrap {
         display: none;
       }
 
@@ -674,24 +699,24 @@
         gap: 1.2rem;
         text-align: center;
       }
-      
+
       .illustration-img {
         width: 100%;
         max-width: 180px;
         margin: 0 auto;
       }
-      
+
       .education-levels {
         grid-template-columns: 1fr;
         gap: 1.2rem;
       }
-      
+
       .streak-info {
         flex-direction: column;
         text-align: center;
         gap: 0.8rem;
       }
-      
+
       .welcome-text {
         text-align: center;
       }
@@ -707,17 +732,17 @@
       .main-content {
         padding: 1rem 0.75rem;
       }
-      
+
       .top-section {
         padding: 1rem;
         margin-bottom: 1.2rem;
       }
-      
+
       .level-card {
         padding: 1.2rem;
         min-height: 180px;
       }
-      
+
       .description-text {
         text-align: center;
         font-size: 0.85rem;
@@ -749,25 +774,25 @@
         gap: 6px;
         min-height: 52px;
       }
-      
+
       .actions {
         gap: 4px;
       }
-      
+
       .language-btn {
         padding: 4px 6px;
         font-size: 0.65rem;
         min-width: 60px;
         min-height: 32px;
       }
-      
+
       .login-btn {
         padding: 4px 8px;
         font-size: 0.65rem;
         min-width: 45px;
         min-height: 32px;
       }
-      
+
       .dropdown-content {
         min-width: 140px;
         right: -5px;
@@ -776,22 +801,22 @@
       .main-content {
         padding: 0.8rem 0.6rem;
       }
-      
+
       .top-section {
         padding: 0.8rem;
         margin-bottom: 1rem;
       }
-      
+
       .streak-badge {
         padding: 0.3rem 0.6rem;
         font-size: 0.7rem;
       }
-      
+
       .level-card {
         padding: 1rem;
         min-height: 160px;
       }
-      
+
       .card-image {
         height: 70px;
         font-size: 1.8rem;
@@ -850,23 +875,26 @@
 
     /* Touch devices optimization */
     @media (hover: none) and (pointer: coarse) {
-      .language-btn, .login-btn {
+
+      .language-btn,
+      .login-btn {
         min-height: 40px;
       }
-      
+
       .dropdown-content button {
         padding: 12px 14px;
         min-height: 40px;
       }
-      
-      .language-btn:hover, .login-btn:hover {
+
+      .language-btn:hover,
+      .login-btn:hover {
         transform: none;
       }
 
       .level-card {
         min-height: 40px;
       }
-      
+
       .level-card:hover {
         transform: translateY(-4px) scale(1.01);
       }
@@ -882,43 +910,43 @@
         background: #1a1a1a;
         color: #e0e0e0;
       }
-      
+
       .site-header {
-        background: linear-gradient(135deg, rgba(46,125,50,0.98), rgba(33,150,243,0.98));
-        box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+        background: linear-gradient(135deg, rgba(46, 125, 50, 0.98), rgba(33, 150, 243, 0.98));
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
       }
-      
+
       .dropdown-content {
         background: #2d2d2d;
-        border-color: rgba(255,255,255,0.1);
+        border-color: rgba(255, 255, 255, 0.1);
       }
-      
+
       .dropdown-content button {
         color: #e0e0e0;
       }
-      
+
       .dropdown-content button:hover {
         background: #3d3d3d;
         color: #64b5f6;
       }
 
       .maindiv {
-        background: linear-gradient(135deg, rgba(32, 61, 35, 0.95), rgba(25, 55, 79, 0.95));
+        background: linear-gradient(135deg, rgba(35, 46, 36, 0.95), rgba(34, 52, 68, 0.95));
       }
-      
+
       .top-section {
         background: rgba(255, 255, 255, 0.05);
         border-color: rgba(255, 255, 255, 0.1);
       }
-      
+
       .level-card {
         background: rgba(255, 255, 255, 0.9);
       }
-      
+
       .welcome-text {
         color: #e0e0e0;
       }
-      
+
       .description-text {
         color: rgba(255, 255, 255, 0.8);
       }
@@ -939,15 +967,23 @@
 
     /* Reduced motion preference */
     @media (prefers-reduced-motion: reduce) {
-      .language-btn, .login-btn, .level-card, .streak-badge, .card-image, .top-section, .carousel-item {
+
+      .language-btn,
+      .login-btn,
+      .level-card,
+      .streak-badge,
+      .card-image,
+      .top-section,
+      .carousel-item {
         animation: none;
         transition: none;
       }
-      
-      .language-btn:active, .login-btn:active {
+
+      .language-btn:active,
+      .login-btn:active {
         transform: none;
       }
-      
+
       .dropdown-content {
         animation: none;
       }
@@ -955,7 +991,7 @@
       .level-card:hover {
         transform: none;
       }
-      
+
       .level-card:hover .card-image {
         transform: none;
       }
@@ -992,6 +1028,7 @@
     }
   </style>
 </head>
+
 <body>
   <header class="site-header" role="banner" aria-label="App header">
     <!-- Left: Brand -->
@@ -1010,7 +1047,7 @@
         <div class="app-sub" data-translate="brand.subtitle">नवीन शिक्षा • New Learning</div>
       </div>
     </div>
-     
+
     <!-- Center: Greeting -->
     <div class="greeting-wrap">
       <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to STEMifyX</div>
@@ -1028,7 +1065,7 @@
         </svg>
       </div>
     </div>
-     
+
     <!-- Right: Actions -->
     <div class="actions">
       <!-- Language Switcher -->
@@ -1066,34 +1103,30 @@
     </div>
   </header>
 
-  <div class="maindiv"> 
+  <div class="maindiv">
     <main class="main-content">
-     <section class="top-section">
-  <div class="streak-info">
-    <div class="welcome-text" data-translate="welcome">
-      Start your learning journey today!
-    </div>
-    <div class="streak-badge">
-      🔥 <span data-translate="streak">Streak 7 days</span>
-    </div>
-  </div>
+      <section class="top-section">
+        <div class="streak-info">
+          <div class="welcome-text" data-translate="welcome">
+            Start your learning journey today!
+          </div>
+          <div class="streak-badge">
+            🔥 <span data-translate="streak">Streak 7 days</span>
+          </div>
+        </div>
 
-  <div class="description">
-    <div class="para">
-      <p class="description-text" data-translate="description">
-        Empowering STEMifyX communities through quality education. <br>
-        Choose your level and begin learning with interactive content
-        designed for STEMifyX learners.
-      </p>
-    </div>
-    <img
-      class="illustration-img"
-      src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
-      alt="Learning illustration"
-      loading="lazy"
-    />
-  </div>
-</section>
+        <div class="description">
+          <div class="para">
+            <p class="description-text" data-translate="description">
+              Empowering STEMifyX communities through quality education. <br>
+              Choose your level and begin learning with interactive content
+              designed for STEMifyX learners.
+            </p>
+          </div>
+          <img class="illustration-img" src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
+            alt="Learning illustration" loading="lazy" />
+        </div>
+      </section>
 
       <section class="education-levels">
         <a href="primary/index.html" class="level-card primary">
@@ -1120,480 +1153,520 @@
           <p class="level-subtitle" data-translate="senior.description">Advanced learning for career readiness</p>
         </a>
       </section>
-       
-       <!-- Enhanced Carousel Section -->
-       <section class="carousel-section">
-    <h2 class="carousel-title" data-translate="carousel.title">🔥 Popular STEM Topics</h2>
 
-    <!-- Carousel Container -->
-    <div class="carousel-container">
-      <div class="scrolling-wrapper" id="carouselWrapper">
+      <section class="mt-5 px-0">
+  <h2 class="text-2xl font-bold text-center text-white mb-8">🌱 Guidance & Support</h2>
 
-        <!-- First Set -->
-        <div class="flex">
-          <div class="carousel-item">
-            <div class="topic-icon">⚡</div>
-            <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
-            <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">➗</div>
-            <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
-            <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">💻</div>
-            <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
-            <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🌍</div>
-            <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
-            <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🧬</div>
-            <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
-            <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🌌</div>
-            <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
-            <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🧪</div>
-            <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
-            <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">📐</div>
-            <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
-            <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
-          </div>
-        </div>
-
-        <!-- Second Set (Exact Duplicate for Loop) -->
-        <div class="flex">
-          <div class="carousel-item">
-            <div class="topic-icon">⚡</div>
-            <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
-            <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">➗</div>
-            <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
-            <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">💻</div>
-            <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
-            <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🌍</div>
-            <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
-            <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🧬</div>
-            <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
-            <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🌌</div>
-            <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
-            <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">🧪</div>
-            <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
-            <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.</p>
-          </div>
-          
-          <div class="carousel-item">
-            <div class="topic-icon">📐</div>
-            <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
-            <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
-          </div>
-        </div>
-
-      </div>
+  <div class="flex flex-col md:flex-row justify-center gap-7">
+    
+    <!-- Parent Guidance -->
+    <div class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl 
+                p-6 shadow-lg hover:shadow-2xl transition 
+                hover:border-gradient-to-r hover:from-green-400 hover:to-blue-500">
+      <div class="text-4xl mb-4">👨‍👩‍👧</div>
+      <h3 class="font-bold text-lg text-white">Parent Guidance</h3>
+      <p class="text-gray-200 mt-2 text-sm">Resources and tips for parents to support students at home.</p>
     </div>
-  </section>
+
+    <!-- Future Guidance -->
+    <div class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl 
+                p-6 shadow-lg hover:shadow-2xl transition 
+                hover:border-gradient-to-r hover:from-pink-400 hover:to-purple-500">
+      <div class="text-4xl mb-4">🚀</div>
+      <h3 class="font-bold text-lg text-white">Future Guidance</h3>
+      <p class="text-gray-200 mt-2 text-sm">Career counseling and higher education opportunities.</p>
+    </div>
+
+    <!-- NGO Support -->
+    <div class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl 
+                p-6 shadow-lg hover:shadow-2xl transition 
+                hover:border-gradient-to-r hover:from-yellow-400 hover:to-orange-500">
+      <div class="text-4xl mb-4">🤝</div>
+      <h3 class="font-bold text-lg text-white">NGO Support</h3>
+      <p class="text-gray-200 mt-2 text-sm">Partnerships with NGOs to bring additional resources.</p>
+    </div>
+
+  </div>
+</section>
+      <!-- Enhanced Carousel Section -->
+      <section class="carousel-section">
+        <h2 class="carousel-title" data-translate="carousel.title">🔥 Popular STEM Topics</h2>
+
+        <!-- Carousel Container -->
+        <div class="carousel-container">
+          <div class="scrolling-wrapper" id="carouselWrapper">
+
+            <!-- First Set -->
+            <div class="flex">
+              <div class="carousel-item">
+                <div class="topic-icon">⚡</div>
+                <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
+                <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">➗</div>
+                <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
+                <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">💻</div>
+                <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
+                <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🌍</div>
+                <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
+                <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🧬</div>
+                <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
+                <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🌌</div>
+                <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
+                <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🧪</div>
+                <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
+                <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">📐</div>
+                <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
+                <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
+              </div>
+            </div>
+
+            <!-- Second Set (Exact Duplicate for Loop) -->
+            <div class="flex">
+              <div class="carousel-item">
+                <div class="topic-icon">⚡</div>
+                <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
+                <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">➗</div>
+                <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
+                <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">💻</div>
+                <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
+                <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🌍</div>
+                <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
+                <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🧬</div>
+                <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
+                <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🌌</div>
+                <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
+                <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">🧪</div>
+                <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
+                <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.
+                </p>
+              </div>
+
+              <div class="carousel-item">
+                <div class="topic-icon">📐</div>
+                <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
+                <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 
 
 
-<script>
+  <script>
     // Enhanced translation data with all content
-const translations = {
-  en: {
-    flag: '🇬🇧',
-    code: 'EN',
-    greeting: '👋 Welcome to STEMifyX',
-    'brand.name': 'STEMifyX',
-    'brand.subtitle': 'नवीन शिक्षा • New Learning',
-    welcome: 'Start your learning journey today!',
-    streak: 'Streak 7 days',
-    description: 'Empowering STEMifyX communities through quality education. Choose your level and begin learning with interactive content designed for STEMifyX learners.',
-    'primary.title': 'Primary',
-    'primary.description': 'Foundational learning for young minds',
-    'secondary.title': 'Secondary',
-    'secondary.description': 'Building knowledge and skills',
-    'senior.title': 'Senior Secondary',
-    'senior.description': 'Advanced learning for career readiness',
-    'carousel.title': '🔥 Popular STEM Topics',
-    'topics.physics': 'Physics – Electricity',
-    'topics.physics.desc': 'Circuits, current, and energy flow.',
-    'topics.algebra': 'Math – Algebra',
-    'topics.algebra.desc': 'Equations and problem-solving skills.',
-    'topics.coding': 'Coding – Basics',
-    'topics.coding.desc': 'Fun coding games and challenges.',
-    'topics.geography': 'Geography – Earth',
-    'topics.geography.desc': 'Maps, climates, and resources.',
-    'topics.biology': 'Biology – Genetics',
-    'topics.biology.desc': 'DNA, traits, and inheritance.',
-    'topics.astronomy': 'Astronomy – Space',
-    'topics.astronomy.desc': 'Planets, stars, and galaxies.',
-    'topics.chemistry': 'Chemistry – Reactions',
-    'topics.chemistry.desc': 'Experiments with acids and bases.',
-    'topics.geometry': 'Math – Geometry',
-    'topics.geometry.desc': 'Shapes, angles, and theorems.',
-    login: 'Login'
-  },
-  hi: {
-    flag: '🇮🇳',
-    code: 'HI',
-    greeting: '👋 नमस्ते! STEMifyX में आपका स्वागत है',
-    'brand.name': 'STEMifyX',
-    'brand.subtitle': 'नवीन शिक्षा • New Learning',
-    welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
-    streak: '7 दिन की लकीर',
-    description: 'गुणवत्तापूर्ण शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना। अपना स्तर चुनें और ग्रामीण शिक्षार्थियों के लिए डिज़ाइन की गई इंटरैक्टिव सामग्री के साथ सीखना शुरू करें।',
-    'primary.title': 'प्राथमिक',
-    'primary.description': 'युवा मस्तिष्क के लिए मूलभूत शिक्षा',
-    'secondary.title': 'माध्यमिक',
-    'secondary.description': 'ज्ञान और कौशल का निर्माण',
-    'senior.title': 'उच्च माध्यमिक',
-    'senior.description': 'करियर तैयारी के लिए उन्नत शिक्षा',
-    'carousel.title': '🔥 लोकप्रिय STEM विषय',
-    'topics.physics': 'भौतिकी – विद्युत',
-    'topics.physics.desc': 'सर्किट, धारा और ऊर्जा प्रवाह।',
-    'topics.algebra': 'गणित – बीजगणित',
-    'topics.algebra.desc': 'समीकरण और समस्या-समाधान कौशल।',
-    'topics.coding': 'कोडिंग – मूल बातें',
-    'topics.coding.desc': 'मजेदार कोडिंग गेम्स और चुनौतियां।',
-    'topics.geography': 'भूगोल – पृथ्वी',
-    'topics.geography.desc': 'मानचित्र, जलवायु और संसाधन।',
-    'topics.biology': 'जीवविज्ञान – आनुवंशिकी',
-    'topics.biology.desc': 'DNA, लक्षण और वंशानुक्रम।',
-    'topics.astronomy': 'खगोल विज्ञान – अंतरिक्ष',
-    'topics.astronomy.desc': 'ग्रह, तारे और आकाशगंगाएं।',
-    'topics.chemistry': 'रसायन विज्ञान – अभिक्रियाएं',
-    'topics.chemistry.desc': 'अम्ल और क्षार के साथ प्रयोग।',
-    'topics.geometry': 'गणित – ज्यामिति',
-    'topics.geometry.desc': 'आकार, कोण और प्रमेय।',
-    login: 'लॉगिन'
-  },
-  or: {
-    flag: '🏛️',
-    code: 'OD',
-    greeting: '👋 ନମସ୍କାର! STEMifyX କୁ ସ୍ୱାଗତ',
-    'brand.name': 'STEMifyX',
-    'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
-    welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
-    streak: '7 ଦିନର ଧାରା',
-    description: 'ଗୁଣବତ୍ତା ଶିକ୍ଷା ମାଧ୍ୟମରେ ଗ୍ରାମାଞ୍ଚଳ ସମୁଦାୟକୁ ସଶକ୍ତ କରିବା। ଆପଣଙ୍କର ସ୍ତର ବାଛନ୍ତୁ ଏବଂ ଗ୍ରାମାଞ୍ଚଳ ଶିକ୍ଷାର୍ଥୀମାନଙ୍କ ପାଇଁ ଡିଜାଇନ୍ ହୋଇଥିବା ଇଣ୍ଟରାକ୍ଟିଭ୍ ବିଷୟବସ୍ତୁ ସହିତ ଶିକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ।',
-    'primary.title': 'ପ୍ରାଥମିକ',
-    'primary.description': 'ଯୁବ ମନ ପାଇଁ ମୂଳଦୁଆ ଶିକ୍ଷା',
-    'secondary.title': 'ମାଧ୍ୟମିକ',
-    'secondary.description': 'ଜ୍ଞାନ ଏବଂ ଦକ୍ଷତା ନିର୍ମାଣ',
-    'senior.title': 'ଉଚ୍ଚ ମାଧ୍ୟମିକ',
-    'senior.description': 'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା',
-    'carousel.title': '🔥 ଲୋକପ୍ରିୟ STEM ବିଷୟଗୁଡ଼ିକ',
-    'topics.physics': 'ଭୌତିକ ବିଜ୍ଞାନ – ବିଦ୍ୟୁତ',
-    'topics.physics.desc': 'ସର୍କିଟ, ଧାରା ଏବଂ ଶକ୍ତି ପ୍ରବାହ।',
-    'topics.algebra': 'ଗଣିତ – ବୀଜଗଣିତ',
-    'topics.algebra.desc': 'ସମୀକରଣ ଏବଂ ସମସ୍ୟା-ସମାଧାନ କୌଶଳ।',
-    'topics.coding': 'କୋଡିଂ – ମୌଳିକ',
-    'topics.coding.desc': 'ମଜାଦାର କୋଡିଂ ଖେଳ ଏବଂ ଚ୍ୟାଲେଞ୍ଜ।',
-    'topics.geography': 'ଭୂଗୋଳ – ପୃଥିବୀ',
-    'topics.geography.desc': 'ମାନଚିତ୍ର, ଜଳବାୟୁ ଏବଂ ସମ୍ପଦ।',
-    'topics.biology': 'ଜୀବବିଜ୍ଞାନ – ଜେନେଟିକ୍ସ',
-    'topics.biology.desc': 'DNA, ଗୁଣ ଏବଂ ବଂଶାନୁକ୍ରମ।',
-    'topics.astronomy': 'ଜ୍ୟୋତିର୍ବିଜ୍ଞାନ – ମହାକାଶ',
-    'topics.astronomy.desc': 'ଗ୍ରହ, ତାରା ଏବଂ ଗାଲାକ୍ସି।',
-    'topics.chemistry': 'ରସାୟନ ବିଜ୍ଞାନ – ପ୍ରତିକ୍ରିୟା',
-    'topics.chemistry.desc': 'ଅମ୍ଳ ଏବଂ କ୍ଷାର ସହିତ ପରୀକ୍ଷଣ।',
-    'topics.geometry': 'ଗଣିତ – ଜ୍ୟାମିତି',
-    'topics.geometry.desc': 'ଆକୃତି, କୋଣ ଏବଂ ତତ୍ତ୍ୱ।',
-    login: 'ଲଗଇନ୍'
-  }
-};
+    const translations = {
+      en: {
+        flag: '🇬🇧',
+        code: 'EN',
+        greeting: '👋 Welcome to STEMifyX',
+        'brand.name': 'STEMifyX',
+        'brand.subtitle': 'नवीन शिक्षा • New Learning',
+        welcome: 'Start your learning journey today!',
+        streak: 'Streak 7 days',
+        description: 'Empowering STEMifyX communities through quality education. Choose your level and begin learning with interactive content designed for STEMifyX learners.',
+        'primary.title': 'Primary',
+        'primary.description': 'Foundational learning for young minds',
+        'secondary.title': 'Secondary',
+        'secondary.description': 'Building knowledge and skills',
+        'senior.title': 'Senior Secondary',
+        'senior.description': 'Advanced learning for career readiness',
+        'carousel.title': '🔥 Popular STEM Topics',
+        'topics.physics': 'Physics – Electricity',
+        'topics.physics.desc': 'Circuits, current, and energy flow.',
+        'topics.algebra': 'Math – Algebra',
+        'topics.algebra.desc': 'Equations and problem-solving skills.',
+        'topics.coding': 'Coding – Basics',
+        'topics.coding.desc': 'Fun coding games and challenges.',
+        'topics.geography': 'Geography – Earth',
+        'topics.geography.desc': 'Maps, climates, and resources.',
+        'topics.biology': 'Biology – Genetics',
+        'topics.biology.desc': 'DNA, traits, and inheritance.',
+        'topics.astronomy': 'Astronomy – Space',
+        'topics.astronomy.desc': 'Planets, stars, and galaxies.',
+        'topics.chemistry': 'Chemistry – Reactions',
+        'topics.chemistry.desc': 'Experiments with acids and bases.',
+        'topics.geometry': 'Math – Geometry',
+        'topics.geometry.desc': 'Shapes, angles, and theorems.',
+        login: 'Login'
+      },
+      hi: {
+        flag: '🇮🇳',
+        code: 'HI',
+        greeting: '👋 नमस्ते! STEMifyX में आपका स्वागत है',
+        'brand.name': 'STEMifyX',
+        'brand.subtitle': 'नवीन शिक्षा • New Learning',
+        welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
+        streak: '7 दिन की लकीर',
+        description: 'गुणवत्तापूर्ण शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना। अपना स्तर चुनें और ग्रामीण शिक्षार्थियों के लिए डिज़ाइन की गई इंटरैक्टिव सामग्री के साथ सीखना शुरू करें।',
+        'primary.title': 'प्राथमिक',
+        'primary.description': 'युवा मस्तिष्क के लिए मूलभूत शिक्षा',
+        'secondary.title': 'माध्यमिक',
+        'secondary.description': 'ज्ञान और कौशल का निर्माण',
+        'senior.title': 'उच्च माध्यमिक',
+        'senior.description': 'करियर तैयारी के लिए उन्नत शिक्षा',
+        'carousel.title': '🔥 लोकप्रिय STEM विषय',
+        'topics.physics': 'भौतिकी – विद्युत',
+        'topics.physics.desc': 'सर्किट, धारा और ऊर्जा प्रवाह।',
+        'topics.algebra': 'गणित – बीजगणित',
+        'topics.algebra.desc': 'समीकरण और समस्या-समाधान कौशल।',
+        'topics.coding': 'कोडिंग – मूल बातें',
+        'topics.coding.desc': 'मजेदार कोडिंग गेम्स और चुनौतियां।',
+        'topics.geography': 'भूगोल – पृथ्वी',
+        'topics.geography.desc': 'मानचित्र, जलवायु और संसाधन।',
+        'topics.biology': 'जीवविज्ञान – आनुवंशिकी',
+        'topics.biology.desc': 'DNA, लक्षण और वंशानुक्रम।',
+        'topics.astronomy': 'खगोल विज्ञान – अंतरिक्ष',
+        'topics.astronomy.desc': 'ग्रह, तारे और आकाशगंगाएं।',
+        'topics.chemistry': 'रसायन विज्ञान – अभिक्रियाएं',
+        'topics.chemistry.desc': 'अम्ल और क्षार के साथ प्रयोग।',
+        'topics.geometry': 'गणित – ज्यामिति',
+        'topics.geometry.desc': 'आकार, कोण और प्रमेय।',
+        login: 'लॉगिन'
+      },
+      or: {
+        flag: '🏛️',
+        code: 'OD',
+        greeting: '👋 ନମସ୍କାର! STEMifyX କୁ ସ୍ୱାଗତ',
+        'brand.name': 'STEMifyX',
+        'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
+        welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
+        streak: '7 ଦିନର ଧାରା',
+        description: 'ଗୁଣବତ୍ତା ଶିକ୍ଷା ମାଧ୍ୟମରେ ଗ୍ରାମାଞ୍ଚଳ ସମୁଦାୟକୁ ସଶକ୍ତ କରିବା। ଆପଣଙ୍କର ସ୍ତର ବାଛନ୍ତୁ ଏବଂ ଗ୍ରାମାଞ୍ଚଳ ଶିକ୍ଷାର୍ଥୀମାନଙ୍କ ପାଇଁ ଡିଜାଇନ୍ ହୋଇଥିବା ଇଣ୍ଟରାକ୍ଟିଭ୍ ବିଷୟବସ୍ତୁ ସହିତ ଶିକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ।',
+        'primary.title': 'ପ୍ରାଥମିକ',
+        'primary.description': 'ଯୁବ ମନ ପାଇଁ ମୂଳଦୁଆ ଶିକ୍ଷା',
+        'secondary.title': 'ମାଧ୍ୟମିକ',
+        'secondary.description': 'ଜ୍ଞାନ ଏବଂ ଦକ୍ଷତା ନିର୍ମାଣ',
+        'senior.title': 'ଉଚ୍ଚ ମାଧ୍ୟମିକ',
+        'senior.description': 'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା',
+        'carousel.title': '🔥 ଲୋକପ୍ରିୟ STEM ବିଷୟଗୁଡ଼ିକ',
+        'topics.physics': 'ଭୌତିକ ବିଜ୍ଞାନ – ବିଦ୍ୟୁତ',
+        'topics.physics.desc': 'ସର୍କିଟ, ଧାରା ଏବଂ ଶକ୍ତି ପ୍ରବାହ।',
+        'topics.algebra': 'ଗଣିତ – ବୀଜଗଣିତ',
+        'topics.algebra.desc': 'ସମୀକରଣ ଏବଂ ସମସ୍ୟା-ସମାଧାନ କୌଶଳ।',
+        'topics.coding': 'କୋଡିଂ – ମୌଳିକ',
+        'topics.coding.desc': 'ମଜାଦାର କୋଡିଂ ଖେଳ ଏବଂ ଚ୍ୟାଲେଞ୍ଜ।',
+        'topics.geography': 'ଭୂଗୋଳ – ପୃଥିବୀ',
+        'topics.geography.desc': 'ମାନଚିତ୍ର, ଜଳବାୟୁ ଏବଂ ସମ୍ପଦ।',
+        'topics.biology': 'ଜୀବବିଜ୍ଞାନ – ଜେନେଟିକ୍ସ',
+        'topics.biology.desc': 'DNA, ଗୁଣ ଏବଂ ବଂଶାନୁକ୍ରମ।',
+        'topics.astronomy': 'ଜ୍ୟୋତିର୍ବିଜ୍ଞାନ – ମହାକାଶ',
+        'topics.astronomy.desc': 'ଗ୍ରହ, ତାରା ଏବଂ ଗାଲାକ୍ସି।',
+        'topics.chemistry': 'ରସାୟନ ବିଜ୍ଞାନ – ପ୍ରତିକ୍ରିୟା',
+        'topics.chemistry.desc': 'ଅମ୍ଳ ଏବଂ କ୍ଷାର ସହିତ ପରୀକ୍ଷଣ।',
+        'topics.geometry': 'ଗଣିତ – ଜ୍ୟାମିତି',
+        'topics.geometry.desc': 'ଆକୃତି, କୋଣ ଏବଂ ତତ୍ତ୍ୱ।',
+        login: 'ଲଗଇନ୍'
+      }
+    };
 
-// Language switcher functionality
-const languageSwitcher = document.getElementById('languageSwitcher');
-const languageBtn = document.getElementById('languageBtn');
-const languageDropdown = document.getElementById('languageDropdown');
-const currentFlag = document.getElementById('currentFlag');
-const currentLang = document.getElementById('currentLang');
-const greetingText = document.getElementById('greetingText');
+    // Language switcher functionality
+    const languageSwitcher = document.getElementById('languageSwitcher');
+    const languageBtn = document.getElementById('languageBtn');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const currentFlag = document.getElementById('currentFlag');
+    const currentLang = document.getElementById('currentLang');
+    const greetingText = document.getElementById('greetingText');
 
-let currentLanguage = 'en';
-let isOpen = false;
+    let currentLanguage = 'en';
+    let isOpen = false;
 
-// Get nested property from object using dot notation
-function getNestedProperty(obj, path) {
-  return path.split('.').reduce((current, key) => current && current[key], obj);
-}
-
-// Update all translatable elements
-function updateTranslations(langCode) {
-  const langData = translations[langCode];
-  if (!langData) return;
-
-  // Update all elements with data-translate attribute
-  document.querySelectorAll('[data-translate]').forEach(element => {
-    const key = element.getAttribute('data-translate');
-    const translation = getNestedProperty(langData, key) || langData[key];
-    if (translation) {
-      element.textContent = translation;
+    // Get nested property from object using dot notation
+    function getNestedProperty(obj, path) {
+      return path.split('.').reduce((current, key) => current && current[key], obj);
     }
-  });
 
-  // Update greeting separately
-  greetingText.textContent = langData.greeting;
-}
+    // Update all translatable elements
+    function updateTranslations(langCode) {
+      const langData = translations[langCode];
+      if (!langData) return;
 
-// Toggle dropdown
-function toggleDropdown() {
-  isOpen = !isOpen;
-  languageSwitcher.classList.toggle('open', isOpen);
-  
-  if (isOpen) {
-    updateActiveLanguage();
-  }
-}
+      // Update all elements with data-translate attribute
+      document.querySelectorAll('[data-translate]').forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const translation = getNestedProperty(langData, key) || langData[key];
+        if (translation) {
+          element.textContent = translation;
+        }
+      });
 
-// Update active language in dropdown
-function updateActiveLanguage() {
-  const buttons = languageDropdown.querySelectorAll('button');
-  buttons.forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.lang === currentLanguage);
-  });
-}
+      // Update greeting separately
+      greetingText.textContent = langData.greeting;
+    }
 
-// Close dropdown
-function closeDropdown() {
-  isOpen = false;
-  languageSwitcher.classList.remove('open');
-}
+    // Toggle dropdown
+    function toggleDropdown() {
+      isOpen = !isOpen;
+      languageSwitcher.classList.toggle('open', isOpen);
 
-// Change language
-function changeLanguage(langCode) {
-  if (translations[langCode]) {
-    currentLanguage = langCode;
-    const lang = translations[langCode];
-    
-    // Update button display
-    currentFlag.textContent = lang.flag;
-    currentLang.textContent = lang.code;
-    
-    // Update all translations
-    updateTranslations(langCode);
-    
+      if (isOpen) {
+        updateActiveLanguage();
+      }
+    }
+
+    // Update active language in dropdown
+    function updateActiveLanguage() {
+      const buttons = languageDropdown.querySelectorAll('button');
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === currentLanguage);
+      });
+    }
+
     // Close dropdown
-    closeDropdown();
-
-    // Save preference to localStorage
-    localStorage.setItem('STEMifyXLanguage', langCode);
-
-    // Trigger custom event for other components
-    window.dispatchEvent(new CustomEvent('languageChanged', {
-      detail: { language: langCode }
-    }));
-
-    // Announce language change for screen readers
-    const announcement = document.createElement('div');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.setAttribute('aria-atomic', 'true');
-    announcement.className = 'sr-only';
-    announcement.textContent = `Language changed to ${lang.name || lang.code}`;
-    document.body.appendChild(announcement);
-    setTimeout(() => {
-      if (announcement.parentNode) {
-        document.body.removeChild(announcement);
-      }
-    }, 1000);
-  }
-}
-
-// Enhanced carousel functionality
-function initializeCarousel() {
-  const carousel = document.getElementById('carouselWrapper');
-  if (!carousel) return;
-
-  let isPaused = false;
-  
-  // Pause on hover
-  carousel.addEventListener('mouseenter', () => {
-    isPaused = true;
-    carousel.style.animationPlayState = 'paused';
-  });
-
-  // Resume on leave
-  carousel.addEventListener('mouseleave', () => {
-    if (!isPaused) return;
-    isPaused = false;
-    carousel.style.animationPlayState = 'running';
-  });
-
-  // Reset animation when it completes to prevent jump
-  carousel.addEventListener('animationiteration', () => {
-    // Smooth reset without visible jump
-    carousel.style.animation = 'none';
-    setTimeout(() => {
-      carousel.style.animation = 'smoothScroll 30s linear infinite';
-      if (isPaused) {
-        carousel.style.animationPlayState = 'paused';
-      }
-    }, 10);
-  });
-}
-
-// Dynamic greeting based on time of day
-function updateGreetingBasedOnTime() {
-  const hour = new Date().getHours();
-  let greeting = '';
-  
-  if (hour >= 5 && hour < 12) {
-    greeting = '🌅 Good Morning';
-  } else if (hour >= 12 && hour < 17) {
-    greeting = '☀️ Good Afternoon';
-  } else if (hour >= 17 && hour < 21) {
-    greeting = '🌇 Good Evening';
-  } else {
-    greeting = '🌙 Good Night';
-  }
-  
-  // Update greeting text while preserving language
-  const currentLangData = translations[currentLanguage];
-  if (currentLangData) {
-    const baseGreeting = currentLangData.greeting.replace(/👋[^!]*!?/, '').trim();
-    greetingText.textContent = `👋 ${greeting}! ${baseGreeting}`;
-  }
-}
-
-// Streak counter functionality
-function initializeStreakCounter() {
-  const streakElement = document.querySelector('.streak-badge');
-  if (!streakElement) return;
-
-  // Get streak from localStorage or set default
-  let streakData = JSON.parse(localStorage.getItem('STEMifyXStreak')) || {
-    count: 7,
-    lastVisit: null
-  };
-
-  const today = new Date().toDateString();
-  
-  if (streakData.lastVisit !== today) {
-    // Check if consecutive day
-    const lastVisit = streakData.lastVisit ? new Date(streakData.lastVisit) : null;
-    const todayObj = new Date();
-    
-    if (lastVisit) {
-      const diffTime = todayObj - lastVisit;
-      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-      
-      if (diffDays === 1) {
-        // Consecutive day - increase streak
-        streakData.count++;
-      } else if (diffDays > 1) {
-        // Broken streak - reset to 1
-        streakData.count = 1;
-      }
-    } else {
-      // First visit
-      streakData.count = 1;
+    function closeDropdown() {
+      isOpen = false;
+      languageSwitcher.classList.remove('open');
     }
-    
-    streakData.lastVisit = today;
-    localStorage.setItem('STEMifyXStreak', JSON.stringify(streakData));
-  }
 
-  // Update streak display
-  const streakText = streakElement.querySelector('span[data-translate="streak"]');
-  if (streakText) {
-    streakText.textContent = `Streak ${streakData.count} days`;
-  }
-}
+    // Change language
+    function changeLanguage(langCode) {
+      if (translations[langCode]) {
+        currentLanguage = langCode;
+        const lang = translations[langCode];
 
-// Card hover effects enhancement
-function enhanceCardInteractions() {
-  const cards = document.querySelectorAll('.level-card');
-  
-  cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      // Add click feedback
-      card.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        card.style.transform = '';
-      }, 150);
-    });
+        // Update button display
+        currentFlag.textContent = lang.flag;
+        currentLang.textContent = lang.code;
 
-    // Enhanced touch feedback for mobile
-    card.addEventListener('touchstart', () => {
-      card.style.transform = 'scale(0.98)';
-    });
+        // Update all translations
+        updateTranslations(langCode);
 
-    card.addEventListener('touchend', () => {
-      card.style.transform = '';
-    });
-  });
-}
+        // Close dropdown
+        closeDropdown();
 
-// Performance optimization: Lazy load images
-function lazyLoadImages() {
-  const images = document.querySelectorAll('img[loading="lazy"]');
-  
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        img.src = img.dataset.src || img.src;
-        img.classList.remove('lazy');
-        imageObserver.unobserve(img);
+        // Save preference to localStorage
+        localStorage.setItem('STEMifyXLanguage', langCode);
+
+        // Trigger custom event for other components
+        window.dispatchEvent(new CustomEvent('languageChanged', {
+          detail: { language: langCode }
+        }));
+
+        // Announce language change for screen readers
+        const announcement = document.createElement('div');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.setAttribute('aria-atomic', 'true');
+        announcement.className = 'sr-only';
+        announcement.textContent = `Language changed to ${lang.name || lang.code}`;
+        document.body.appendChild(announcement);
+        setTimeout(() => {
+          if (announcement.parentNode) {
+            document.body.removeChild(announcement);
+          }
+        }, 1000);
       }
-    });
-  });
+    }
 
-  images.forEach(img => imageObserver.observe(img));
-}
+    // Enhanced carousel functionality
+    function initializeCarousel() {
+      const carousel = document.getElementById('carouselWrapper');
+      if (!carousel) return;
 
-// Accessibility enhancements
-function enhanceAccessibility() {
-  // Add skip to content link
-  const skipLink = document.createElement('a');
-  skipLink.href = '#main-content';
-  skipLink.className = 'skip-link';
-  skipLink.textContent = 'Skip to main content';
-  skipLink.style.cssText = `
+      let isPaused = false;
+
+      // Pause on hover
+      carousel.addEventListener('mouseenter', () => {
+        isPaused = true;
+        carousel.style.animationPlayState = 'paused';
+      });
+
+      // Resume on leave
+      carousel.addEventListener('mouseleave', () => {
+        if (!isPaused) return;
+        isPaused = false;
+        carousel.style.animationPlayState = 'running';
+      });
+
+      // Reset animation when it completes to prevent jump
+      carousel.addEventListener('animationiteration', () => {
+        // Smooth reset without visible jump
+        carousel.style.animation = 'none';
+        setTimeout(() => {
+          carousel.style.animation = 'smoothScroll 30s linear infinite';
+          if (isPaused) {
+            carousel.style.animationPlayState = 'paused';
+          }
+        }, 10);
+      });
+    }
+
+    // Dynamic greeting based on time of day
+    function updateGreetingBasedOnTime() {
+      const hour = new Date().getHours();
+      let greeting = '';
+
+      if (hour >= 5 && hour < 12) {
+        greeting = '🌅 Good Morning';
+      } else if (hour >= 12 && hour < 17) {
+        greeting = '☀️ Good Afternoon';
+      } else if (hour >= 17 && hour < 21) {
+        greeting = '🌇 Good Evening';
+      } else {
+        greeting = '🌙 Good Night';
+      }
+
+      // Update greeting text while preserving language
+      const currentLangData = translations[currentLanguage];
+      if (currentLangData) {
+        const baseGreeting = currentLangData.greeting.replace(/👋[^!]*!?/, '').trim();
+        greetingText.textContent = `👋 ${greeting}! ${baseGreeting}`;
+      }
+    }
+
+    // Streak counter functionality
+    function initializeStreakCounter() {
+      const streakElement = document.querySelector('.streak-badge');
+      if (!streakElement) return;
+
+      // Get streak from localStorage or set default
+      let streakData = JSON.parse(localStorage.getItem('STEMifyXStreak')) || {
+        count: 7,
+        lastVisit: null
+      };
+
+      const today = new Date().toDateString();
+
+      if (streakData.lastVisit !== today) {
+        // Check if consecutive day
+        const lastVisit = streakData.lastVisit ? new Date(streakData.lastVisit) : null;
+        const todayObj = new Date();
+
+        if (lastVisit) {
+          const diffTime = todayObj - lastVisit;
+          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+          if (diffDays === 1) {
+            // Consecutive day - increase streak
+            streakData.count++;
+          } else if (diffDays > 1) {
+            // Broken streak - reset to 1
+            streakData.count = 1;
+          }
+        } else {
+          // First visit
+          streakData.count = 1;
+        }
+
+        streakData.lastVisit = today;
+        localStorage.setItem('STEMifyXStreak', JSON.stringify(streakData));
+      }
+
+      // Update streak display
+      const streakText = streakElement.querySelector('span[data-translate="streak"]');
+      if (streakText) {
+        streakText.textContent = `Streak ${streakData.count} days`;
+      }
+    }
+
+    // Card hover effects enhancement
+    function enhanceCardInteractions() {
+      const cards = document.querySelectorAll('.level-card');
+
+      cards.forEach(card => {
+        card.addEventListener('click', (e) => {
+          // Add click feedback
+          card.style.transform = 'scale(0.95)';
+          setTimeout(() => {
+            card.style.transform = '';
+          }, 150);
+        });
+
+        // Enhanced touch feedback for mobile
+        card.addEventListener('touchstart', () => {
+          card.style.transform = 'scale(0.98)';
+        });
+
+        card.addEventListener('touchend', () => {
+          card.style.transform = '';
+        });
+      });
+    }
+
+    // Performance optimization: Lazy load images
+    function lazyLoadImages() {
+      const images = document.querySelectorAll('img[loading="lazy"]');
+
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src || img.src;
+            img.classList.remove('lazy');
+            imageObserver.unobserve(img);
+          }
+        });
+      });
+
+      images.forEach(img => imageObserver.observe(img));
+    }
+
+    // Accessibility enhancements
+    function enhanceAccessibility() {
+      // Add skip to content link
+      const skipLink = document.createElement('a');
+      skipLink.href = '#main-content';
+      skipLink.className = 'skip-link';
+      skipLink.textContent = 'Skip to main content';
+      skipLink.style.cssText = `
     position: absolute;
     top: -40px;
     left: 6px;
@@ -1603,141 +1676,141 @@ function enhanceAccessibility() {
     z-index: 10000;
     text-decoration: none;
   `;
-  skipLink.addEventListener('focus', () => {
-    skipLink.style.top = '6px';
-  });
-  skipLink.addEventListener('blur', () => {
-    skipLink.style.top = '-40px';
-  });
-  
-  document.body.insertBefore(skipLink, document.body.firstChild);
+      skipLink.addEventListener('focus', () => {
+        skipLink.style.top = '6px';
+      });
+      skipLink.addEventListener('blur', () => {
+        skipLink.style.top = '-40px';
+      });
 
-  // Add main content id for skip link
-  const mainContent = document.querySelector('.main-content');
-  if (mainContent) {
-    mainContent.id = 'main-content';
-  }
+      document.body.insertBefore(skipLink, document.body.firstChild);
 
-  // Enhanced keyboard navigation for language switcher
-  languageDropdown.querySelectorAll('button').forEach((button, index, buttons) => {
-    button.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowDown') {
+      // Add main content id for skip link
+      const mainContent = document.querySelector('.main-content');
+      if (mainContent) {
+        mainContent.id = 'main-content';
+      }
+
+      // Enhanced keyboard navigation for language switcher
+      languageDropdown.querySelectorAll('button').forEach((button, index, buttons) => {
+        button.addEventListener('keydown', (e) => {
+          if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIndex = (index + 1) % buttons.length;
+            buttons[nextIndex].focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prevIndex = (index - 1 + buttons.length) % buttons.length;
+            buttons[prevIndex].focus();
+          } else if (e.key === 'Escape') {
+            closeDropdown();
+            languageBtn.focus();
+          }
+        });
+      });
+    }
+
+    // Error boundary and fallback
+    function setupErrorHandling() {
+      window.addEventListener('error', (e) => {
+        console.error('Application error:', e.error);
+        // You could send this to an error reporting service
+      });
+
+      window.addEventListener('unhandledrejection', (e) => {
+        console.error('Unhandled promise rejection:', e.reason);
         e.preventDefault();
-        const nextIndex = (index + 1) % buttons.length;
-        buttons[nextIndex].focus();
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        const prevIndex = (index - 1 + buttons.length) % buttons.length;
-        buttons[prevIndex].focus();
-      } else if (e.key === 'Escape') {
-        closeDropdown();
-        languageBtn.focus();
+      });
+    }
+
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function () {
+      // Load saved language preference
+      const savedLanguage = localStorage.getItem('STEMifyXLanguage');
+      if (savedLanguage && translations[savedLanguage]) {
+        changeLanguage(savedLanguage);
+      } else {
+        // Set default language
+        updateTranslations(currentLanguage);
+      }
+
+      // Initialize components
+      initializeCarousel();
+      initializeStreakCounter();
+      enhanceCardInteractions();
+      lazyLoadImages();
+      enhanceAccessibility();
+      setupErrorHandling();
+
+      // Update greeting based on time
+      updateGreetingBasedOnTime();
+
+      // Update greeting every hour
+      setInterval(updateGreetingBasedOnTime, 3600000);
+
+      // Event listeners for language switcher
+      languageBtn.addEventListener('click', toggleDropdown);
+
+      // Language selection
+      languageDropdown.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', () => {
+          changeLanguage(button.dataset.lang);
+        });
+      });
+
+      // Close dropdown when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!languageSwitcher.contains(e.target)) {
+          closeDropdown();
+        }
+      });
+
+      // Keyboard navigation for language button
+      languageBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleDropdown();
+          const firstButton = languageDropdown.querySelector('button');
+          if (firstButton) firstButton.focus();
+        }
+      });
+
+      // Handle reduced motion preference
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.style.setProperty('--animation-duration', '0.01s');
+        const carousel = document.getElementById('carouselWrapper');
+        if (carousel) {
+          carousel.style.animation = 'none';
+        }
+      }
+
+      // Handle online/offline status
+      window.addEventListener('online', () => {
+        showNotification('Connection restored', 'success');
+      });
+
+      window.addEventListener('offline', () => {
+        showNotification('You are currently offline', 'warning');
+      });
+
+      // Service Worker registration for PWA capabilities (optional)
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+          .then(registration => {
+            console.log('SW registered: ', registration);
+          })
+          .catch(registrationError => {
+            console.log('SW registration failed: ', registrationError);
+          });
       }
     });
-  });
-}
 
-// Error boundary and fallback
-function setupErrorHandling() {
-  window.addEventListener('error', (e) => {
-    console.error('Application error:', e.error);
-    // You could send this to an error reporting service
-  });
-
-  window.addEventListener('unhandledrejection', (e) => {
-    console.error('Unhandled promise rejection:', e.reason);
-    e.preventDefault();
-  });
-}
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-  // Load saved language preference
-  const savedLanguage = localStorage.getItem('STEMifyXLanguage');
-  if (savedLanguage && translations[savedLanguage]) {
-    changeLanguage(savedLanguage);
-  } else {
-    // Set default language
-    updateTranslations(currentLanguage);
-  }
-
-  // Initialize components
-  initializeCarousel();
-  initializeStreakCounter();
-  enhanceCardInteractions();
-  lazyLoadImages();
-  enhanceAccessibility();
-  setupErrorHandling();
-  
-  // Update greeting based on time
-  updateGreetingBasedOnTime();
-  
-  // Update greeting every hour
-  setInterval(updateGreetingBasedOnTime, 3600000);
-
-  // Event listeners for language switcher
-  languageBtn.addEventListener('click', toggleDropdown);
-  
-  // Language selection
-  languageDropdown.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', () => {
-      changeLanguage(button.dataset.lang);
-    });
-  });
-
-  // Close dropdown when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!languageSwitcher.contains(e.target)) {
-      closeDropdown();
-    }
-  });
-
-  // Keyboard navigation for language button
-  languageBtn.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-      e.preventDefault();
-      toggleDropdown();
-      const firstButton = languageDropdown.querySelector('button');
-      if (firstButton) firstButton.focus();
-    }
-  });
-
-  // Handle reduced motion preference
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.documentElement.style.setProperty('--animation-duration', '0.01s');
-    const carousel = document.getElementById('carouselWrapper');
-    if (carousel) {
-      carousel.style.animation = 'none';
-    }
-  }
-
-  // Handle online/offline status
-  window.addEventListener('online', () => {
-    showNotification('Connection restored', 'success');
-  });
-
-  window.addEventListener('offline', () => {
-    showNotification('You are currently offline', 'warning');
-  });
-
-  // Service Worker registration for PWA capabilities (optional)
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(registration => {
-        console.log('SW registered: ', registration);
-      })
-      .catch(registrationError => {
-        console.log('SW registration failed: ', registrationError);
-      });
-  }
-});
-
-// Utility function for notifications
-function showNotification(message, type = 'info') {
-  const notification = document.createElement('div');
-  notification.className = `notification ${type}`;
-  notification.textContent = message;
-  notification.style.cssText = `
+    // Utility function for notifications
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `notification ${type}`;
+      notification.textContent = message;
+      notification.style.cssText = `
     position: fixed;
     top: 20px;
     right: 20px;
@@ -1748,22 +1821,22 @@ function showNotification(message, type = 'info') {
     z-index: 10000;
     animation: slideIn 0.3s ease;
   `;
-  
-  document.body.appendChild(notification);
-  
-  setTimeout(() => {
-    notification.style.animation = 'slideOut 0.3s ease';
-    setTimeout(() => {
-      if (notification.parentNode) {
-        document.body.removeChild(notification);
-      }
-    }, 300);
-  }, 3000);
-}
 
-// Add CSS for notifications
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
+      document.body.appendChild(notification);
+
+      setTimeout(() => {
+        notification.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => {
+          if (notification.parentNode) {
+            document.body.removeChild(notification);
+          }
+        }, 300);
+      }, 3000);
+    }
+
+    // Add CSS for notifications
+    const notificationStyles = document.createElement('style');
+    notificationStyles.textContent = `
   @keyframes slideIn {
     from { transform: translateX(100%); opacity: 0; }
     to { transform: translateX(0); opacity: 1; }
@@ -1786,17 +1859,17 @@ notificationStyles.textContent = `
     border: 0;
   }
 `;
-document.head.appendChild(notificationStyles);
+    document.head.appendChild(notificationStyles);
 
-// Export for potential module usage
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = {
-    translations,
-    changeLanguage,
-    initializeCarousel
-  };
-}
-</script>
+    // Export for potential module usage
+    if (typeof module !== 'undefined' && module.exports) {
+      module.exports = {
+        translations,
+        changeLanguage,
+        initializeCarousel
+      };
+    }
+  </script>
 
 </body>
 
