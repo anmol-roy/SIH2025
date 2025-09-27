@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>STEMifyX - Home</title>
   <!-- Fonts -->
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
     rel="stylesheet" />
@@ -22,7 +24,6 @@
         transform: translateX(-50%);
       }
     }
-
 
     .carousel-container {
       overflow: hidden;
@@ -141,7 +142,6 @@
       position: sticky;
       top: 0;
       width: 100%;
-      /* background: linear-gradient(135deg, rgba(255, 224, 178, 0.95), rgba(255, 204, 188, 0.95)); */
       color: var(--white);
       padding: clamp(8px, 2vw, 16px) clamp(12px, 3vw, 20px);
       display: flex;
@@ -408,7 +408,7 @@
 
     /* Main Content Styles */
     .maindiv {
-      background: linear-gradient(135deg, rgba(230, 255, 231, 0.95)rgba(115, 166, 208, 0.95)5);
+      background: linear-gradient(135deg, rgba(230, 255, 231, 0.95), rgba(115, 166, 208, 0.95));
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -506,7 +506,7 @@
     }
 
     .level-card {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.1);
       border-radius: clamp(8px, 2vw, 12px);
       padding: clamp(1rem, 3vw, 1.5rem);
       text-align: center;
@@ -940,7 +940,7 @@
       }
 
       .level-card {
-        background: rgba(255, 255, 255, 0.9);
+        background: rgba(255, 255, 255, 0.1);
       }
 
       .welcome-text {
@@ -1026,7 +1026,44 @@
         border: 2px solid #333;
       }
     }
+    .illustration-img{
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+      border-radius: 10px;
+    }
   </style>
+  <style>
+        .footer-gradient {
+            background: linear-gradient(135deg, #0d291f 0%, #111827 100%);
+        }
+        .brand-gradient {
+            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+        .made-by-btn {
+            background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+            transition: all 0.3s ease;
+        }
+        .made-by-btn:hover {
+            background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+    </style>
 </head>
 
 <body>
@@ -1105,43 +1142,56 @@
 
   <div class="maindiv">
     <main class="main-content">
-      <section class="top-section">
-        <div class="streak-info">
-          <div class="welcome-text" data-translate="welcome">
-            Start your learning journey today!
-          </div>
-          <div class="streak-badge">
-            🔥 <span data-translate="streak">Streak 7 days</span>
-          </div>
-        </div>
+     <section class="top-section p-6 md:p-10 max-w-6xl mx-auto">
+  <!-- Top row with text + streak badge -->
+  <div class="flex items-center justify-between mb-6">
+    <h2 class="text-2xl md:text-3xl font-bold">
+      Start your learning journey today!
+    </h2>
+    <div class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm md:text-base font-medium shadow-md">
+      🔥 Streak 7 days
+    </div>
+  </div>
 
-        <div class="description">
-          <div class="para">
-            <p class="description-text" data-translate="description">
-              Empowering STEMifyX communities through quality education. <br>
-              Choose your level and begin learning with interactive content
-              designed for STEMifyX learners.
-            </p>
-          </div>
-          <img class="illustration-img" src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
-            alt="Learning illustration" loading="lazy" />
-        </div>
-      </section>
+  <!-- Main content grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <!-- Left: description -->
+    <div>
+      <p class="text-gray-300 leading-relaxed text-base md:text-lg">
+        Empowering <span class="font-semibold text-white">STEMifyX</span> communities through quality education. <br>
+        Choose your level and begin learning with interactive content designed for STEMifyX learners.
+      </p>
+      <button
+        class="mt-6 bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-semibold transition-all shadow-md">
+        🚀 Start Learning
+      </button>
+    </div>
+
+    <!-- Right: illustration -->
+    <div class="flex justify-center md:justify-end">
+      <img src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
+        alt="Learning illustration"
+        class="w-64 md:w-80 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300" />
+    </div>
+  </div>
+</section>
+
+
 
       <section class="education-levels">
         <a href="primary/index.html" class="level-card primary">
           <div class="card-image">
             <span>📚</span>
           </div>
-          <h3 class="level-title" data-translate="primary.title">Primary</h3>
-          <p class="level-subtitle" data-translate="primary.description">Foundational learning for young minds</p>
+          <h3 class="color-white text-2xl" class="level-title" data-translate="primary.title">Primary</h3>
+          <p   class="level-subtitle text-m" data-translate="primary.description">Foundational learning for young minds</p>
         </a>
 
         <a href="secondary/index.html" class="level-card secondary">
           <div class="card-image">
             <span>🎓</span>
           </div>
-          <h3 class="level-title" data-translate="secondary.title">Secondary</h3>
+          <h3 class="color-white text-2xl" class="level-title" data-translate="secondary.title">Secondary</h3>
           <p class="level-subtitle" data-translate="secondary.description">Building knowledge and skills</p>
         </a>
 
@@ -1149,54 +1199,51 @@
           <div class="card-image">
             <span>🚀</span>
           </div>
-          <h3 class="level-title" data-translate="senior.title">Senior Secondary</h3>
+          <h3 class="color-white text-2xl" class="level-title" data-translate="senior.title">Senior Secondary</h3>
           <p class="level-subtitle" data-translate="senior.description">Advanced learning for career readiness</p>
         </a>
       </section>
 
-      <section class="mt-5 px-0">
-        <h2 class="text-2xl font-bold text-center text-white mb-8">🌱 Guidance & Support</h2>
+      <section class="mt-8">
+        <h2 class="text-2xl font-bold text-center text-white mb-8" data-translate="guidance.title">🌱 Guidance & Support
+        </h2>
 
         <div class="flex flex-col md:flex-row justify-center gap-7">
 
           <!-- Parent Guidance -->
-          <div class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl 
-                p-6 shadow-lg hover:shadow-2xl transition 
-                hover:border-gradient-to-r hover:from-green-400 hover:to-blue-500">
+          <div
+            class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl p-6 shadow-lg hover:shadow-2xl transition">
             <a href="parentGuidance/index.html">
-
-            <div class="text-4xl mb-4">👨‍👩‍👧</div>
-            <h3 class="font-bold text-lg text-white">Parent Guidance</h3>
-            <p class="text-gray-200 mt-2 text-sm">Resources and tips for parents to support students at home.</p>
+              <div class="text-4xl mb-4">👨‍👩‍👧</div>
+              <h3 class="font-bold text-lg text-white" data-translate="guidance.parent">Parent Guidance</h3>
+              <p class="text-gray-200 mt-2 text-sm" data-translate="guidance.parent.desc">Resources and tips for parents
+                to support students at home.</p>
             </a>
-
           </div>
 
           <!-- Future Guidance -->
-
-          <div class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl 
-    p-6 shadow-lg hover:shadow-2xl transition 
-    hover:border-gradient-to-r hover:from-pink-400 hover:to-purple-500">
+          <div
+            class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl p-6 shadow-lg hover:shadow-2xl transition">
             <a href="carrierGuidance/index.html">
               <div class="text-4xl mb-4">🚀</div>
-              <h3 class="font-bold text-lg text-white">Future Guidance</h3>
-              <p class="text-gray-200 mt-2 text-sm">Career counseling and higher education opportunities.</p>
+              <h3 class="font-bold text-lg text-white" data-translate="guidance.future">Future Guidance</h3>
+              <p class="text-gray-200 mt-2 text-sm" data-translate="guidance.future.desc">Career counseling and higher
+                education opportunities.</p>
             </a>
           </div>
 
           <!-- NGO Support -->
-          <div class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl 
-                p-6 shadow-lg hover:shadow-2xl transition 
-                hover:border-gradient-to-r hover:from-yellow-400 hover:to-orange-500">
-
-              <div class="text-4xl mb-4">🤝</div>
-              <h3 class="font-bold text-lg text-white">NGO Support</h3>
-              <p class="text-gray-200 mt-2 text-sm">Partnerships with NGOs to bring additional resources.</p>
-          
+          <div
+            class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl p-6 shadow-lg hover:shadow-2xl transition">
+            <div class="text-4xl mb-4">🤝</div>
+            <h3 class="font-bold text-lg text-white" data-translate="guidance.ngo">NGO Support</h3>
+            <p class="text-gray-200 mt-2 text-sm" data-translate="guidance.ngo.desc">Partnerships with NGOs to bring
+              additional resources.</p>
           </div>
 
         </div>
       </section>
+
       <!-- Enhanced Carousel Section -->
       <section class="carousel-section">
         <h2 class="carousel-title" data-translate="carousel.title">🔥 Popular STEM Topics</h2>
@@ -1318,10 +1365,73 @@
       </section>
     </main>
   </div>
+   <footer class="footer-gradient text-gray-300 py-12">
+  <div class="max mx-[50px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    
+    <!-- Brand + Description -->
+    <div class="space-y-4">
+      <h2 class="text-3xl font-bold brand-gradient">STEMifyX</h2>
+      <p class="text-sm leading-relaxed">
+        Revolutionizing STEM education in rural communities through gamified learning. 
+        Making Science, Technology, Engineering, and Math engaging and accessible for all.
+      </p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Quick Links</h3>
+      <ul class="space-y-3 text-sm">
+        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> About Us</a></li>
+        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Features</a></li>
+        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Pricing</a></li>
+        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Resources -->
+    <div>
+      <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Resources</h3>
+      <ul class="space-y-3 text-sm">
+        <li><a href="parentGuidance/index.html" class="hover:text-blue-400 flex items-center"><i class="fas fa-book-open text-blue-500 mr-2"></i> For Parents</a></li>
+        <li><a href="dashboard/teacherDashboard/teacherdashboard.html" class="hover:text-blue-400 flex items-center"><i class="fas fa-chalkboard-teacher text-blue-500 mr-2"></i> For Teachers</a></li>
+        <li><a href="NGO/index.html" class="hover:text-blue-400 flex items-center"><i class="fas fa-hands-helping text-blue-500 mr-2"></i> For NGOs</a></li>
+        <li><a href="carrierGuidance/index.html" class="hover:text-blue-400 flex items-center">  <i class="fas fa-user-graduate text-blue-500 mr-2"></i> For Students  </a></li>
+      </ul>
+    </div>
+
+    <!-- Contact & Social -->
+    <div>
+      <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Connect</h3>
+      <div class="space-y-3 text-sm mb-6">
+        <div class="flex items-center"><i class="fas fa-envelope text-blue-500 mr-2"></i> contact@stemifyx.com</div>
+        <div class="flex items-center"><i class="fas fa-phone text-blue-500 mr-2"></i> +1 (555) 123-4567</div>
+      </div>
+      <div class="flex space-x-4">
+        <a href="#" class="bg-blue-600 hover:bg-blue-700 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="bg-blue-400 hover:bg-blue-500 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="bg-blue-700 hover:bg-blue-800 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="bg-pink-600 hover:bg-pink-700 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Bar -->
+  <div class="border-t border-gray-700 mt-10 pt-6">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-center md:text-left text-sm text-gray-400 mb-4 md:mb-0">
+        © 2025 STEMifyX. All rights reserved.
+      </p>
+      <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center shadow-md transition">
+        <i class=""></i> Made with 💗 by Team ZenithX for india
+      </button>
+    </div>
+  </div>
+</footer>
 
 
 
-  <script>
+</body>
+ <script>
     // Enhanced translation data with all content
     const translations = {
       en: {
@@ -1564,13 +1674,13 @@
       let greeting = '';
 
       if (hour >= 5 && hour < 12) {
-        greeting = '🌅 Good Morning';
+        greeting = ' Good Morning';
       } else if (hour >= 12 && hour < 17) {
-        greeting = '☀️ Good Afternoon';
+        greeting = ' Good Afternoon';
       } else if (hour >= 17 && hour < 21) {
-        greeting = '🌇 Good Evening';
+        greeting = ' Good Evening';
       } else {
-        greeting = '🌙 Good Night';
+        greeting = ' Good Night';
       }
 
       // Update greeting text while preserving language
@@ -1879,8 +1989,4 @@
       };
     }
   </script>
-
-</body>
-
-
 </html>
