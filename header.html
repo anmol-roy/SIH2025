@@ -1,0 +1,228 @@
+<header class="glass-effect shadow-md sticky top-0 z-50 border-b border-gray-200 w-full">
+    <div class="w-full px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center py-4">
+
+            <!-- Logo Section -->
+            <div class="flex items-center space-x-3">
+                <a href="index.html" class="flex items-center space-x-3">
+                    <div class="w-11 h-11 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center text-white font-extrabold text-lg shadow">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl font-extrabold text-gray-900 tracking-tight">STEMify</h1>
+                        <p class="text-xs text-gray-500 font-medium uppercase tracking-wide">Smart Learning Platform</p>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Greeting Section -->
+            <div class="hidden md:block">
+                <h2 id="greetingText" class="text-base font-semibold text-gray-700">Welcome</h2>
+            </div>
+
+            <!-- Actions Section -->
+            <div class="flex items-center space-x-4">
+
+                <!-- Language Selector -->
+                <div class="relative">
+                    <button id="langBtn"
+                        class="flex items-center gap-2 bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-lg transition-all duration-200 text-sm font-medium">
+                        <!-- Will be updated by JS -->
+                        <span class="text-sm">🇬🇧</span>
+                        <span class="font-medium">English</span>
+                        <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+                    </button>
+
+                    <!-- Language Dropdown -->
+                    <div id="langDropdown"
+                        class="hidden absolute right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 w-48 overflow-hidden z-50">
+                        <div class="dropdown-item flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer"
+                            data-lang="en" data-flag="🇺🇸">
+                            <span class="text-lg">🇺🇸</span>
+                            <span class="text-gray-800 font-medium">English</span>
+                        </div>
+                        <div class="dropdown-item flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer"
+                            data-lang="hi" data-flag="🇮🇳">
+                            <span class="text-lg">🇮🇳</span>
+                            <span class="text-gray-800 font-medium">हिन्दी</span>
+                        </div>
+                        <div class="dropdown-item flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer"
+                            data-lang="or" data-flag="ଓଡ଼ିଶା">
+                            <span class="text-lg">ଓଡ଼ିଶା</span>
+                            <span class="text-gray-800 font-medium">ଓଡ଼ିଆ</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Login Button -->
+                <a href="login.html" id="loginLink">
+                    <button id="loginHeaderBtn"
+                     class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white px-5 py-2 rounded-xl font-semibold text-sm transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <span>Sign In</span>
+                    </button>
+                </a>
+                
+                <!-- After Login Section -->
+                <div id="afterLoginSection" class="hidden flex items-center space-x-4">
+
+                    <!-- Notifications -->
+                    <div class="relative inline-block">
+                        <button id="notifBtn"
+                            class="relative bg-gray-100 hover:bg-gray-200 w-10 h-10 rounded-xl flex items-center justify-center transition">
+                            <i class="fas fa-bell text-gray-700"></i>
+                            <span
+                                class="absolute -top-1 -right-1 bg-purple-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                                3
+                            </span>
+                        </button>
+
+                        <!-- Notification Card -->
+                        <div id="notification-card"
+                            class="hidden absolute right-0 mt-2 w-64 bg-white shadow-lg rounded-xl border border-gray-200 z-50">
+                            <div class="p-4 border-b font-semibold text-gray-700">Notifications</div>
+                            <ul class="max-h-60 overflow-y-auto">
+                                <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700">🔔 New level unlocked!</li>
+                                <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700">🎁 You received a reward.</li>
+                                <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm text-gray-700">📊 Progress updated successfully.</li>
+                            </ul>
+                            <div class="p-2 text-center text-sm text-blue-600 hover:underline cursor-pointer border-t">
+                                View All
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Profile -->
+                    <div class="relative">
+                        <button id="profileBtn"
+                            class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold flex items-center justify-center shadow-md">
+                            <span id="profileInitials">U</span>
+                        </button>
+
+                        <!-- Profile Dropdown -->
+                        <div id="profileDropdown"
+                            class="hidden absolute right-0 mt-2 bg-white rounded-xl shadow-xl border border-gray-200 w-60 overflow-hidden z-50">
+                            <div class="flex items-center gap-3 p-4 border-b border-gray-100">
+                                <div
+                                    class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white font-bold flex items-center justify-center">
+                                    <span id="dropdownInitials">U</span>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-gray-800" id="dropdownName">User Name</div>
+                                    <div class="text-sm text-gray-500" id="dropdownEmail">user@example.com</div>
+                                    <div class="text-xs text-gray-400" id="dropdownRole">Role</div>
+                                </div>
+                            </div>
+                            <a href="dashboard.html" class="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer">
+                                <i class="fas fa-chart-line text-gray-400 w-4"></i>
+                                <span class="text-gray-700">Dashboard</span>
+                            </a>
+                            <div class="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer">
+                                <i class="fas fa-cog text-gray-400 w-4"></i>
+                                <span class="text-gray-700">Settings</span>
+                            </div>
+                            <div id="logoutBtn"
+                                class="flex items-center gap-3 p-3 hover:bg-gray-50 cursor-pointer border-t border-gray-100">
+                                <i class="fas fa-sign-out-alt text-gray-400 w-4"></i>
+                                <span class="text-gray-700">Logout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<style>
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+    }
+</style>
+
+<script>
+    // Language data for header-only strings (optional, but consistent)
+    const headerTranslations = {
+        en: { signIn: "Sign In" },
+        hi: { signIn: "साइन इन करें" },
+        or: { signIn: "ସାଇନ୍ ଇନ୍ କରନ୍ତୁ" }
+    };
+
+    function updateHeaderLanguage(lang) {
+        // Update Sign In button
+        const loginBtn = document.querySelector('#loginHeaderBtn span');
+        if (loginBtn && headerTranslations[lang]) {
+            loginBtn.textContent = headerTranslations[lang].signIn;
+        }
+
+        // Update language button
+        const langBtn = document.getElementById('langBtn');
+        if (langBtn) {
+            const flagMap = { en: '🇺🇸', hi: '🇮🇳', or: 'ଓଡ଼ିଶା' };
+            const nameMap = { en: 'English', hi: 'हिन्दी', or: 'ଓଡ଼ିଆ' };
+            langBtn.innerHTML = `
+                <span class="text-sm">${flagMap[lang]}</span>
+                <span class="font-medium">${nameMap[lang]}</span>
+                <i class="fas fa-chevron-down text-xs text-gray-500"></i>
+            `;
+        }
+    }
+
+    // Initialize language from localStorage or default to 'en'
+    let currentLang = localStorage.getItem('selectedLanguage') || 'en';
+    updateHeaderLanguage(currentLang);
+
+    // Toggle helper
+    function toggleDropdown(dropdownId, shouldShow = null) {
+        const el = document.getElementById(dropdownId);
+        if (shouldShow !== null) {
+            el.classList.toggle('hidden', !shouldShow);
+        } else {
+            el.classList.toggle('hidden');
+        }
+    }
+
+    // Close all dropdowns
+    function closeAllDropdowns() {
+        toggleDropdown('notification-card', false);
+        toggleDropdown('langDropdown', false);
+        toggleDropdown('profileDropdown', false);
+    }
+
+    // Event Listeners
+    document.getElementById('notifBtn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        toggleDropdown('notification-card');
+    });
+
+    document.getElementById('langBtn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        toggleDropdown('langDropdown');
+    });
+
+    document.getElementById('profileBtn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeAllDropdowns();
+        toggleDropdown('profileDropdown');
+    });
+
+    // Language switch handler
+    document.querySelectorAll('.dropdown-item[data-lang]').forEach(item => {
+        item.addEventListener('click', () => {
+            const lang = item.dataset.lang;
+            localStorage.setItem('selectedLanguage', lang);
+            updateHeaderLanguage(lang);
+            // Notify main page to update translations
+            if (window.updatePageLanguage) {
+                window.updatePageLanguage(lang);
+            }
+            closeAllDropdowns();
+        });
+    });
+
+    // Close on outside click
+    document.addEventListener('click', closeAllDropdowns);
+</script>

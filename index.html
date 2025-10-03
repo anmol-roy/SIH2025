@@ -2,1991 +2,1160 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>STEMifyX - Home</title>
-  <!-- Fonts -->
-       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Noto+Sans+Devanagari:wght@400;700&display=swap"
-    rel="stylesheet" />
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Enhanced Carousel Animation */
-    @keyframes smoothScroll {
-      0% {
-        transform: translateX(0);
-      }
-
-      100% {
-        transform: translateX(-50%);
-      }
-    }
-
-    .carousel-container {
-      overflow: hidden;
-      position: relative;
-      width: 100%;
-      mask: linear-gradient(to right,
-          transparent 0%,
-          black 10%,
-          black 90%,
-          transparent 100%);
-    }
-
-    .scrolling-wrapper {
-      display: flex;
-      width: 200%;
-      animation: smoothScroll 30s linear infinite;
-      will-change: transform;
-    }
-
-    .scrolling-wrapper:hover {
-      animation-play-state: paused;
-    }
-
-    .carousel-item {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 16px;
-      box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.08),
-        0 1px 3px rgba(0, 0, 0, 0.1);
-      padding: 1.5rem;
-      min-width: 280px;
-      margin-right: 1.5rem;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-    }
-
-    .carousel-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-
-    .carousel-item:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.15),
-        0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .carousel-item:hover::before {
-      transform: scaleX(1);
-    }
-
-    .topic-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      display: block;
-      text-align: center;
-      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
-      transition: transform 0.3s ease;
-    }
-
-    .carousel-item:hover .topic-icon {
-      transform: scale(1.1) rotate(5deg);
-    }
-
-    .topic-title {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: #1f2937;
-      margin-bottom: 0.5rem;
-      line-height: 1.4;
-    }
-
-    .topic-description {
-      font-size: 0.875rem;
-      color: #6b7280;
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    :root {
-      --green: #2E7D32;
-      --blue: #1565C0;
-      --accent: #FBC02D;
-      --white: #ffffff;
-      --muted: rgba(255, 255, 255, 0.85);
-      --radius: 12px;
-    }
-
-    * {
-      box-sizing: border-box
-    }
-
-    body {
-      margin: 0;
-      font-family: "Poppins", "Noto Sans Devanagari", system-ui, Arial;
-      background: #f3f7f6;
-      color: #0b2a1f;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-    }
-
-    /* Enhanced Header Styles */
-    .site-header {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      color: var(--white);
-      padding: clamp(8px, 2vw, 16px) clamp(12px, 3vw, 20px);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: clamp(8px, 2vw, 16px);
-      box-shadow: 0 6px 18px rgba(16, 24, 32, 0.12);
-      flex-wrap: wrap;
-      min-height: 60px;
-      z-index: 1000;
-      backdrop-filter: blur(20px);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: clamp(6px, 1.5vw, 10px);
-      min-width: 0;
-      flex-shrink: 0;
-    }
-
-    .logo-fig {
-      width: clamp(36px, 6vw, 48px);
-      height: clamp(36px, 6vw, 48px);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06));
-      border-radius: clamp(6px, 1.5vw, 10px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    .logo-fig:hover {
-      transform: scale(1.05);
-    }
-
-    .brand-text {
-      display: flex;
-      flex-direction: column;
-      min-width: 0;
-    }
-
-    .app-name {
-      font-weight: 700;
-      line-height: 1.2;
-      font-size: clamp(0.8rem, 2.2vw, 1rem);
-      letter-spacing: 0.2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .app-sub {
-      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
-      opacity: 0.95;
-      margin-top: 2px;
-      font-family: "Noto Sans Devanagari", "Poppins";
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .greeting-wrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: clamp(4px, 1vw, 8px);
-      text-align: center;
-      flex: 1;
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    .greeting {
-      font-size: clamp(0.8rem, 2vw, 1.1rem);
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 100%;
-    }
-
-    .decor-row {
-      display: flex;
-      gap: clamp(4px, 1vw, 8px);
-      margin-top: clamp(2px, 0.5vw, 4px);
-      align-items: center;
-      justify-content: center;
-      opacity: 0.95;
-      flex-wrap: wrap;
-    }
-
-    .decor-row svg {
-      width: clamp(16px, 3vw, 22px);
-      height: clamp(16px, 3vw, 22px);
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: clamp(6px, 1.5vw, 10px);
-      flex-shrink: 0;
-    }
-
-    /* Enhanced Language Switcher */
-    .language-switcher {
-      position: relative;
-      display: inline-block;
-    }
-
-    .language-btn {
-      background: rgba(255, 255, 255, 0.15);
-      color: var(--white);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: clamp(6px, 1.5vw, 8px) clamp(8px, 2vw, 10px);
-      border-radius: clamp(6px, 1.5vw, 8px);
-      font-size: clamp(0.7rem, 1.6vw, 0.8rem);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: clamp(3px, 0.8vw, 5px);
-      transition: all 0.2s ease;
-      backdrop-filter: blur(10px);
-      min-width: clamp(70px, 12vw, 90px);
-      justify-content: center;
-      min-height: 36px;
-    }
-
-    .language-btn:hover {
-      background: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.3);
-      transform: translateY(-1px);
-    }
-
-    .dropdown-arrow {
-      font-size: 0.7em;
-      transition: transform 0.2s ease;
-    }
-
-    .language-switcher.open .dropdown-arrow {
-      transform: rotate(180deg);
-    }
-
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: calc(100% + 6px);
-      right: 0;
-      background: #ffffff;
-      border-radius: 8px;
-      min-width: clamp(160px, 22vw, 200px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
-      overflow: hidden;
-      z-index: 9999;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      backdrop-filter: blur(20px);
-    }
-
-    .dropdown-content::before {
-      content: "";
-      position: absolute;
-      top: -6px;
-      right: 16px;
-      border-width: 0 6px 6px 6px;
-      border-style: solid;
-      border-color: transparent transparent #fff transparent;
-      filter: drop-shadow(0 -2px 2px rgba(0, 0, 0, 0.1));
-    }
-
-    .dropdown-content button {
-      width: 100%;
-      padding: clamp(8px, 2vw, 10px) clamp(10px, 2.5vw, 14px);
-      border: none;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      gap: clamp(6px, 1.5vw, 10px);
-      cursor: pointer;
-      font-size: clamp(0.75rem, 1.8vw, 0.85rem);
-      color: #333;
-      transition: background 0.2s ease;
-      text-align: left;
-      min-height: 40px;
-    }
-
-    .dropdown-content button:hover {
-      background: #f8f9fa;
-      color: var(--blue);
-    }
-
-    .dropdown-content button.active {
-      background: #e3f2fd;
-      color: var(--blue);
-      font-weight: 600;
-    }
-
-    .flag {
-      font-size: clamp(14px, 2.5vw, 18px);
-      flex-shrink: 0;
-    }
-
-    .lang-info {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      gap: 2px;
-    }
-
-    .lang-name {
-      font-weight: 500;
-      line-height: 1.2;
-    }
-
-    .lang-native {
-      font-size: 0.85em;
-      opacity: 0.7;
-      font-family: "Noto Sans Devanagari", "Poppins", system-ui;
-    }
-
-    .language-switcher.open .dropdown-content {
-      display: block;
-      animation: fadeInDown 0.2s ease;
-    }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .login-btn {
-      background: var(--accent);
-      color: #111;
-      border: none;
-      padding: clamp(6px, 1.5vw, 10px) clamp(10px, 2.5vw, 14px);
-      border-radius: clamp(6px, 1.5vw, 8px);
-      font-weight: 700;
-      font-size: clamp(0.7rem, 1.8vw, 0.85rem);
-      cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.14);
-      transition: all 0.2s ease;
-      white-space: nowrap;
-      min-width: clamp(50px, 10vw, 70px);
-      text-decoration: none;
-      display: inline-block;
-      text-align: center;
-      min-height: 36px;
-      line-height: 1.4;
-    }
-
-    .login-btn:hover {
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
-      transform: translateY(-1px);
-    }
-
-    /* Main Content Styles */
-    .maindiv {
-      background: linear-gradient(135deg, rgba(230, 255, 231, 0.95), rgba(115, 166, 208, 0.95));
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .main-content {
-      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(0.75rem, 2vw, 1.5rem);
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      flex: 1;
-    }
-
-    .top-section {
-      background: rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(18px);
-      border-radius: clamp(8px, 2vw, 12px);
-      padding: clamp(1rem, 3vw, 2rem);
-      margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      animation: slideDown 0.8s ease-out;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    /* 🔥 streak + welcome */
-    .streak-info {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: clamp(1rem, 2.5vw, 1.5rem);
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .welcome-text {
-      font-size: clamp(1rem, 2.2vw, 1.4rem);
-      font-weight: 600;
-      color: var(--white);
-      line-height: 1.4;
-      flex: 1;
-      min-width: 180px;
-      text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    }
-
-    .streak-badge {
-      background: linear-gradient(135deg, #ff6b6b, #ffa726);
-      color: white;
-      padding: clamp(0.4rem, 1.5vw, 0.6rem) clamp(0.8rem, 2.5vw, 1.1rem);
-      border-radius: 16px;
-      font-weight: 600;
-      font-size: clamp(0.75rem, 1.8vw, 0.9rem);
-      animation: pulse 2s infinite;
-      box-shadow: 0 4px 18px rgba(255, 107, 107, 0.35);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-
-    /* 📖 text + image block */
-    .description {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: clamp(1rem, 4vw, 2rem);
-      flex-wrap: wrap;
-    }
-
-    .para {
-      flex: 1;
-      min-width: 220px;
-    }
-
-    .description-text {
-      color: rgba(255, 255, 255, 0.92);
-      font-size: clamp(0.9rem, 2vw, 1.1rem);
-      line-height: 1.7;
-      margin: 0;
-      text-align: justify;
-    }
-
-    .illustration-img {
-      border-radius: clamp(8px, 2vw, 12px);
-      height: auto;
-      max-height: clamp(180px, 25vw, 240px);
-      max-width: 100%;
-      object-fit: cover;
-      flex-shrink: 0;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .education-levels {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(clamp(250px, 30vw, 300px), 1fr));
-      gap: clamp(1rem, 3vw, 1.5rem);
-      margin-top: clamp(1.5rem, 3vw, 2rem);
-    }
-
-    .level-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: clamp(8px, 2vw, 12px);
-      padding: clamp(1rem, 3vw, 1.5rem);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      border: 2px solid transparent;
-      position: relative;
-      overflow: hidden;
-      animation: fadeInUp 0.6s ease-out forwards;
-      opacity: 0;
-      transform: translateY(30px);
-      backdrop-filter: blur(10px);
-      text-decoration: none;
-      display: block;
-      color: inherit;
-      min-height: clamp(200px, 25vw, 260px);
-    }
-
-    .level-card:nth-child(1) {
-      animation-delay: 0.2s;
-    }
-
-    .level-card:nth-child(2) {
-      animation-delay: 0.4s;
-    }
-
-    .level-card:nth-child(3) {
-      animation-delay: 0.6s;
-    }
-
-    .level-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .level-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      border-color: rgba(102, 126, 234, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-      text-decoration: none;
-      color: inherit;
-    }
-
-    .level-card:hover::before {
-      opacity: 1;
-    }
-
-    .card-image {
-      width: 100%;
-      height: clamp(80px, 15vw, 120px);
-      border-radius: clamp(6px, 1.5vw, 10px);
-      margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(2rem, 5vw, 2.8rem);
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s ease;
-    }
-
-    .level-card:hover .card-image {
-      transform: scale(1.05);
-    }
-
-    .primary .card-image {
-      background: linear-gradient(135deg, #5cff98 0%, #2aa1dd 100%);
-    }
-
-    .secondary .card-image {
-      background: linear-gradient(135deg, #2aa1dd 0%, #fed6e3 100%);
-    }
-
-    .senior-secondary .card-image {
-      background: linear-gradient(135deg, #d299c2 0%, #e8dc90 100%);
-    }
-
-    .level-title {
-      font-size: clamp(1rem, 2.5vw, 1.2rem);
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 0.5rem;
-      position: relative;
-      z-index: 2;
-    }
-
-    .level-subtitle {
-      color: #666;
-      font-size: clamp(0.8rem, 1.8vw, 0.85rem);
-      line-height: 1.5;
-      position: relative;
-      z-index: 2;
-      margin: 0;
-    }
-
-    /* Enhanced Carousel Section */
-    .carousel-section {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(15px);
-      border-radius: clamp(8px, 2vw, 12px);
-      padding: clamp(1.5rem, 4vw, 2.5rem) clamp(0.5rem, 2vw, 1.5rem);
-      margin-top: clamp(1.5rem, 4vw, 2.5rem);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    }
-
-    .carousel-title {
-      font-size: clamp(1.3rem, 3vw, 1.8rem);
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: clamp(1rem, 3vw, 1.5rem);
-      text-align: center;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeInUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-
-      50% {
-        transform: scale(1.05);
-      }
-
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    /* Enhanced Mobile Responsiveness */
-    @media (max-width: 768px) {
-      .site-header {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-        padding: 8px 12px;
-        min-height: 56px;
-      }
-
-      .brand {
-        justify-content: flex-start;
-        order: 1;
-        gap: 6px;
-      }
-
-      .actions {
-        order: 2;
-        justify-content: flex-end;
-        gap: 6px;
-      }
-
-      .greeting-wrap {
-        display: none;
-      }
-
-      .dropdown-content {
-        right: 0;
-        min-width: 160px;
-      }
-
-      .description {
-        flex-direction: column;
-        gap: 1.2rem;
-        text-align: center;
-      }
-
-      .illustration-img {
-        width: 100%;
-        max-width: 180px;
-        margin: 0 auto;
-      }
-
-      .education-levels {
-        grid-template-columns: 1fr;
-        gap: 1.2rem;
-      }
-
-      .streak-info {
-        flex-direction: column;
-        text-align: center;
-        gap: 0.8rem;
-      }
-
-      .welcome-text {
-        text-align: center;
-      }
-
-      .carousel-item {
-        min-width: 240px;
-        margin-right: 1rem;
-        padding: 1.2rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .main-content {
-        padding: 1rem 0.75rem;
-      }
-
-      .top-section {
-        padding: 1rem;
-        margin-bottom: 1.2rem;
-      }
-
-      .level-card {
-        padding: 1.2rem;
-        min-height: 180px;
-      }
-
-      .description-text {
-        text-align: center;
-        font-size: 0.85rem;
-      }
-
-      .carousel-item {
-        min-width: 200px;
-        margin-right: 0.8rem;
-        padding: 1rem;
-      }
-
-      .topic-icon {
-        font-size: 2.2rem;
-        margin-bottom: 0.8rem;
-      }
-
-      .topic-title {
-        font-size: 0.95rem;
-      }
-
-      .topic-description {
-        font-size: 0.8rem;
-      }
-    }
-
-    @media (max-width: 360px) {
-      .site-header {
-        padding: 6px 10px;
-        gap: 6px;
-        min-height: 52px;
-      }
-
-      .actions {
-        gap: 4px;
-      }
-
-      .language-btn {
-        padding: 4px 6px;
-        font-size: 0.65rem;
-        min-width: 60px;
-        min-height: 32px;
-      }
-
-      .login-btn {
-        padding: 4px 8px;
-        font-size: 0.65rem;
-        min-width: 45px;
-        min-height: 32px;
-      }
-
-      .dropdown-content {
-        min-width: 140px;
-        right: -5px;
-      }
-
-      .main-content {
-        padding: 0.8rem 0.6rem;
-      }
-
-      .top-section {
-        padding: 0.8rem;
-        margin-bottom: 1rem;
-      }
-
-      .streak-badge {
-        padding: 0.3rem 0.6rem;
-        font-size: 0.7rem;
-      }
-
-      .level-card {
-        padding: 1rem;
-        min-height: 160px;
-      }
-
-      .card-image {
-        height: 70px;
-        font-size: 1.8rem;
-        margin-bottom: 0.6rem;
-      }
-
-      .carousel-section {
-        padding: 1rem 0.3rem;
-      }
-
-      .carousel-item {
-        min-width: 180px;
-        margin-right: 0.6rem;
-        padding: 0.8rem;
-      }
-
-      .topic-icon {
-        font-size: 2rem;
-        margin-bottom: 0.6rem;
-      }
-
-      .topic-title {
-        font-size: 0.85rem;
-      }
-
-      .topic-description {
-        font-size: 0.75rem;
-      }
-
-      .carousel-title {
-        font-size: 1.1rem;
-        margin-bottom: 0.8rem;
-      }
-    }
-
-    /* Ultra small devices */
-    @media (max-width: 320px) {
-      .carousel-item {
-        min-width: 160px;
-        margin-right: 0.5rem;
-        padding: 0.7rem;
-      }
-
-      .topic-icon {
-        font-size: 1.8rem;
-      }
-
-      .topic-title {
-        font-size: 0.8rem;
-      }
-
-      .topic-description {
-        font-size: 0.7rem;
-      }
-    }
-
-    /* Touch devices optimization */
-    @media (hover: none) and (pointer: coarse) {
-
-      .language-btn,
-      .login-btn {
-        min-height: 40px;
-      }
-
-      .dropdown-content button {
-        padding: 12px 14px;
-        min-height: 40px;
-      }
-
-      .language-btn:hover,
-      .login-btn:hover {
-        transform: none;
-      }
-
-      .level-card {
-        min-height: 40px;
-      }
-
-      .level-card:hover {
-        transform: translateY(-4px) scale(1.01);
-      }
-
-      .carousel-item:hover {
-        transform: translateY(-4px) scale(1.01);
-      }
-    }
-
-    /* Dark mode support */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #1a1a1a;
-        color: #e0e0e0;
-      }
-
-      .site-header {
-        background: linear-gradient(135deg, rgba(46, 125, 50, 0.98), rgba(33, 150, 243, 0.98));
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-      }
-
-      .dropdown-content {
-        background: #2d2d2d;
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      .dropdown-content button {
-        color: #e0e0e0;
-      }
-
-      .dropdown-content button:hover {
-        background: #3d3d3d;
-        color: #64b5f6;
-      }
-
-      .maindiv {
-        background: linear-gradient(135deg, rgba(35, 46, 36, 0.95), rgba(34, 52, 68, 0.95));
-      }
-
-      .top-section {
-        background: rgba(255, 255, 255, 0.05);
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      .level-card {
-        background: rgba(255, 255, 255, 0.1);
-      }
-
-      .welcome-text {
-        color: #e0e0e0;
-      }
-
-      .description-text {
-        color: rgba(255, 255, 255, 0.8);
-      }
-
-      .carousel-item {
-        background: rgba(45, 45, 45, 0.9);
-        border-color: rgba(255, 255, 255, 0.1);
-      }
-
-      .topic-title {
-        color: #e0e0e0;
-      }
-
-      .topic-description {
-        color: #b0b0b0;
-      }
-    }
-
-    /* Reduced motion preference */
-    @media (prefers-reduced-motion: reduce) {
-
-      .language-btn,
-      .login-btn,
-      .level-card,
-      .streak-badge,
-      .card-image,
-      .top-section,
-      .carousel-item {
-        animation: none;
-        transition: none;
-      }
-
-      .language-btn:active,
-      .login-btn:active {
-        transform: none;
-      }
-
-      .dropdown-content {
-        animation: none;
-      }
-
-      .level-card:hover {
-        transform: none;
-      }
-
-      .level-card:hover .card-image {
-        transform: none;
-      }
-
-      .scrolling-wrapper {
-        animation: none;
-      }
-
-      .carousel-item:hover {
-        transform: none;
-      }
-    }
-
-    /* High contrast mode */
-    @media (prefers-contrast: high) {
-      .site-header {
-        background: #000;
-        border-bottom: 2px solid #fff;
-      }
-
-      .level-card {
-        border: 2px solid #333;
-        background: #cff9ff;
-      }
-
-      .carousel-item {
-        border: 2px solid #333;
-        background: #fff;
-      }
-
-      .dropdown-content {
-        border: 2px solid #333;
-      }
-    }
-    .illustration-img{
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-      border-radius: 10px;
-    }
-  </style>
-  <style>
-        .footer-gradient {
-            background: linear-gradient(135deg, #0d291f 0%, #111827 100%);
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STEMify - Gamified Learning Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <style>
+        :root {
+            --primary: #4F46E5;
+            --secondary: #10B981;
+            --accent: #F59E0B;
+            --dark: #1F2937;
+            --light: #F9FAFB;
         }
-        .brand-gradient {
-            background: linear-gradient(90deg, #3b82f6 0%, #1d4ed8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+
+        .header-gradient {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
         }
-        .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        .gamified-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
-        .hover-lift:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
         }
-        .social-icon {
+
+        .card-hover {
             transition: all 0.3s ease;
         }
-        .social-icon:hover {
-            transform: scale(1.2);
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
-        .made-by-btn {
-            background: linear-gradient(90deg, #8b5cf6 0%, #ec4899 100%);
+
+        .course-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .subject-icon {
+            background: linear-gradient(135deg, var(--primary) 0%, #8B5CF6 100%);
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease;
+            transform-origin: 50% 50%;
+        }
+
+        .gamified-badge {
+            background: linear-gradient(135deg, var(--accent) 0%, #F97316 100%);
+            box-shadow: 0 4px 6px -1px rgba(249, 158, 11, 0.3);
+        }
+
+        .streak-fire {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .gamified-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            box-shadow: 0 4px 6px -1px rgba(79, 70, 229, 0.3);
             transition: all 0.3s ease;
         }
-        .made-by-btn:hover {
-            background: linear-gradient(90deg, #ec4899 0%, #8b5cf6 100%);
+
+        .gamified-button:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+
+        .gamified-section {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .gamified-card {
+            border-radius: 16px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .gamified-footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #374151 100%);
+        }
+
+        /* Mobile Carousel + Dots */
+        @media (max-width: 767px) {
+            .mobile-carousel-wrapper {
+                position: relative;
+                margin-bottom: 2rem;
+            }
+
+            .mobile-carousel {
+                display: flex;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                gap: 1rem;
+                padding: 0.5rem 0;
+                scroll-behavior: smooth;
+                scrollbar-width: none;
+            }
+
+            .mobile-carousel::-webkit-scrollbar {
+                display: none;
+            }
+
+            .mobile-carousel>* {
+                scroll-snap-align: start;
+                flex: 0 0 auto;
+                min-width: 80%;
+            }
+
+            .carousel-dots {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+            }
+
+            .carousel-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #cbd5e1;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .carousel-dot.active {
+                background-color: #4F46E5;
+            }
         }
     </style>
 </head>
 
-<body>
-  <header class="site-header" role="banner" aria-label="App header">
-    <!-- Left: Brand -->
-    <div class="brand">
-      <div class="logo-fig" aria-hidden="true">
-        <a href="../Frontend/index.html">
-          <svg viewBox="0 0 64 64" width="32" height="32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="6" y="28" width="52" height="26" rx="4" fill="rgba(255,255,255,0.18)" />
-            <path d="M10 32c9-6 18-6 28 0 10-6 19-6 28 0" stroke="#fff" stroke-width="1.2" stroke-linecap="round" />
-            <path d="M32 12c6 0 12 6 12 6s-6 0-12 0-12-6-12-6 6 0 12 0z" fill="#fff" opacity="0.95" />
-          </svg>
-        </a>
-      </div>
-      <div class="brand-text">
-        <div class="app-name" data-translate="brand.name">STEMifyX</div>
-        <div class="app-sub" data-translate="brand.subtitle">नवीन शिक्षा • New Learning</div>
-      </div>
-    </div>
+<body class="bg-gray-50 font-sans">
+    <!-- Header will be loaded here -->
+    <div id="header-container"></div>
 
-    <!-- Center: Greeting -->
-    <div class="greeting-wrap">
-      <div class="greeting" id="greetingText">👋 नमस्ते! Welcome to STEMifyX</div>
-      <div class="decor-row" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M3 6h13v12H3z" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" />
-          <path d="M16 6h3v12" stroke="#fff" stroke-opacity="0.9" stroke-width="1.2" />
-        </svg>
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M20 4s-4 1-8 5-8 9-8 9 4-1 8-5 8-9 8-9z" stroke="#fff" stroke-opacity="0.9" stroke-width="1.1" />
-        </svg>
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 2l10 6-10 6L2 8 12 2z" stroke="#fff" stroke-opacity="0.95" stroke-width="1.1" />
-          <path d="M12 14v6" stroke="#fff" stroke-opacity="0.95" stroke-width="1.1" />
-        </svg>
-      </div>
-    </div>
-
-    <!-- Right: Actions -->
-    <div class="actions">
-      <!-- Language Switcher -->
-      <div class="language-switcher" id="languageSwitcher">
-        <button class="language-btn" id="languageBtn" aria-label="Select Language">
-          <span class="flag" id="currentFlag">🇬🇧</span>
-          <span id="currentLang">EN</span>
-          <span class="dropdown-arrow">▼</span>
-        </button>
-        <div class="dropdown-content" id="languageDropdown">
-          <button data-lang="en" data-flag="🇬🇧" data-name="English" data-native="English">
-            <span class="flag">🇬🇧</span>
-            <div class="lang-info">
-              <span class="lang-name">English</span>
-              <span class="lang-native">English</span>
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Hero Section -->
+        <section class="text-center py-16">
+            <div class="max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-6">
+                    <span data-i18n="heroTitle">Level Up Your</span>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">STEM
+                        Skills</span>
+                </h1>
+                <p class="text-xl text-gray-600 mb-8 max-w-2xl mx-auto" data-i18n="heroSubtitle">
+                    The gamified learning platform that makes STEM education engaging and accessible for everyone.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="login.html"
+                        class="gamified-button text-white px-8 py-4 rounded-xl font-semibold transition-colors flex items-center gap-2">
+                        <i class="fas fa-play-circle"></i>
+                        <span data-i18n="startJourney">Start Your Journey</span>
+                    </a>
+                    <a href="#features"
+                        class="border border-blue-600 text-blue-600 hover:bg-blue-50 px-8 py-4 rounded-xl font-semibold transition-colors flex items-center gap-2">
+                        <i class="fas fa-trophy"></i>
+                        <span data-i18n="viewLeaderboard">View Leaderboard</span>
+                    </a>
+                </div>
             </div>
-          </button>
-          <button data-lang="hi" data-flag="🇮🇳" data-name="Hindi" data-native="हिंदी">
-            <span class="flag">🇮🇳</span>
-            <div class="lang-info">
-              <span class="lang-name">Hindi</span>
-              <span class="lang-native">हिंदी</span>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="gamified-section rounded-3xl p-8 mb-12">
+            <div class="max-w-7xl mx-auto">
+                <!-- Hero Sub-Section -->
+                <div class="mb-12">
+                    <div class="gamified-gradient rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -translate-y-32 translate-x-32">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full translate-y-24 -translate-x-24">
+                        </div>
+                        <div class="relative max-w-2xl">
+                            <h1 class="text-4xl font-bold mb-4" data-i18n="exploreQuests">Master STEM with Interactive
+                                Learning</h1>
+                            <p class="text-lg mb-6 opacity-90" data-i18n="howItWorksDesc">Explore science, technology,
+                                engineering, and mathematics through engaging quests, hands-on projects, and
+                                personalized learning paths.</p>
+                            <div class="flex flex-wrap gap-4">
+                                <button onclick="redirectToRoleDashboard()"
+                                    class="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold shadow-md hover:shadow-lg transition-all duration-200 flex items-center gap-2">
+                                    <i class="fas fa-rocket"></i>
+                                    <span data-i18n="exploreQuestsBtn">Explore Quests</span>
+                                </button>
+                                <button
+                                    class="bg-transparent border-2 border-white text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/10 transition-all duration-200 flex items-center gap-2">
+                                    <i class="fas fa-play-circle"></i>
+                                    <span data-i18n="howItWorks">How It Works</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Control -->
+                <section class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-space-shuttle text-purple-600"></i>
+                            <span data-i18n="missionControl">Your Mission Control</span>
+                        </h2>
+                        <button onclick="redirectToRoleDashboard()"
+                            class="text-blue-600 font-semibold flex items-center gap-2 hover:text-blue-700 cursor-pointer">
+                            <span data-i18n="browseAll">View All</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Desktop -->
+                    <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="gamified-card p-6 card-hover cursor-pointer" onclick="redirectToRoleDashboard()">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700" data-i18n="playerLevel">Player Level</h3>
+                                <div
+                                    class="gamified-badge bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                    Level 5</div>
+                            </div>
+                            <div class="relative w-24 h-24 mx-auto mb-4">
+                                <svg class="w-full h-full" viewBox="0 0 36 36">
+                                    <path class="text-gray-200 stroke-current" stroke-width="3" fill="transparent"
+                                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    <path class="text-blue-600 stroke-current" stroke-width="3"
+                                        stroke-dasharray="75,100" stroke-linecap="round" fill="transparent"
+                                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                </svg>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-lg font-bold text-gray-700">75%</span>
+                                </div>
+                            </div>
+                            <p class="text-center text-gray-600" data-i18n="xpToNext">XP to next level</p>
+                        </div>
+                        <div class="gamified-card p-6 card-hover cursor-pointer" onclick="redirectToRoleDashboard()">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700" data-i18n="activeQuests">Active Quests</h3>
+                                <i class="fas fa-book-open text-green-500"></i>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 mb-2">4</div>
+                            <p class="text-gray-600" data-i18n="questsInProgress">Quests in progress</p>
+                        </div>
+                        <div class="gamified-card p-6 card-hover cursor-pointer" onclick="redirectToRoleDashboard()">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700" data-i18n="learningStreak">Learning Streak</h3>
+                                <i class="fas fa-fire text-orange-500 streak-fire"></i>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 mb-2">12</div>
+                            <p class="text-gray-600" data-i18n="daysInARow">Days in a row</p>
+                        </div>
+                        <div class="gamified-card p-6 card-hover cursor-pointer" onclick="redirectToRoleDashboard()">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="font-semibold text-gray-700" data-i18n="xpEarned">XP Earned</h3>
+                                <i class="fas fa-trophy text-yellow-500"></i>
+                            </div>
+                            <div class="text-3xl font-bold text-gray-800 mb-2">1,250</div>
+                            <p class="text-gray-600" data-i18n="keepLearning">Keep learning!</p>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Carousel -->
+                    <div class="md:hidden">
+                        <div class="mobile-carousel">
+                            <div class="gamified-card p-4 card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="font-semibold text-gray-700 text-sm" data-i18n="playerLevel">Player Level
+                                    </h3>
+                                    <div
+                                        class="gamified-badge bg-blue-600 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full">
+                                        Level 5</div>
+                                </div>
+                                <div class="relative w-20 h-20 mx-auto mb-3">
+                                    <svg class="w-full h-full" viewBox="0 0 36 36">
+                                        <path class="text-gray-200 stroke-current" stroke-width="2.5" fill="transparent"
+                                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                        <path class="text-blue-600 stroke-current" stroke-width="2.5"
+                                            stroke-dasharray="75,100" stroke-linecap="round" fill="transparent"
+                                            d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                                    </svg>
+                                    <div class="absolute inset-0 flex items-center justify-center">
+                                        <span class="text-base font-bold text-gray-700">75%</span>
+                                    </div>
+                                </div>
+                                <p class="text-center text-gray-600 text-sm" data-i18n="xpToNext">XP to next level</p>
+                            </div>
+                            <div class="gamified-card p-4 card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="font-semibold text-gray-700 text-sm" data-i18n="activeQuests">Active
+                                        Quests</h3>
+                                    <i class="fas fa-book-open text-green-500 text-sm"></i>
+                                </div>
+                                <div class="text-2xl font-bold text-gray-800 mb-2">4</div>
+                                <p class="text-gray-600 text-sm" data-i18n="questsInProgress">Quests in progress</p>
+                            </div>
+                            <div class="gamified-card p-4 card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="font-semibold text-gray-700 text-sm" data-i18n="learningStreak">Learning
+                                        Streak</h3>
+                                    <i class="fas fa-fire text-orange-500 streak-fire text-sm"></i>
+                                </div>
+                                <div class="text-2xl font-bold text-gray-800 mb-2">12</div>
+                                <p class="text-gray-600 text-sm" data-i18n="daysInARow">Days in a row</p>
+                            </div>
+                            <div class="gamified-card p-4 card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div class="flex justify-between items-center mb-3">
+                                    <h3 class="font-semibold text-gray-700 text-sm" data-i18n="xpEarned">XP Earned</h3>
+                                    <i class="fas fa-trophy text-yellow-500 text-sm"></i>
+                                </div>
+                                <div class="text-2xl font-bold text-gray-800 mb-2">1,250</div>
+                                <p class="text-gray-600 text-sm" data-i18n="keepLearning">Keep learning!</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Your Next Quests -->
+                <section class="mb-12">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fas fa-compass text-blue-600"></i>
+                            <span data-i18n="nextQuests">Your Next Quests</span>
+                        </h2>
+                        <button onclick="redirectToRoleDashboard()"
+                            class="text-blue-600 font-semibold flex items-center gap-2 hover:text-blue-700 cursor-pointer">
+                            <span data-i18n="browseAll">Browse All</span>
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Desktop -->
+                    <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="course-card shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div class="h-40 bg-gradient-to-r from-blue-500 to-purple-600 relative overflow-hidden">
+                                <div class="absolute top-4 left-4 bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium"
+                                    data-i18n="beginner">Beginner</div>
+                                <div class="absolute bottom-4 left-4">
+                                    <div
+                                        class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-blue-600 text-xl">
+                                        <i class="fas fa-code"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-lg text-gray-800 mb-2" data-i18n="introToProg">Introduction to
+                                    Programming</h3>
+                                <p class="text-gray-600 mb-4" data-i18n="introToProgDesc">Learn the fundamentals of
+                                    programming with Python</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center text-sm text-gray-500"><i
+                                            class="fas fa-play-circle mr-1"></i><span data-i18n="challenges12">12
+                                            challenges</span></div>
+                                    <div class="flex items-center text-sm text-gray-500"><i
+                                            class="fas fa-clock mr-1"></i><span data-i18n="duration8h30m">8h 30m</span>
+                                    </div>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-blue-600 h-2 rounded-full" style="width: 25%"></div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2"><span data-i18n="reward">Reward:</span> <span
+                                        class="font-semibold text-blue-600" data-i18n="codeNoviceBadge">Code Novice
+                                        Badge</span></p>
+                            </div>
+                        </div>
+                        <div class="course-card shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div class="h-40 bg-gradient-to-r from-green-500 to-blue-600 relative overflow-hidden">
+                                <div class="absolute top-4 left-4 bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium"
+                                    data-i18n="intermediate">Intermediate</div>
+                                <div class="absolute bottom-4 left-4">
+                                    <div
+                                        class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-green-500 text-xl">
+                                        <i class="fas fa-calculator"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-lg text-gray-800 mb-2" data-i18n="advMath">Advanced
+                                    Mathematics</h3>
+                                <p class="text-gray-600 mb-4" data-i18n="advMathDesc">Master calculus, algebra, and
+                                    mathematical reasoning</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center text-sm text-gray-500"><i
+                                            class="fas fa-play-circle mr-1"></i><span data-i18n="challenges18">18
+                                            challenges</span></div>
+                                    <div class="flex items-center text-sm text-gray-500"><i
+                                            class="fas fa-clock mr-1"></i><span data-i18n="duration12h15m">12h
+                                            15m</span></div>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-green-600 h-2 rounded-full" style="width: 40%"></div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2"><span data-i18n="reward">Reward:</span> <span
+                                        class="font-semibold text-green-600" data-i18n="mathWhizBadge">Math Whiz
+                                        Badge</span></p>
+                            </div>
+                        </div>
+                        <div class="course-card shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div class="h-40 bg-gradient-to-r from-purple-600 to-green-500 relative overflow-hidden">
+                                <div class="absolute top-4 left-4 bg-white/20 text-white px-3 py-1 rounded-full text-sm font-medium"
+                                    data-i18n="advanced">Advanced</div>
+                                <div class="absolute bottom-4 left-4">
+                                    <div
+                                        class="w-12 h-12 bg-white rounded-xl flex items-center justify-center text-purple-600 text-xl">
+                                        <i class="fas fa-flask"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="font-bold text-lg text-gray-800 mb-2" data-i18n="physicsEng">Physics &
+                                    Engineering</h3>
+                                <p class="text-gray-600 mb-4" data-i18n="physicsEngDesc">Explore mechanics,
+                                    thermodynamics, and engineering principles</p>
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="flex items-center text-sm text-gray-500"><i
+                                            class="fas fa-play-circle mr-1"></i><span data-i18n="challenges24">24
+                                            challenges</span></div>
+                                    <div class="flex items-center text-sm text-gray-500"><i
+                                            class="fas fa-clock mr-1"></i><span data-i18n="duration16h40m">16h
+                                            40m</span></div>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-2">
+                                    <div class="bg-purple-600 h-2 rounded-full" style="width: 15%"></div>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2"><span data-i18n="reward">Reward:</span> <span
+                                        class="font-semibold text-purple-600" data-i18n="scienceExplorerBadge">Science
+                                        Explorer Badge</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Carousel -->
+                    <div class="md:hidden">
+                        <div class="mobile-carousel">
+                            <div class="course-card shadow-md card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div class="h-32 bg-gradient-to-r from-blue-500 to-purple-600 relative overflow-hidden">
+                                    <div class="absolute top-3 left-3 bg-white/20 text-white px-2 py-0.5 rounded-full text-xs font-medium"
+                                        data-i18n="beginner">Beginner</div>
+                                    <div class="absolute bottom-3 left-3">
+                                        <div
+                                            class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-blue-600 text-base">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-base text-gray-800 mb-1" data-i18n="introToProg">
+                                        Introduction to Programming</h3>
+                                    <p class="text-gray-600 mb-2 text-sm" data-i18n="introToProgDesc">Learn the
+                                        fundamentals of programming with Python</p>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <div class="flex items-center text-xs text-gray-500"><i
+                                                class="fas fa-play-circle mr-1"></i><span data-i18n="challenges12">12
+                                                challenges</span></div>
+                                        <div class="flex items-center text-xs text-gray-500"><i
+                                                class="fas fa-clock mr-1"></i><span data-i18n="duration8h30m">8h
+                                                30m</span></div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-blue-600 h-1.5 rounded-full" style="width: 25%"></div>
+                                    </div>
+                                    <p class="text-[10px] text-gray-500 mt-1"><span data-i18n="reward">Reward:</span>
+                                        <span class="font-semibold text-blue-600" data-i18n="codeNoviceBadge">Code
+                                            Novice Badge</span></p>
+                                </div>
+                            </div>
+                            <div class="course-card shadow-md card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div class="h-32 bg-gradient-to-r from-green-500 to-blue-600 relative overflow-hidden">
+                                    <div class="absolute top-3 left-3 bg-white/20 text-white px-2 py-0.5 rounded-full text-xs font-medium"
+                                        data-i18n="intermediate">Intermediate</div>
+                                    <div class="absolute bottom-3 left-3">
+                                        <div
+                                            class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-green-500 text-base">
+                                            <i class="fas fa-calculator"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-base text-gray-800 mb-1" data-i18n="advMath">Advanced
+                                        Mathematics</h3>
+                                    <p class="text-gray-600 mb-2 text-sm" data-i18n="advMathDesc">Master calculus,
+                                        algebra, and mathematical reasoning</p>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <div class="flex items-center text-xs text-gray-500"><i
+                                                class="fas fa-play-circle mr-1"></i><span data-i18n="challenges18">18
+                                                challenges</span></div>
+                                        <div class="flex items-center text-xs text-gray-500"><i
+                                                class="fas fa-clock mr-1"></i><span data-i18n="duration12h15m">12h
+                                                15m</span></div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-green-600 h-1.5 rounded-full" style="width: 40%"></div>
+                                    </div>
+                                    <p class="text-[10px] text-gray-500 mt-1"><span data-i18n="reward">Reward:</span>
+                                        <span class="font-semibold text-green-600" data-i18n="mathWhizBadge">Math Whiz
+                                            Badge</span></p>
+                                </div>
+                            </div>
+                            <div class="course-card shadow-md card-hover cursor-pointer"
+                                onclick="redirectToRoleDashboard()">
+                                <div
+                                    class="h-32 bg-gradient-to-r from-purple-600 to-green-500 relative overflow-hidden">
+                                    <div class="absolute top-3 left-3 bg-white/20 text-white px-2 py-0.5 rounded-full text-xs font-medium"
+                                        data-i18n="advanced">Advanced</div>
+                                    <div class="absolute bottom-3 left-3">
+                                        <div
+                                            class="w-10 h-10 bg-white rounded-lg flex items-center justify-center text-purple-600 text-base">
+                                            <i class="fas fa-flask"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-bold text-base text-gray-800 mb-1" data-i18n="physicsEng">Physics &
+                                        Engineering</h3>
+                                    <p class="text-gray-600 mb-2 text-sm" data-i18n="physicsEngDesc">Explore mechanics,
+                                        thermodynamics, and engineering principles</p>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <div class="flex items-center text-xs text-gray-500"><i
+                                                class="fas fa-play-circle mr-1"></i><span data-i18n="challenges24">24
+                                                challenges</span></div>
+                                        <div class="flex items-center text-xs text-gray-500"><i
+                                                class="fas fa-clock mr-1"></i><span data-i18n="duration16h40m">16h
+                                                40m</span></div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-1.5">
+                                        <div class="bg-purple-600 h-1.5 rounded-full" style="width: 15%"></div>
+                                    </div>
+                                    <p class="text-[10px] text-gray-500 mt-1"><span data-i18n="reward">Reward:</span>
+                                        <span class="font-semibold text-purple-600"
+                                            data-i18n="scienceExplorerBadge">Science Explorer Badge</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Explore Learning Worlds -->
+                <section class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                        <i class="fas fa-globe-americas text-green-600"></i>
+                        <span data-i18n="exploreWorlds">Explore Learning Worlds</span>
+                    </h2>
+                    <!-- Desktop -->
+                    <div class="hidden md:grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-white rounded-2xl p-6 text-center shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div
+                                class="subject-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                <i class="fas fa-code"></i></div>
+                            <h3 class="font-semibold text-gray-800 mb-2" data-i18n="codeWorld">Code World</h3>
+                            <p class="text-sm text-gray-600" data-i18n="quests12">12 quests</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 text-center shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div
+                                class="subject-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                <i class="fas fa-calculator"></i></div>
+                            <h3 class="font-semibold text-gray-800 mb-2" data-i18n="mathGalaxy">Math Galaxy</h3>
+                            <p class="text-sm text-gray-600" data-i18n="quests8">8 quests</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 text-center shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div
+                                class="subject-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                <i class="fas fa-flask"></i></div>
+                            <h3 class="font-semibold text-gray-800 mb-2" data-i18n="scienceLab">Science Lab</h3>
+                            <p class="text-sm text-gray-600" data-i18n="quests10">10 quests</p>
+                        </div>
+                        <div class="bg-white rounded-2xl p-6 text-center shadow-md card-hover cursor-pointer"
+                            onclick="redirectToRoleDashboard()">
+                            <div
+                                class="subject-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                                <i class="fas fa-robot"></i></div>
+                            <h3 class="font-semibold text-gray-800 mb-2" data-i18n="engineeringHub">Engineering Hub</h3>
+                            <p class="text-sm text-gray-600" data-i18n="quests6">6 quests</p>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </button>
-          <button data-lang="or" data-flag="🏛️" data-name="Odia" data-native="ଓଡ଼ିଆ">
-            <span class="flag">🏛️</span>
-            <div class="lang-info">
-              <span class="lang-name">Odia</span>
-              <span class="lang-native">ଓଡ଼ିଆ</span>
-            </div>
-          </button>
-        </div>
-      </div>
-      <a href="login.html" class="login-btn" data-translate="login">Login</a>
-    </div>
-  </header>
 
-  <div class="maindiv">
-    <main class="main-content">
-     <section class="top-section p-6 md:p-10 max-w-6xl mx-auto">
-  <!-- Top row with text + streak badge -->
-  <div class="flex items-center justify-between mb-6">
-    <h2 class="text-2xl md:text-3xl font-bold">
-      Start your learning journey today!
-    </h2>
-    <div class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm md:text-base font-medium shadow-md">
-      🔥 Streak 7 days
-    </div>
-  </div>
+            <!-- Education Levels -->
+            <section class="education-levels grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
+                <a href="primary/index.html"
+                    class="level-card bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 text-white text-center shadow-md card-hover relative overflow-hidden">
+                    <div class="card-image text-4xl mb-4">📚</div>
+                    <h3 class="text-2xl font-bold mb-2" data-i18n="primary">Primary Explorer</h3>
+                    <p class="text-blue-100" data-i18n="primaryDesc">Foundational learning for young minds</p>
+                </a>
+                <a href="secondary/index.html"
+                    class="level-card bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white text-center shadow-md card-hover relative overflow-hidden">
+                    <div class="card-image text-4xl mb-4">🎓</div>
+                    <h3 class="text-2xl font-bold mb-2" data-i18n="secondary">Secondary Adventurer</h3>
+                    <p class="text-green-100" data-i18n="secondaryDesc">Building knowledge and skills</p>
+                </a>
+                <a href="seniorSecondary/index.html"
+                    class="level-card bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl p-6 text-white text-center shadow-md card-hover relative overflow-hidden">
+                    <div class="card-image text-4xl mb-4">🚀</div>
+                    <h3 class="text-2xl font-bold mb-2" data-i18n="senior">Senior Master</h3>
+                    <p class="text-purple-100" data-i18n="seniorDesc">Advanced learning for career readiness</p>
+                </a>
+            </section>
 
-  <!-- Main content grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-    <!-- Left: description -->
-    <div>
-      <p class="text-gray-300 leading-relaxed text-base md:text-lg">
-        Empowering <span class="font-semibold text-white">STEMifyX</span> communities through quality education. <br>
-        Choose your level and begin learning with interactive content designed for STEMifyX learners.
-      </p>
-      <button
-        class="mt-6 bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded-xl font-semibold transition-all shadow-md">
-        🚀 Start Learning
-      </button>
-    </div>
-
-    <!-- Right: illustration -->
-    <div class="flex justify-center md:justify-end">
-      <img src="assets/images/ChatGPT Image Sep 24, 2025, 06_46_21 AM.png"
-        alt="Learning illustration"
-        class="w-64 md:w-80 rounded-xl shadow-lg hover:scale-105 transition-transform duration-300" />
-    </div>
-  </div>
-</section>
-
-
-
-      <section class="education-levels">
-        <a href="primary/index.html" class="level-card primary">
-          <div class="card-image">
-            <span>📚</span>
-          </div>
-          <h3 class="color-white text-2xl" class="level-title" data-translate="primary.title">Primary</h3>
-          <p   class="level-subtitle text-m" data-translate="primary.description">Foundational learning for young minds</p>
-        </a>
-
-        <a href="secondary/index.html" class="level-card secondary">
-          <div class="card-image">
-            <span>🎓</span>
-          </div>
-          <h3 class="color-white text-2xl" class="level-title" data-translate="secondary.title">Secondary</h3>
-          <p class="level-subtitle" data-translate="secondary.description">Building knowledge and skills</p>
-        </a>
-
-        <a href="seniorSecondary/index.html" class="level-card senior-secondary">
-          <div class="card-image">
-            <span>🚀</span>
-          </div>
-          <h3 class="color-white text-2xl" class="level-title" data-translate="senior.title">Senior Secondary</h3>
-          <p class="level-subtitle" data-translate="senior.description">Advanced learning for career readiness</p>
-        </a>
-      </section>
-
-      <section class="mt-8">
-        <h2 class="text-2xl font-bold text-center text-white mb-8" data-translate="guidance.title">🌱 Guidance & Support
-        </h2>
-
-        <div class="flex flex-col md:flex-row justify-center gap-7">
-
-          <!-- Parent Guidance -->
-          <div
-            class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl p-6 shadow-lg hover:shadow-2xl transition">
-            <a href="parentGuidance/index.html">
-              <div class="text-4xl mb-4">👨‍👩‍👧</div>
-              <h3 class="font-bold text-lg text-white" data-translate="guidance.parent">Parent Guidance</h3>
-              <p class="text-gray-200 mt-2 text-sm" data-translate="guidance.parent.desc">Resources and tips for parents
-                to support students at home.</p>
-            </a>
-          </div>
-
-          <!-- Future Guidance -->
-          <div
-            class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl p-6 shadow-lg hover:shadow-2xl transition">
-            <a href="carrierGuidance/index.html">
-              <div class="text-4xl mb-4">🚀</div>
-              <h3 class="font-bold text-lg text-white" data-translate="guidance.future">Future Guidance</h3>
-              <p class="text-gray-200 mt-2 text-sm" data-translate="guidance.future.desc">Career counseling and higher
-                education opportunities.</p>
-            </a>
-          </div>
-
-          <!-- NGO Support -->
-          <div
-            class="flex-1 bg-white/10 backdrop-blur-lg border border-transparent rounded-xl p-6 shadow-lg hover:shadow-2xl transition">
-            <div class="text-4xl mb-4">🤝</div>
-            <h3 class="font-bold text-lg text-white" data-translate="guidance.ngo">NGO Support</h3>
-            <p class="text-gray-200 mt-2 text-sm" data-translate="guidance.ngo.desc">Partnerships with NGOs to bring
-              additional resources.</p>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Enhanced Carousel Section -->
-      <section class="carousel-section">
-        <h2 class="carousel-title" data-translate="carousel.title">🔥 Popular STEM Topics</h2>
-
-        <!-- Carousel Container -->
-        <div class="carousel-container">
-          <div class="scrolling-wrapper" id="carouselWrapper">
-
-            <!-- First Set -->
-            <div class="flex">
-              <div class="carousel-item">
-                <div class="topic-icon">⚡</div>
-                <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
-                <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.
-                </p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">➗</div>
-                <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
-                <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.
-                </p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">💻</div>
-                <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
-                <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🌍</div>
-                <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
-                <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🧬</div>
-                <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
-                <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🌌</div>
-                <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
-                <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🧪</div>
-                <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
-                <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.
-                </p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">📐</div>
-                <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
-                <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
-              </div>
-            </div>
-
-            <!-- Second Set (Exact Duplicate for Loop) -->
-            <div class="flex">
-              <div class="carousel-item">
-                <div class="topic-icon">⚡</div>
-                <h3 class="topic-title" data-translate="topics.physics">Physics – Electricity</h3>
-                <p class="topic-description" data-translate="topics.physics.desc">Circuits, current, and energy flow.
-                </p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">➗</div>
-                <h3 class="topic-title" data-translate="topics.algebra">Math – Algebra</h3>
-                <p class="topic-description" data-translate="topics.algebra.desc">Equations and problem-solving skills.
-                </p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">💻</div>
-                <h3 class="topic-title" data-translate="topics.coding">Coding – Basics</h3>
-                <p class="topic-description" data-translate="topics.coding.desc">Fun coding games and challenges.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🌍</div>
-                <h3 class="topic-title" data-translate="topics.geography">Geography – Earth</h3>
-                <p class="topic-description" data-translate="topics.geography.desc">Maps, climates, and resources.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🧬</div>
-                <h3 class="topic-title" data-translate="topics.biology">Biology – Genetics</h3>
-                <p class="topic-description" data-translate="topics.biology.desc">DNA, traits, and inheritance.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🌌</div>
-                <h3 class="topic-title" data-translate="topics.astronomy">Astronomy – Space</h3>
-                <p class="topic-description" data-translate="topics.astronomy.desc">Planets, stars, and galaxies.</p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">🧪</div>
-                <h3 class="topic-title" data-translate="topics.chemistry">Chemistry – Reactions</h3>
-                <p class="topic-description" data-translate="topics.chemistry.desc">Experiments with acids and bases.
-                </p>
-              </div>
-
-              <div class="carousel-item">
-                <div class="topic-icon">📐</div>
-                <h3 class="topic-title" data-translate="topics.geometry">Math – Geometry</h3>
-                <p class="topic-description" data-translate="topics.geometry.desc">Shapes, angles, and theorems.</p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
+            <!-- Guidance Section -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center" data-i18n="guidance">Guidance & Support
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-xl p-6 shadow-md card-hover">
+                        <div
+                            class="guidance-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                            👨‍👩‍👧</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2 text-center" data-i18n="alliesCamp">Allies' Camp
+                        </h3>
+                        <p class="text-gray-600 text-center" data-i18n="alliesDesc">Resources and tips for parents to
+                            support students at home.</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md card-hover">
+                        <div
+                            class="guidance-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                            🚀</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2 text-center" data-i18n="careerMap">Career Map
+                        </h3>
+                        <p class="text-gray-600 text-center" data-i18n="careerDesc">Career counseling and higher
+                            education opportunities.</p>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md card-hover">
+                        <div
+                            class="guidance-icon w-16 h-16 rounded-2xl flex items-center justify-center text-white text-2xl mx-auto mb-4">
+                            🤝</div>
+                        <h3 class="font-bold text-lg text-gray-800 mb-2 text-center" data-i18n="guildPartnerships">Guild
+                            Partnerships</h3>
+                        <p class="text-gray-600 text-center" data-i18n="guildDesc">Partnerships with NGOs to bring
+                            additional resources.</p>
+                    </div>
+                </div>
+            </section>
+        </section>
     </main>
-  </div>
-   <footer class="footer-gradient text-gray-300 py-12">
-  <div class="max mx-[50px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-    
-    <!-- Brand + Description -->
-    <div class="space-y-4">
-      <h2 class="text-3xl font-bold brand-gradient">STEMifyX</h2>
-      <p class="text-sm leading-relaxed">
-        Revolutionizing STEM education in rural communities through gamified learning. 
-        Making Science, Technology, Engineering, and Math engaging and accessible for all.
-      </p>
-    </div>
 
-    <!-- Quick Links -->
-    <div>
-      <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Quick Links</h3>
-      <ul class="space-y-3 text-sm">
-        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> About Us</a></li>
-        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Features</a></li>
-        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Pricing</a></li>
-        <li><a href="#" class="hover:text-blue-400 flex items-center"><i class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Contact</a></li>
-      </ul>
-    </div>
+    <footer class="gamified-footer text-gray-300 py-12 mt-12">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="space-y-4">
+                <h2 class="text-3xl font-bold text-white">STEMifyX</h2>
+                <p class="text-sm leading-relaxed" data-i18n="footerDesc">
+                    Revolutionizing STEM education in rural communities through gamified learning.
+                    Making Science, Technology, Engineering, and Math engaging and accessible for all.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Quick Links</h3>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"><i
+                                class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"><i
+                                class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Features</a></li>
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"><i
+                                class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Pricing</a></li>
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"><i
+                                class="fas fa-chevron-right text-blue-500 mr-2 text-xs"></i> Contact</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Resources</h3>
+                <ul class="space-y-3 text-sm">
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"
+                            onclick="redirectToDashboard('parent')"><i class="fas fa-book-open text-blue-500 mr-2"></i>
+                            <span data-i18n="alliesCamp">Allies' Camp</span></a></li>
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"
+                            onclick="redirectToDashboard('teacher')"><i
+                                class="fas fa-chalkboard-teacher text-blue-500 mr-2"></i> <span
+                                data-i18n="mentorsHub">Mentors' Hub</span></a></li>
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"
+                            onclick="redirectToDashboard('admin')"><i
+                                class="fas fa-hands-helping text-blue-500 mr-2"></i> <span
+                                data-i18n="guildPartnerships">Guild Partnerships</span></a></li>
+                    <li><a href="#" class="hover:text-blue-400 flex items-center"
+                            onclick="redirectToDashboard('student')"><i
+                                class="fas fa-user-graduate text-blue-500 mr-2"></i> <span
+                                data-i18n="adventurersGuild">Adventurers' Guild</span></a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Connect</h3>
+                <div class="space-y-3 text-sm mb-6">
+                    <div class="flex items-center"><i class="fas fa-envelope text-blue-500 mr-2"></i>
+                        contact@stemifyx.com</div>
+                    <div class="flex items-center"><i class="fas fa-phone text-blue-500 mr-2"></i> +1 (555) 123-4567
+                    </div>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#"
+                        class="bg-blue-600 hover:bg-blue-700 w-9 h-9 rounded-full flex items-center justify-center"><i
+                            class="fab fa-facebook-f"></i></a>
+                    <a href="#"
+                        class="bg-blue-400 hover:bg-blue-500 w-9 h-9 rounded-full flex items-center justify-center"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="#"
+                        class="bg-blue-700 hover:bg-blue-800 w-9 h-9 rounded-full flex items-center justify-center"><i
+                            class="fab fa-linkedin-in"></i></a>
+                    <a href="#"
+                        class="bg-pink-600 hover:bg-pink-700 w-9 h-9 rounded-full flex items-center justify-center"><i
+                            class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-700 mt-10 pt-6">
+            <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-center md:text-left text-sm text-gray-400 mb-4 md:mb-0">
+                    © 2025 STEMifyX. All rights reserved.
+                </p>
+                <button
+                    class="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center shadow-md transition">
+                    Made with 💗 by Team ZenithX for India
+                </button>
+            </div>
+        </div>
+    </footer>
 
-    <!-- Resources -->
-    <div>
-      <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Resources</h3>
-      <ul class="space-y-3 text-sm">
-        <li><a href="parentGuidance/index.html" class="hover:text-blue-400 flex items-center"><i class="fas fa-book-open text-blue-500 mr-2"></i> For Parents</a></li>
-        <li><a href="dashboard/teacherDashboard/teacherdashboard.html" class="hover:text-blue-400 flex items-center"><i class="fas fa-chalkboard-teacher text-blue-500 mr-2"></i> For Teachers</a></li>
-        <li><a href="NGO/index.html" class="hover:text-blue-400 flex items-center"><i class="fas fa-hands-helping text-blue-500 mr-2"></i> For NGOs</a></li>
-        <li><a href="carrierGuidance/index.html" class="hover:text-blue-400 flex items-center">  <i class="fas fa-user-graduate text-blue-500 mr-2"></i> For Students  </a></li>
-      </ul>
-    </div>
+    <script>
+        // === TRANSLATIONS ===
+        const translations = {
+            en: {
+                heroTitle: "Level Up Your",
+                heroSubtitle: "The gamified learning platform that makes STEM education engaging and accessible for everyone.",
+                startJourney: "Start Your Journey",
+                viewLeaderboard: "View Leaderboard",
+                exploreQuests: "Master STEM with Interactive Learning",
+                howItWorksDesc: "Explore science, technology, engineering, and mathematics through engaging quests, hands-on projects, and personalized learning paths.",
+                exploreQuestsBtn: "Explore Quests",
+                howItWorks: "How It Works",
+                missionControl: "Your Mission Control",
+                playerLevel: "Player Level",
+                xpToNext: "XP to next level",
+                activeQuests: "Active Quests",
+                questsInProgress: "Quests in progress",
+                learningStreak: "Learning Streak",
+                daysInARow: "Days in a row",
+                xpEarned: "XP Earned",
+                keepLearning: "Keep learning!",
+                nextQuests: "Your Next Quests",
+                browseAll: "View All",
+                beginner: "Beginner",
+                intermediate: "Intermediate",
+                advanced: "Advanced",
+                introToProg: "Introduction to Programming",
+                introToProgDesc: "Learn the fundamentals of programming with Python",
+                advMath: "Advanced Mathematics",
+                advMathDesc: "Master calculus, algebra, and mathematical reasoning",
+                physicsEng: "Physics & Engineering",
+                physicsEngDesc: "Explore mechanics, thermodynamics, and engineering principles",
+                challenges12: "12 challenges",
+                challenges18: "18 challenges",
+                challenges24: "24 challenges",
+                duration8h30m: "8h 30m",
+                duration12h15m: "12h 15m",
+                duration16h40m: "16h 40m",
+                reward: "Reward:",
+                codeNoviceBadge: "Code Novice Badge",
+                mathWhizBadge: "Math Whiz Badge",
+                scienceExplorerBadge: "Science Explorer Badge",
+                exploreWorlds: "Explore Learning Worlds",
+                codeWorld: "Code World",
+                mathGalaxy: "Math Galaxy",
+                scienceLab: "Science Lab",
+                engineeringHub: "Engineering Hub",
+                quests12: "12 quests",
+                quests8: "8 quests",
+                quests10: "10 quests",
+                quests6: "6 quests",
+                primary: "Primary Explorer",
+                primaryDesc: "Foundational learning for young minds",
+                secondary: "Secondary Adventurer",
+                secondaryDesc: "Building knowledge and skills",
+                senior: "Senior Master",
+                seniorDesc: "Advanced learning for career readiness",
+                guidance: "Guidance & Support",
+                alliesCamp: "Allies' Camp",
+                alliesDesc: "Resources and tips for parents to support students at home.",
+                careerMap: "Career Map",
+                careerDesc: "Career counseling and higher education opportunities.",
+                guildPartnerships: "Guild Partnerships",
+                guildDesc: "Partnerships with NGOs to bring additional resources.",
+                footerDesc: "Revolutionizing STEM education in rural communities through gamified learning. Making Science, Technology, Engineering, and Math engaging and accessible for all.",
+                mentorsHub: "Mentors' Hub",
+                adventurersGuild: "Adventurers' Guild"
+            },
+            hi: {
+                heroTitle: "अपने",
+                heroSubtitle: "वह गेमीफाइड लर्निंग प्लेटफॉर्म जो STEM शिक्षा को सभी के लिए आकर्षक और सुलभ बनाता है।",
+                startJourney: "अपनी यात्रा शुरू करें",
+                viewLeaderboard: "लीडरबोर्ड देखें",
+                exploreQuests: "इंटरैक्टिव सीख के साथ STEM में महारत हासिल करें",
+                howItWorksDesc: "आकर्षक क्वेस्ट्स, हाथों से काम करने वाले प्रोजेक्ट्स और व्यक्तिगत सीख के रास्तों के माध्यम से विज्ञान, प्रौद्योगिकी, इंजीनियरिंग और गणित का अन्वेषण करें।",
+                exploreQuestsBtn: "क्वेस्ट्स एक्सप्लोर करें",
+                howItWorks: "यह कैसे काम करता है",
+                missionControl: "आपका मिशन कंट्रोल",
+                playerLevel: "खिलाड़ी स्तर",
+                xpToNext: "अगले स्तर के लिए XP",
+                activeQuests: "सक्रिय क्वेस्ट्स",
+                questsInProgress: "प्रगति में क्वेस्ट्स",
+                learningStreak: "लर्निंग स्ट्रीक",
+                daysInARow: "लगातार दिन",
+                xpEarned: "XP अर्जित",
+                keepLearning: "सीखते रहें!",
+                nextQuests: "आपके अगले क्वेस्ट्स",
+                browseAll: "सभी देखें",
+                beginner: "शुरुआती",
+                intermediate: "मध्यम",
+                advanced: "उन्नत",
+                introToProg: "प्रोग्रामिंग का परिचय",
+                introToProgDesc: "पायथन के साथ प्रोग्रामिंग के मूल सिद्धांत सीखें",
+                advMath: "उन्नत गणित",
+                advMathDesc: "कैलकुलस, बीजगणित और गणितीय तर्क में महारत हासिल करें",
+                physicsEng: "भौतिकी और इंजीनियरिंग",
+                physicsEngDesc: "यांत्रिकी, ऊष्मप्रवैगिकी और इंजीनियरिंग सिद्धांतों का अन्वेषण करें",
+                challenges12: "12 चुनौतियाँ",
+                challenges18: "18 चुनौतियाँ",
+                challenges24: "24 चुनौतियाँ",
+                duration8h30m: "8 घंटे 30 मिनट",
+                duration12h15m: "12 घंटे 15 मिनट",
+                duration16h40m: "16 घंटे 40 मिनट",
+                reward: "इनाम:",
+                codeNoviceBadge: "कोड नौसिखिया बैज",
+                mathWhizBadge: "गणित विशारद बैज",
+                scienceExplorerBadge: "विज्ञान अन्वेषक बैज",
+                exploreWorlds: "लर्निंग वर्ल्ड्स एक्सप्लोर करें",
+                codeWorld: "कोड वर्ल्ड",
+                mathGalaxy: "गणित गैलेक्सी",
+                scienceLab: "विज्ञान प्रयोगशाला",
+                engineeringHub: "इंजीनियरिंग हब",
+                quests12: "12 क्वेस्ट्स",
+                quests8: "8 क्वेस्ट्स",
+                quests10: "10 क्वेस्ट्स",
+                quests6: "6 क्वेस्ट्स",
+                primary: "प्राथमिक एक्सप्लोरर",
+                primaryDesc: "छोटे दिमागों के लिए आधारभूत सीख",
+                secondary: "माध्यमिक एडवेंचरर",
+                secondaryDesc: "ज्ञान और कौशल बनाना",
+                senior: "वरिष्ठ मास्टर",
+                seniorDesc: "करियर की तैयारी के लिए उन्नत सीख",
+                guidance: "मार्गदर्शन और समर्थन",
+                alliesCamp: "एलायज़ कैंप",
+                alliesDesc: "माता-पिता के लिए संसाधन और सुझाव ताकि वे घर पर छात्रों का समर्थन कर सकें।",
+                careerMap: "करियर मैप",
+                careerDesc: "करियर परामर्श और उच्च शिक्षा के अवसर।",
+                guildPartnerships: "गिल्ड साझेदारी",
+                guildDesc: "अतिरिक्त संसाधन लाने के लिए गैर-सरकारी संगठनों के साथ साझेदारी।",
+                footerDesc: "गेमीफाइड सीख के माध्यम से ग्रामीण समुदायों में STEM शिक्षा को क्रांतिकारी बनाना। विज्ञान, प्रौद्योगिकी, इंजीनियरिंग और गणित को सभी के लिए आकर्षक और सुलभ बनाना।",
+                mentorsHub: "मेंटर्स हब",
+                adventurersGuild: "एडवेंचरर्स गिल्ड"
+            },
+            or: {
+                heroTitle: "ଆପଣଙ୍କ",
+                heroSubtitle: "ଏହି ଗେମିଫାଇଡ୍ ଲର୍ନିଂ ପ୍ଲାଟଫର୍ମ STEM ଶିକ୍ଷାକୁ ସମସ୍ତଙ୍କ ପାଇଁ ଆକର୍ଷକ ଓ ସୁଲଭ କରିଥାଏ।",
+                startJourney: "ଆପଣଙ୍କ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ",
+                viewLeaderboard: "ଲିଡରବୋର୍ଡ ଦେଖନ୍ତୁ",
+                exploreQuests: "ଇଣ୍ଟରାକ୍ଟିଭ୍ ଲର୍ନିଂ ସହିତ STEM ରେ ଦକ୍ଷତା ବୃଦ୍ଧି କରନ୍ତୁ",
+                howItWorksDesc: "ଆକର୍ଷକ କ୍ୱେଷ୍ଟ, ହାତରେ କାମ କରାଯାଉଥିବା ପ୍ରକଳ୍ପ ଓ ବ୍ୟକ୍ତିଗତ ଲର୍ନିଂ ପଥ ମାଧ୍ୟମରେ ବିଜ୍ଞାନ, ପ୍ରଯୁକ୍ତି, ଇଞ୍ଜିନିୟରିଂ ଓ ଗଣିତର ଅନ୍ୱେଷଣ କରନ୍ତୁ।",
+                exploreQuestsBtn: "କ୍ୱେଷ୍ଟଗୁଡ଼ିକ ଅନ୍ୱେଷଣ କରନ୍ତୁ",
+                howItWorks: "ଏହା କିପରି କାମ କରେ",
+                missionControl: "ଆପଣଙ୍କ ମିଶନ୍ କଣ୍ଟ୍ରୋଲ୍",
+                playerLevel: "ଖେଳାଳି ସ୍ତର",
+                xpToNext: "ପରବର୍ତ୍ତୀ ସ୍ତର ପାଇଁ XP",
+                activeQuests: "ସକ୍ରିୟ କ୍ୱେଷ୍ଟ",
+                questsInProgress: "ପ୍ରଗତିରେ ଥିବା କ୍ୱେଷ୍ଟ",
+                learningStreak: "ଲର୍ନିଂ ଷ୍ଟ୍ରିକ୍",
+                daysInARow: "ଲଗାତାର ଦିନ",
+                xpEarned: "XP ଅର୍ଜନ କରାଯାଇଛି",
+                keepLearning: "ଶିଖନ୍ତେ ରହନ୍ତୁ!",
+                nextQuests: "ଆପଣଙ୍କ ପରବର୍ତ୍ତୀ କ୍ୱେଷ୍ଟଗୁଡ଼ିକ",
+                browseAll: "ସମସ୍ତ ଦେଖନ୍ତୁ",
+                beginner: "ଆରମ୍ଭକାରୀ",
+                intermediate: "ମଧ୍ୟମ",
+                advanced: "ଉନ୍ନତ",
+                introToProg: "ପ୍ରୋଗ୍ରାମିଂର ପରିଚୟ",
+                introToProgDesc: "ପାଇଥନ୍ ସହିତ ପ୍ରୋଗ୍ରାମିଂର ମୌଳିକ ତତ୍ତ୍ୱ ଶିଖନ୍ତୁ",
+                advMath: "ଉନ୍ନତ ଗଣିତ",
+                advMathDesc: "କାଲକୁଲସ୍, ବୀଜଗଣିତ ଓ ଗାଣିତିକ ତର୍କରେ ଦକ୍ଷତା ହାସଲ କରନ୍ତୁ",
+                physicsEng: "ପଦାର୍ଥ ବିଜ୍ଞାନ ଓ ଇଞ୍ଜିନିୟରିଂ",
+                physicsEngDesc: "ଯାନ୍ତ୍ରିକୀ, ତାପଗତିକୀ ଓ ଇଞ୍ଜିନିୟରିଂ ତତ୍ତ୍ୱର ଅନ୍ୱେଷଣ କରନ୍ତୁ",
+                challenges12: "12 ଚ୍ୟାଲେଞ୍ଜ୍",
+                challenges18: "18 ଚ୍ୟାଲେଞ୍ଜ୍",
+                challenges24: "24 ଚ୍ୟାଲେଞ୍ଜ୍",
+                duration8h30m: "8 ଘଣ୍ଟା 30 ମିନିଟ୍",
+                duration12h15m: "12 ଘଣ୍ଟା 15 ମିନିଟ୍",
+                duration16h40m: "16 ଘଣ୍ଟା 40 ମିନିଟ୍",
+                reward: "ପୁରସ୍କାର:",
+                codeNoviceBadge: "କୋଡ୍ ନୂତନ ବ୍ୟାଜ୍",
+                mathWhizBadge: "ଗଣିତ ପ୍ରତିଭା ବ୍ୟାଜ୍",
+                scienceExplorerBadge: "ବିଜ୍ଞାନ ଅନ୍ୱେଷକ ବ୍ୟାଜ୍",
+                exploreWorlds: "ଲର୍ନିଂ ୱାର୍ଲ୍ଡ ଅନ୍ୱେଷଣ କରନ୍ତୁ",
+                codeWorld: "କୋଡ୍ ୱାର୍ଲ୍ଡ",
+                mathGalaxy: "ଗଣିତ ଗ୍ୟାଲାକ୍ସି",
+                scienceLab: "ବିଜ୍ଞାନ ପରୀକ୍ଷାଗାର",
+                engineeringHub: "ଇଞ୍ଜିନିୟରିଂ ହବ୍",
+                quests12: "12 କ୍ୱେଷ୍ଟ",
+                quests8: "8 କ୍ୱେଷ୍ଟ",
+                quests10: "10 କ୍ୱେଷ୍ଟ",
+                quests6: "6 କ୍ୱେଷ୍ଟ",
+                primary: "ପ୍ରାଥମିକ ଏକ୍ସପ୍ଲୋରର୍",
+                primaryDesc: "ଛୋଟ ମନ ପାଇଁ ମୌଳିକ ଶିକ୍ଷା",
+                secondary: "ମାଧ୍ୟମିକ ଆଡଭେଞ୍ଚରର୍",
+                secondaryDesc: "ଜ୍ଞାନ ଓ ଦକ୍ଷତା ନିର୍ମାଣ",
+                senior: "ସିନିୟର ମାଷ୍ଟର୍",
+                seniorDesc: "କ୍ୟାରିୟର୍ ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା",
+                guidance: "ମାର୍ଗଦର୍ଶନ ଓ ସମର୍ଥନ",
+                alliesCamp: "ଆଲାଏଁସ୍ କ୍ୟାମ୍ପ୍",
+                alliesDesc: "ଘରେ ଛାତ୍ରମାନଙ୍କ ସମର୍ଥନ ପାଇଁ ମାତାପିତାଙ୍କ ପାଇଁ ସମ୍ପଦ ଓ ଟିପ୍ସ।",
+                careerMap: "କ୍ୟାରିୟର୍ ମ୍ୟାପ୍",
+                careerDesc: "କ୍ୟାରିୟର୍ ପରାମର୍ଶ ଓ ଉଚ୍ଚ ଶିକ୍ଷା ସୁଯୋଗ।",
+                guildPartnerships: "ଗିଲ୍ଡ୍ ପାର୍ଟନରଶିପ୍",
+                guildDesc: "ଅତିରିକ୍ତ ସମ୍ପଦ ଆଣିବା ପାଇଁ NGO ସହ ଭାଗୀଦାରୀ।",
+                footerDesc: "ଗେମିଫାଇଡ୍ ଲର୍ନିଂ ମାଧ୍ୟମରେ ଗ୍ରାମୀଣ ସମୁଦାୟରେ STEM ଶିକ୍ଷାକୁ କ୍ରାନ୍ତିକାରୀ କରିବା। ବିଜ୍ଞାନ, ପ୍ରଯୁକ୍ତି, ଇଞ୍ଜିନିୟରିଂ ଓ ଗଣିତକୁ ସମସ୍ତଙ୍କ ପାଇଁ ଆକର୍ଷକ ଓ ସୁଲଭ କରିବା।",
+                mentorsHub: "ମେଣ୍ଟର୍ସ ହବ୍",
+                adventurersGuild: "ଆଡଭେଞ୍ଚରର୍ସ ଗିଲ୍ଡ୍"
+            }
+        };
 
-    <!-- Contact & Social -->
-    <div>
-      <h3 class="text-lg font-semibold text-white mb-4 pb-2 border-b border-gray-700">Connect</h3>
-      <div class="space-y-3 text-sm mb-6">
-        <div class="flex items-center"><i class="fas fa-envelope text-blue-500 mr-2"></i> contact@stemifyx.com</div>
-        <div class="flex items-center"><i class="fas fa-phone text-blue-500 mr-2"></i> +1 (555) 123-4567</div>
-      </div>
-      <div class="flex space-x-4">
-        <a href="#" class="bg-blue-600 hover:bg-blue-700 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="bg-blue-400 hover:bg-blue-500 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="bg-blue-700 hover:bg-blue-800 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-linkedin-in"></i></a>
-        <a href="#" class="bg-pink-600 hover:bg-pink-700 w-9 h-9 rounded-full flex items-center justify-center"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-  </div>
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC2EYOrnFwjUT9Y2EtAo3W9KQ9eTW60hFs",
+            authDomain: "gamified-learning-platfo-c18a4.firebaseapp.com",
+            projectId: "gamified-learning-platfo-c18a4",
+            storageBucket: "gamified-learning-platfo-c18a4.firebasestorage.app",
+            messagingSenderId: "231868760313",
+            appId: "1:231868760313:web:447bda0dc41231cd8b6228",
+            measurementId: "G-14TXWTYHXN"
+        };
+        const app = firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const dashboards = {
+            "teacher": "dashboard/teacherDashboard/teacherdashboard.html",
+            "student": "dashboard/studentDashboard/studentdashboard.html",
+            "admin": "dashboard/adminDashboard/admindashboard.html",
+            "parent": "dashboard/parentDashboard/parentdashboard.html"
+        };
 
-  <!-- Bottom Bar -->
-  <div class="border-t border-gray-700 mt-10 pt-6">
-    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-      <p class="text-center md:text-left text-sm text-gray-400 mb-4 md:mb-0">
-        © 2025 STEMifyX. All rights reserved.
-      </p>
-      <button class="bg-gradient-to-r from-blue-600 to-purple-600 hover:opacity-90 text-white px-5 py-2 rounded-full text-sm font-semibold flex items-center shadow-md transition">
-        <i class=""></i> Made with 💗 by Team ZenithX for india
-      </button>
-    </div>
-  </div>
-</footer>
+        // Language Handling
+        let currentLang = localStorage.getItem('selectedLanguage') || 'en';
 
+        // In index.html <script>
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('selectedLanguage', lang);
 
+            // Update main page text
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
 
+            // Update header if it's already loaded
+            if (typeof updateHeaderLanguage === 'function') {
+                updateHeaderLanguage(lang);
+            } else {
+                // Fallback: expose function globally so header can call it
+                window.updatePageLanguage = (l) => setLanguage(l);
+            }
+        }
+
+        function initAfterHeader() {
+            setLanguage(currentLang);
+            setTimeout(initCarousels, 100);
+        }
+
+        // Load header
+        fetch('header.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('header-container').innerHTML = html;
+                initializeHeader();
+                initAfterHeader();
+            })
+            .catch(error => {
+                console.error('Error loading header:', error);
+                initAfterHeader();
+            });
+
+        function initializeHeader() {
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    document.getElementById('loginHeaderBtn')?.classList.add('hidden');
+                    document.getElementById('afterLoginSection')?.classList.remove('hidden');
+                    const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+                    const displayName = userData.displayName || user.displayName || user.email.split('@')[0];
+                    const userEmail = user.email;
+                    const userRole = userData.role || 'student';
+                    document.getElementById('greetingText').textContent = `Welcome, ${displayName}`;
+                    document.getElementById('profileInitials').textContent = getInitials(displayName);
+                    document.getElementById('dropdownInitials').textContent = getInitials(displayName);
+                    document.getElementById('dropdownName').textContent = displayName;
+                    document.getElementById('dropdownEmail').textContent = userEmail;
+                    document.getElementById('dropdownRole').textContent = userRole;
+                    const dashboardLink = document.querySelector('a[href="dashboard.html"]');
+                    if (dashboardLink) {
+                        dashboardLink.onclick = (e) => {
+                            e.preventDefault();
+                            redirectToDashboard(userRole);
+                        };
+                    }
+                } else {
+                    document.getElementById('loginHeaderBtn')?.classList.remove('hidden');
+                    document.getElementById('afterLoginSection')?.classList.add('hidden');
+                    document.getElementById('greetingText').textContent = 'Welcome';
+                }
+            });
+
+            const loginHeaderBtn = document.getElementById('loginHeaderBtn');
+            const profileBtn = document.getElementById('profileBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const langBtn = document.getElementById('langBtn');
+            const langDropdown = document.getElementById('langDropdown');
+
+            function logout() {
+                auth.signOut().then(() => {
+                    localStorage.removeItem('currentUser');
+                    window.location.reload();
+                }).catch((error) => {
+                    console.error('Logout error:', error);
+                });
+            }
+
+            function closeAllDropdowns() {
+                profileDropdown?.classList.add('hidden');
+                langDropdown?.classList.add('hidden');
+            }
+
+            if (loginHeaderBtn) loginHeaderBtn.addEventListener('click', () => window.location.href = 'login.html');
+            if (logoutBtn) logoutBtn.addEventListener('click', logout);
+            if (profileBtn) profileBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                langDropdown?.classList.add('hidden');
+                profileDropdown?.classList.toggle('hidden');
+            });
+            if (langBtn) langBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileDropdown?.classList.add('hidden');
+                langDropdown?.classList.toggle('hidden');
+            });
+
+            // Language dropdown items
+            document.querySelectorAll('.dropdown-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const lang = item.dataset.lang;
+                    setLanguage(lang);
+                    langDropdown?.classList.add('hidden');
+                });
+            });
+
+            document.addEventListener('click', closeAllDropdowns);
+        }
+
+        function redirectToDashboard(role) {
+            const userData = JSON.parse(localStorage.getItem('currentUser')) || {};
+            const userRole = role || userData.role || 'student';
+            const dashboardUrl = dashboards[userRole] || "dashboard/studentDashboard/studentdashboard.html";
+            window.location.href = dashboardUrl;
+        }
+
+        function redirectToRoleDashboard() {
+            const userData = JSON.parse(localStorage.getItem('currentUser'));
+            if (!userData) {
+                window.location.href = 'login.html';
+                return;
+            }
+            redirectToDashboard(userData.role);
+        }
+
+        function getInitials(name) {
+            return name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+        }
+
+        // Carousel Dot Logic
+        function initCarousels() {
+            if (window.innerWidth > 767) return;
+            document.querySelectorAll('.mobile-carousel').forEach(carousel => {
+                const cards = Array.from(carousel.children);
+                const numCards = cards.length;
+                const dotsContainer = document.createElement('div');
+                dotsContainer.className = 'carousel-dots';
+                for (let i = 0; i < numCards; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'carousel-dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.dataset.index = i;
+                    dot.addEventListener('click', () => {
+                        const cardWidth = cards[0].offsetWidth + 16;
+                        carousel.scrollTo({ left: cardWidth * i, behavior: 'smooth' });
+                    });
+                    dotsContainer.appendChild(dot);
+                }
+                const wrapper = document.createElement('div');
+                wrapper.className = 'mobile-carousel-wrapper';
+                carousel.parentNode.replaceChild(wrapper, carousel);
+                wrapper.appendChild(carousel);
+                wrapper.appendChild(dotsContainer);
+                let ticking = false;
+                carousel.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            const scrollLeft = carousel.scrollLeft;
+                            const cardWidth = cards[0].offsetWidth + 16;
+                            const activeIndex = Math.round(scrollLeft / cardWidth);
+                            dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, idx) => {
+                                dot.classList.toggle('active', idx === activeIndex);
+                            });
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                });
+            });
+        }
+
+        window.redirectToDashboard = redirectToDashboard;
+        window.redirectToRoleDashboard = redirectToRoleDashboard;
+    </script>
 </body>
- <script>
-    // Enhanced translation data with all content
-    const translations = {
-      en: {
-        flag: '🇬🇧',
-        code: 'EN',
-        greeting: '👋 Welcome to STEMifyX',
-        'brand.name': 'STEMifyX',
-        'brand.subtitle': 'नवीन शिक्षा • New Learning',
-        welcome: 'Start your learning journey today!',
-        streak: 'Streak 7 days',
-        description: 'Empowering STEMifyX communities through quality education. Choose your level and begin learning with interactive content designed for STEMifyX learners.',
-        'primary.title': 'Primary',
-        'primary.description': 'Foundational learning for young minds',
-        'secondary.title': 'Secondary',
-        'secondary.description': 'Building knowledge and skills',
-        'senior.title': 'Senior Secondary',
-        'senior.description': 'Advanced learning for career readiness',
-        'carousel.title': '🔥 Popular STEM Topics',
-        'topics.physics': 'Physics – Electricity',
-        'topics.physics.desc': 'Circuits, current, and energy flow.',
-        'topics.algebra': 'Math – Algebra',
-        'topics.algebra.desc': 'Equations and problem-solving skills.',
-        'topics.coding': 'Coding – Basics',
-        'topics.coding.desc': 'Fun coding games and challenges.',
-        'topics.geography': 'Geography – Earth',
-        'topics.geography.desc': 'Maps, climates, and resources.',
-        'topics.biology': 'Biology – Genetics',
-        'topics.biology.desc': 'DNA, traits, and inheritance.',
-        'topics.astronomy': 'Astronomy – Space',
-        'topics.astronomy.desc': 'Planets, stars, and galaxies.',
-        'topics.chemistry': 'Chemistry – Reactions',
-        'topics.chemistry.desc': 'Experiments with acids and bases.',
-        'topics.geometry': 'Math – Geometry',
-        'topics.geometry.desc': 'Shapes, angles, and theorems.',
-        login: 'Login'
-      },
-      hi: {
-        flag: '🇮🇳',
-        code: 'HI',
-        greeting: '👋 नमस्ते! STEMifyX में आपका स्वागत है',
-        'brand.name': 'STEMifyX',
-        'brand.subtitle': 'नवीन शिक्षा • New Learning',
-        welcome: 'आज ही अपनी शिक्षा यात्रा शुरू करें!',
-        streak: '7 दिन की लकीर',
-        description: 'गुणवत्तापूर्ण शिक्षा के माध्यम से ग्रामीण समुदायों को सशक्त बनाना। अपना स्तर चुनें और ग्रामीण शिक्षार्थियों के लिए डिज़ाइन की गई इंटरैक्टिव सामग्री के साथ सीखना शुरू करें।',
-        'primary.title': 'प्राथमिक',
-        'primary.description': 'युवा मस्तिष्क के लिए मूलभूत शिक्षा',
-        'secondary.title': 'माध्यमिक',
-        'secondary.description': 'ज्ञान और कौशल का निर्माण',
-        'senior.title': 'उच्च माध्यमिक',
-        'senior.description': 'करियर तैयारी के लिए उन्नत शिक्षा',
-        'carousel.title': '🔥 लोकप्रिय STEM विषय',
-        'topics.physics': 'भौतिकी – विद्युत',
-        'topics.physics.desc': 'सर्किट, धारा और ऊर्जा प्रवाह।',
-        'topics.algebra': 'गणित – बीजगणित',
-        'topics.algebra.desc': 'समीकरण और समस्या-समाधान कौशल।',
-        'topics.coding': 'कोडिंग – मूल बातें',
-        'topics.coding.desc': 'मजेदार कोडिंग गेम्स और चुनौतियां।',
-        'topics.geography': 'भूगोल – पृथ्वी',
-        'topics.geography.desc': 'मानचित्र, जलवायु और संसाधन।',
-        'topics.biology': 'जीवविज्ञान – आनुवंशिकी',
-        'topics.biology.desc': 'DNA, लक्षण और वंशानुक्रम।',
-        'topics.astronomy': 'खगोल विज्ञान – अंतरिक्ष',
-        'topics.astronomy.desc': 'ग्रह, तारे और आकाशगंगाएं।',
-        'topics.chemistry': 'रसायन विज्ञान – अभिक्रियाएं',
-        'topics.chemistry.desc': 'अम्ल और क्षार के साथ प्रयोग।',
-        'topics.geometry': 'गणित – ज्यामिति',
-        'topics.geometry.desc': 'आकार, कोण और प्रमेय।',
-        login: 'लॉगिन'
-      },
-      or: {
-        flag: '🏛️',
-        code: 'OD',
-        greeting: '👋 ନମସ୍କାର! STEMifyX କୁ ସ୍ୱାଗତ',
-        'brand.name': 'STEMifyX',
-        'brand.subtitle': 'ନୂତନ ଶିକ୍ଷା • New Learning',
-        welcome: 'ଆଜି ଆପଣଙ୍କର ଶିକ୍ଷଣ ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ!',
-        streak: '7 ଦିନର ଧାରା',
-        description: 'ଗୁଣବତ୍ତା ଶିକ୍ଷା ମାଧ୍ୟମରେ ଗ୍ରାମାଞ୍ଚଳ ସମୁଦାୟକୁ ସଶକ୍ତ କରିବା। ଆପଣଙ୍କର ସ୍ତର ବାଛନ୍ତୁ ଏବଂ ଗ୍ରାମାଞ୍ଚଳ ଶିକ୍ଷାର୍ଥୀମାନଙ୍କ ପାଇଁ ଡିଜାଇନ୍ ହୋଇଥିବା ଇଣ୍ଟରାକ୍ଟିଭ୍ ବିଷୟବସ୍ତୁ ସହିତ ଶିକ୍ଷା ଆରମ୍ଭ କରନ୍ତୁ।',
-        'primary.title': 'ପ୍ରାଥମିକ',
-        'primary.description': 'ଯୁବ ମନ ପାଇଁ ମୂଳଦୁଆ ଶିକ୍ଷା',
-        'secondary.title': 'ମାଧ୍ୟମିକ',
-        'secondary.description': 'ଜ୍ଞାନ ଏବଂ ଦକ୍ଷତା ନିର୍ମାଣ',
-        'senior.title': 'ଉଚ୍ଚ ମାଧ୍ୟମିକ',
-        'senior.description': 'କ୍ୟାରିୟର ପ୍ରସ୍ତୁତି ପାଇଁ ଉନ୍ନତ ଶିକ୍ଷା',
-        'carousel.title': '🔥 ଲୋକପ୍ରିୟ STEM ବିଷୟଗୁଡ଼ିକ',
-        'topics.physics': 'ଭୌତିକ ବିଜ୍ଞାନ – ବିଦ୍ୟୁତ',
-        'topics.physics.desc': 'ସର୍କିଟ, ଧାରା ଏବଂ ଶକ୍ତି ପ୍ରବାହ।',
-        'topics.algebra': 'ଗଣିତ – ବୀଜଗଣିତ',
-        'topics.algebra.desc': 'ସମୀକରଣ ଏବଂ ସମସ୍ୟା-ସମାଧାନ କୌଶଳ।',
-        'topics.coding': 'କୋଡିଂ – ମୌଳିକ',
-        'topics.coding.desc': 'ମଜାଦାର କୋଡିଂ ଖେଳ ଏବଂ ଚ୍ୟାଲେଞ୍ଜ।',
-        'topics.geography': 'ଭୂଗୋଳ – ପୃଥିବୀ',
-        'topics.geography.desc': 'ମାନଚିତ୍ର, ଜଳବାୟୁ ଏବଂ ସମ୍ପଦ।',
-        'topics.biology': 'ଜୀବବିଜ୍ଞାନ – ଜେନେଟିକ୍ସ',
-        'topics.biology.desc': 'DNA, ଗୁଣ ଏବଂ ବଂଶାନୁକ୍ରମ।',
-        'topics.astronomy': 'ଜ୍ୟୋତିର୍ବିଜ୍ଞାନ – ମହାକାଶ',
-        'topics.astronomy.desc': 'ଗ୍ରହ, ତାରା ଏବଂ ଗାଲାକ୍ସି।',
-        'topics.chemistry': 'ରସାୟନ ବିଜ୍ଞାନ – ପ୍ରତିକ୍ରିୟା',
-        'topics.chemistry.desc': 'ଅମ୍ଳ ଏବଂ କ୍ଷାର ସହିତ ପରୀକ୍ଷଣ।',
-        'topics.geometry': 'ଗଣିତ – ଜ୍ୟାମିତି',
-        'topics.geometry.desc': 'ଆକୃତି, କୋଣ ଏବଂ ତତ୍ତ୍ୱ।',
-        login: 'ଲଗଇନ୍'
-      }
-    };
 
-    // Language switcher functionality
-    const languageSwitcher = document.getElementById('languageSwitcher');
-    const languageBtn = document.getElementById('languageBtn');
-    const languageDropdown = document.getElementById('languageDropdown');
-    const currentFlag = document.getElementById('currentFlag');
-    const currentLang = document.getElementById('currentLang');
-    const greetingText = document.getElementById('greetingText');
-
-    let currentLanguage = 'en';
-    let isOpen = false;
-
-    // Get nested property from object using dot notation
-    function getNestedProperty(obj, path) {
-      return path.split('.').reduce((current, key) => current && current[key], obj);
-    }
-
-    // Update all translatable elements
-    function updateTranslations(langCode) {
-      const langData = translations[langCode];
-      if (!langData) return;
-
-      // Update all elements with data-translate attribute
-      document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        const translation = getNestedProperty(langData, key) || langData[key];
-        if (translation) {
-          element.textContent = translation;
-        }
-      });
-
-      // Update greeting separately
-      greetingText.textContent = langData.greeting;
-    }
-
-    // Toggle dropdown
-    function toggleDropdown() {
-      isOpen = !isOpen;
-      languageSwitcher.classList.toggle('open', isOpen);
-
-      if (isOpen) {
-        updateActiveLanguage();
-      }
-    }
-
-    // Update active language in dropdown
-    function updateActiveLanguage() {
-      const buttons = languageDropdown.querySelectorAll('button');
-      buttons.forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.lang === currentLanguage);
-      });
-    }
-
-    // Close dropdown
-    function closeDropdown() {
-      isOpen = false;
-      languageSwitcher.classList.remove('open');
-    }
-
-    // Change language
-    function changeLanguage(langCode) {
-      if (translations[langCode]) {
-        currentLanguage = langCode;
-        const lang = translations[langCode];
-
-        // Update button display
-        currentFlag.textContent = lang.flag;
-        currentLang.textContent = lang.code;
-
-        // Update all translations
-        updateTranslations(langCode);
-
-        // Close dropdown
-        closeDropdown();
-
-        // Save preference to localStorage
-        localStorage.setItem('STEMifyXLanguage', langCode);
-
-        // Trigger custom event for other components
-        window.dispatchEvent(new CustomEvent('languageChanged', {
-          detail: { language: langCode }
-        }));
-
-        // Announce language change for screen readers
-        const announcement = document.createElement('div');
-        announcement.setAttribute('aria-live', 'polite');
-        announcement.setAttribute('aria-atomic', 'true');
-        announcement.className = 'sr-only';
-        announcement.textContent = `Language changed to ${lang.name || lang.code}`;
-        document.body.appendChild(announcement);
-        setTimeout(() => {
-          if (announcement.parentNode) {
-            document.body.removeChild(announcement);
-          }
-        }, 1000);
-      }
-    }
-
-    // Enhanced carousel functionality
-    function initializeCarousel() {
-      const carousel = document.getElementById('carouselWrapper');
-      if (!carousel) return;
-
-      let isPaused = false;
-
-      // Pause on hover
-      carousel.addEventListener('mouseenter', () => {
-        isPaused = true;
-        carousel.style.animationPlayState = 'paused';
-      });
-
-      // Resume on leave
-      carousel.addEventListener('mouseleave', () => {
-        if (!isPaused) return;
-        isPaused = false;
-        carousel.style.animationPlayState = 'running';
-      });
-
-      // Reset animation when it completes to prevent jump
-      carousel.addEventListener('animationiteration', () => {
-        // Smooth reset without visible jump
-        carousel.style.animation = 'none';
-        setTimeout(() => {
-          carousel.style.animation = 'smoothScroll 30s linear infinite';
-          if (isPaused) {
-            carousel.style.animationPlayState = 'paused';
-          }
-        }, 10);
-      });
-    }
-
-    // Dynamic greeting based on time of day
-    function updateGreetingBasedOnTime() {
-      const hour = new Date().getHours();
-      let greeting = '';
-
-      if (hour >= 5 && hour < 12) {
-        greeting = ' Good Morning';
-      } else if (hour >= 12 && hour < 17) {
-        greeting = ' Good Afternoon';
-      } else if (hour >= 17 && hour < 21) {
-        greeting = ' Good Evening';
-      } else {
-        greeting = ' Good Night';
-      }
-
-      // Update greeting text while preserving language
-      const currentLangData = translations[currentLanguage];
-      if (currentLangData) {
-        const baseGreeting = currentLangData.greeting.replace(/👋[^!]*!?/, '').trim();
-        greetingText.textContent = `👋 ${greeting}! ${baseGreeting}`;
-      }
-    }
-
-    // Streak counter functionality
-    function initializeStreakCounter() {
-      const streakElement = document.querySelector('.streak-badge');
-      if (!streakElement) return;
-
-      // Get streak from localStorage or set default
-      let streakData = JSON.parse(localStorage.getItem('STEMifyXStreak')) || {
-        count: 7,
-        lastVisit: null
-      };
-
-      const today = new Date().toDateString();
-
-      if (streakData.lastVisit !== today) {
-        // Check if consecutive day
-        const lastVisit = streakData.lastVisit ? new Date(streakData.lastVisit) : null;
-        const todayObj = new Date();
-
-        if (lastVisit) {
-          const diffTime = todayObj - lastVisit;
-          const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-          if (diffDays === 1) {
-            // Consecutive day - increase streak
-            streakData.count++;
-          } else if (diffDays > 1) {
-            // Broken streak - reset to 1
-            streakData.count = 1;
-          }
-        } else {
-          // First visit
-          streakData.count = 1;
-        }
-
-        streakData.lastVisit = today;
-        localStorage.setItem('STEMifyXStreak', JSON.stringify(streakData));
-      }
-
-      // Update streak display
-      const streakText = streakElement.querySelector('span[data-translate="streak"]');
-      if (streakText) {
-        streakText.textContent = `Streak ${streakData.count} days`;
-      }
-    }
-
-    // Card hover effects enhancement
-    function enhanceCardInteractions() {
-      const cards = document.querySelectorAll('.level-card');
-
-      cards.forEach(card => {
-        card.addEventListener('click', (e) => {
-          // Add click feedback
-          card.style.transform = 'scale(0.95)';
-          setTimeout(() => {
-            card.style.transform = '';
-          }, 150);
-        });
-
-        // Enhanced touch feedback for mobile
-        card.addEventListener('touchstart', () => {
-          card.style.transform = 'scale(0.98)';
-        });
-
-        card.addEventListener('touchend', () => {
-          card.style.transform = '';
-        });
-      });
-    }
-
-    // Performance optimization: Lazy load images
-    function lazyLoadImages() {
-      const images = document.querySelectorAll('img[loading="lazy"]');
-
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src || img.src;
-            img.classList.remove('lazy');
-            imageObserver.unobserve(img);
-          }
-        });
-      });
-
-      images.forEach(img => imageObserver.observe(img));
-    }
-
-    // Accessibility enhancements
-    function enhanceAccessibility() {
-      // Add skip to content link
-      const skipLink = document.createElement('a');
-      skipLink.href = '#main-content';
-      skipLink.className = 'skip-link';
-      skipLink.textContent = 'Skip to main content';
-      skipLink.style.cssText = `
-    position: absolute;
-    top: -40px;
-    left: 6px;
-    background: #000;
-    color: #fff;
-    padding: 8px;
-    z-index: 10000;
-    text-decoration: none;
-  `;
-      skipLink.addEventListener('focus', () => {
-        skipLink.style.top = '6px';
-      });
-      skipLink.addEventListener('blur', () => {
-        skipLink.style.top = '-40px';
-      });
-
-      document.body.insertBefore(skipLink, document.body.firstChild);
-
-      // Add main content id for skip link
-      const mainContent = document.querySelector('.main-content');
-      if (mainContent) {
-        mainContent.id = 'main-content';
-      }
-
-      // Enhanced keyboard navigation for language switcher
-      languageDropdown.querySelectorAll('button').forEach((button, index, buttons) => {
-        button.addEventListener('keydown', (e) => {
-          if (e.key === 'ArrowDown') {
-            e.preventDefault();
-            const nextIndex = (index + 1) % buttons.length;
-            buttons[nextIndex].focus();
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
-            const prevIndex = (index - 1 + buttons.length) % buttons.length;
-            buttons[prevIndex].focus();
-          } else if (e.key === 'Escape') {
-            closeDropdown();
-            languageBtn.focus();
-          }
-        });
-      });
-    }
-
-    // Error boundary and fallback
-    function setupErrorHandling() {
-      window.addEventListener('error', (e) => {
-        console.error('Application error:', e.error);
-        // You could send this to an error reporting service
-      });
-
-      window.addEventListener('unhandledrejection', (e) => {
-        console.error('Unhandled promise rejection:', e.reason);
-        e.preventDefault();
-      });
-    }
-
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', function () {
-      // Load saved language preference
-      const savedLanguage = localStorage.getItem('STEMifyXLanguage');
-      if (savedLanguage && translations[savedLanguage]) {
-        changeLanguage(savedLanguage);
-      } else {
-        // Set default language
-        updateTranslations(currentLanguage);
-      }
-
-      // Initialize components
-      initializeCarousel();
-      initializeStreakCounter();
-      enhanceCardInteractions();
-      lazyLoadImages();
-      enhanceAccessibility();
-      setupErrorHandling();
-
-      // Update greeting based on time
-      updateGreetingBasedOnTime();
-
-      // Update greeting every hour
-      setInterval(updateGreetingBasedOnTime, 3600000);
-
-      // Event listeners for language switcher
-      languageBtn.addEventListener('click', toggleDropdown);
-
-      // Language selection
-      languageDropdown.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', () => {
-          changeLanguage(button.dataset.lang);
-        });
-      });
-
-      // Close dropdown when clicking outside
-      document.addEventListener('click', (e) => {
-        if (!languageSwitcher.contains(e.target)) {
-          closeDropdown();
-        }
-      });
-
-      // Keyboard navigation for language button
-      languageBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          toggleDropdown();
-          const firstButton = languageDropdown.querySelector('button');
-          if (firstButton) firstButton.focus();
-        }
-      });
-
-      // Handle reduced motion preference
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        document.documentElement.style.setProperty('--animation-duration', '0.01s');
-        const carousel = document.getElementById('carouselWrapper');
-        if (carousel) {
-          carousel.style.animation = 'none';
-        }
-      }
-
-      // Handle online/offline status
-      window.addEventListener('online', () => {
-        showNotification('Connection restored', 'success');
-      });
-
-      window.addEventListener('offline', () => {
-        showNotification('You are currently offline', 'warning');
-      });
-
-      // Service Worker registration for PWA capabilities (optional)
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-          .then(registration => {
-            console.log('SW registered: ', registration);
-          })
-          .catch(registrationError => {
-            console.log('SW registration failed: ', registrationError);
-          });
-      }
-    });
-
-    // Utility function for notifications
-    function showNotification(message, type = 'info') {
-      const notification = document.createElement('div');
-      notification.className = `notification ${type}`;
-      notification.textContent = message;
-      notification.style.cssText = `
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 12px 20px;
-    background: ${type === 'success' ? '#4CAF50' : type === 'warning' ? '#FF9800' : '#2196F3'};
-    color: white;
-    border-radius: 4px;
-    z-index: 10000;
-    animation: slideIn 0.3s ease;
-  `;
-
-      document.body.appendChild(notification);
-
-      setTimeout(() => {
-        notification.style.animation = 'slideOut 0.3s ease';
-        setTimeout(() => {
-          if (notification.parentNode) {
-            document.body.removeChild(notification);
-          }
-        }, 300);
-      }, 3000);
-    }
-
-    // Add CSS for notifications
-    const notificationStyles = document.createElement('style');
-    notificationStyles.textContent = `
-  @keyframes slideIn {
-    from { transform: translateX(100%); opacity: 0; }
-    to { transform: translateX(0); opacity: 1; }
-  }
-  
-  @keyframes slideOut {
-    from { transform: translateX(0); opacity: 1; }
-    to { transform: translateX(100%); opacity: 0; }
-  }
-  
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-`;
-    document.head.appendChild(notificationStyles);
-
-    // Export for potential module usage
-    if (typeof module !== 'undefined' && module.exports) {
-      module.exports = {
-        translations,
-        changeLanguage,
-        initializeCarousel
-      };
-    }
-  </script>
 </html>
