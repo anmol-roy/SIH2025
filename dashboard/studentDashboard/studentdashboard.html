@@ -46,12 +46,15 @@
 <body class="bg-gray-50 font-sans flex min-h-screen">
     <!-- Sidebar -->
     <aside class="w-64 bg-white text-gray-700 p-5 shadow-lg fixed h-full overflow-y-auto z-10 transition-all duration-300">
-        <div class="logo flex items-center gap-2 text-xl font-bold mb-8">
-            <i class="fas fa-rocket text-primary"></i>
-            <span>STEMify</span>
+        <div class="logo flex items-center gap-2 text-xl font-bold mb-3">
+            <a href="../../index.html" class="flex items-center gap-2 text-primary">
+
+                <i class="fas fa-rocket text-primary"></i>
+                <span>STEMify</span>
+            </a>
         </div>
 
-        <div class="user-greeting flex items-center gap-3 mb-8 p-4 bg-gray-50 rounded-xl shadow">
+        <div class="user-greeting flex items-center gap-3 mb-3 p-3 bg-gray-50 rounded-xl shadow">
             <img src="https://i.pravatar.cc/40?img=12" alt="User" class="w-10 h-10 rounded-full" />
             <div>
                 <span class="font-medium">Hi Shakir!</span>
@@ -59,18 +62,19 @@
             </div>
         </div>
 
-        <nav class="mb-8">
+        <nav class="mb-1 border-[1px] rounded-xl border-gray-200 bg-rgb(249 250 251 / var(--tw-bg-opacity, 1)) pb-5">
             <ul class="space-y-2">
                 <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors active-tab" data-tab="home"><i class="fas fa-home"></i> <span>Home</span></a></li>
                 <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="learn"><i class="fas fa-book"></i> <span>Learn</span></a></li>
                 <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="challenges"><i class="fas fa-trophy"></i> <span>Challenges</span></a></li>
                 <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="progress"><i class="fas fa-chart-line"></i> <span>Progress</span></a></li>
                 <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="community"><i class="fas fa-users"></i> <span>Community</span></a></li>
+                <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="profile"><i class="fas fa-user"></i> <span>leaderboard</span></a></li>
                 <li><a href="#" class="tab-link flex items-center gap-3 p-3 rounded-lg hover:bg-gray-100 transition-colors" data-tab="profile"><i class="fas fa-user"></i> <span>Profile</span></a></li>
             </ul>
         </nav>
 
-        <div class="streak-card bg-gray-50 p-4 rounded-xl mb-5 text-center shadow">
+        <div class="streak-card bg-gray-50 p-4 rounded-xl mb-2 text-center shadow">
             <p class="text-sm font-medium">Current Streak</p>
             <div class="streak-count text-3xl font-bold text-accent my-2">12 days</div>
             <p class="text-xs text-gray-600">Keep going! 🔥</p>
