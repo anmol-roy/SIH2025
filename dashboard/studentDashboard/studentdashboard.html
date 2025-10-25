@@ -58,7 +58,7 @@
             <img src="https://i.pravatar.cc/40?img=12" alt="User" class="w-10 h-10 rounded-full" />
             <div>
                 <span class="font-medium">Hi Shakir!</span>
-                <div class="text-xs text-gray-500">Level 7 - Math Master</div>
+                <div class="text-xs text-gray-500">Level 5 - Math Master</div>
             </div>
         </div>
 
@@ -82,7 +82,7 @@
 
         <div class="xp-card bg-gray-50 p-5 rounded-xl text-center shadow">
             <p class="text-sm font-medium">Your XP</p>
-            <div class="xp-count text-2xl font-bold text-primary my-2">1,850</div>
+            <div class="xp-count text-2xl font-bold text-primary my-2">1,250</div>
             <div class="xp-bar h-2 bg-gray-200 rounded-full mt-3 overflow-hidden">
                 <div class="xp-fill h-full bg-primary rounded-full" style="width: 65%"></div>
             </div>
@@ -703,111 +703,123 @@
             </div>
         </div>
 
-        <!-- Profile Tab -->
-        <div id="profile" class="tab-content">
-            <div class="mb-6">
-                <h2 class="text-2xl font-bold">Your Profile</h2>
-                <p class="text-gray-600">Manage your account and preferences</p>
-            </div>
-            
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow p-5">
-                    <h3 class="font-bold text-lg mb-4">Personal Information</h3>
-                    <div class="flex flex-col items-center mb-6">
-                        <img src="https://i.pravatar.cc/100?img=12" alt="Profile" class="w-24 h-24 rounded-full mb-4" />
-                        <button class="text-primary text-sm font-medium">Change Photo</button>
-                    </div>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                            <input type="text" value="Shakir Ahmed" class="w-full border border-gray-300 rounded-lg p-2">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" value="shakir@example.com" class="w-full border border-gray-300 rounded-lg p-2">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Grade Level</label>
-                            <select class="w-full border border-gray-300 rounded-lg p-2">
-                                <option>Grade 9</option>
-                                <option selected>Grade 10</option>
-                                <option>Grade 11</option>
-                                <option>Grade 12</option>
-                            </select>
-                        </div>
-                        <button class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                            Save Changes
-                        </button>
-                    </div>
-                </div>
-                
-                <div class="bg-white rounded-xl shadow p-5 lg:col-span-2">
-                    <h3 class="font-bold text-lg mb-4">Account Settings</h3>
-                    <div class="space-y-6">
-                        <div>
-                            <h4 class="font-semibold mb-2">Notification Preferences</h4>
-                            <div class="space-y-2">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-gray-700">Challenge reminders</span>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer" checked>
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-gray-700">Study group updates</span>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer" checked>
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                    </label>
-                                </div>
-                                <div class="flex items-center justify-between">
-                                    <span class="text-gray-700">Weekly progress reports</span>
-                                    <label class="relative inline-flex items-center cursor-pointer">
-                                        <input type="checkbox" class="sr-only peer">
-                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-semibold mb-2">Appearance</h4>
-                            <div class="flex gap-4">
-                                <button class="flex items-center gap-2 border border-gray-300 rounded-lg p-3">
-                                    <i class="fas fa-sun text-gray-600"></i>
-                                    <span>Light</span>
-                                </button>
-                                <button class="flex items-center gap-2 border border-primary bg-blue-50 rounded-lg p-3">
-                                    <i class="fas fa-moon text-primary"></i>
-                                    <span class="text-primary">Dark</span>
-                                </button>
-                                <button class="flex items-center gap-2 border border-gray-300 rounded-lg p-3">
-                                    <i class="fas fa-desktop text-gray-600"></i>
-                                    <span>System</span>
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div>
-                            <h4 class="font-semibold mb-2">Language</h4>
-                            <select class="w-full border border-gray-300 rounded-lg p-2">
-                                <option selected>English</option>
-                                <option>Spanish</option>
-                                <option>French</option>
-                                <option>Hindi</option>
-                            </select>
-                        </div>
-                        
-                        <div class="pt-4 border-t">
-                            <button class="text-red-500 font-medium hover:text-red-700 transition-colors">
-                                <i class="fas fa-sign-out-alt mr-2"></i>Log Out
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- 🌐 PROFILE TAB -->
+<div id="profile" class="tab-content">
+  <div class="mb-6">
+    <h2 class="text-2xl font-bold">Your Profile</h2>
+    <p class="text-gray-600">Manage your account and preferences</p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- 🧍 PERSONAL INFO -->
+    <div class="bg-white rounded-xl shadow p-5">
+      <h3 class="font-bold text-lg mb-4">Personal Information</h3>
+      <div class="flex flex-col items-center mb-6">
+        <img id="profileImage" src="https://i.pravatar.cc/100?img=12" alt="Profile"
+          class="w-24 h-24 rounded-full mb-4" />
+        <button id="changePhotoBtn" class="text-primary text-sm font-medium">Change Photo</button>
+        <input type="file" id="photoInput" accept="image/*" class="hidden" />
+      </div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+          <input type="text" id="fullName" value="Shakir Ahmed"
+            class="w-full border border-gray-300 rounded-lg p-2" />
         </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input type="email" id="email" value="shakir@example.com"
+            class="w-full border border-gray-300 rounded-lg p-2" readonly />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Grade Level</label>
+          <select id="gradeLevel" class="w-full border border-gray-300 rounded-lg p-2">
+            <option>Grade 6</option>
+            <option>Grade 7</option>
+            <option>Grade 8</option>
+            <option>Grade 9</option>
+            <option selected>Grade 10</option>
+            <option>Grade 11</option>
+            <option>Grade 12</option>
+          </select>
+        </div>
+
+        <!-- 🆔 UUID SECTION -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">User ID (UUID)</label>
+          <div class="flex items-center gap-2">
+            <input id="userId" readonly
+              class="w-full border border-gray-300 rounded-lg p-2 bg-gray-50 font-mono" />
+            <button id="copyUUID" title="Copy"
+              class="bg-primary text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <button id="saveChanges"
+          class="w-full bg-primary text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+          Save Changes
+        </button>
+      </div>
+    </div>
+
+    <!-- ⚙️ ACCOUNT SETTINGS -->
+    <div class="bg-white rounded-xl shadow p-5 lg:col-span-2">
+      <h3 class="font-bold text-lg mb-4">Account Settings</h3>
+      <div class="space-y-6">
+        <div>
+          <h4 class="font-semibold mb-2">Notification Preferences</h4>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-gray-700">Challenge reminders</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked />
+                <div
+                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                </div>
+              </label>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-700">Study group updates</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" checked />
+                <div
+                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                </div>
+              </label>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-gray-700">Weekly progress reports</span>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" class="sr-only peer" />
+                <div
+                  class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary">
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-semibold mb-2">Language</h4>
+          <select id="language" class="w-full border border-gray-300 rounded-lg p-2">
+            <option selected>English</option>
+            <option>Hindi</option>
+            <option>Odia</option>
+          </select>
+        </div>
+
+        <div class="pt-4 border-t">
+          <button id="logoutBtn" class="text-red-500 font-medium hover:text-red-700 transition-colors">
+            <i class="fas fa-sign-out-alt mr-2"></i>Log Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     </main>
 
     <!-- Mobile Menu Toggle Button -->
@@ -846,5 +858,6 @@
             });
         });
     </script>
+    <script src="profile.js"></script>
 </body>
 </html>
